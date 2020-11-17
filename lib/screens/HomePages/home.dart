@@ -4,6 +4,7 @@ import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
+import 'package:mynan/screens/ChatPages/listMessage.dart';
 import 'package:mynan/screens/HomePages/profile9.dart';
 import 'package:mynan/screens/HomePages/recherche.dart';
 
@@ -19,7 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   MotionTabController _tabController;
-  List<Widget> allPages = [HomePage(),Recherche(),ChatPage(),Profil()];
+  List<Widget> allPages = [HomePage(),Recherche(),ListMessage(),Profil()];
   @override
   void initState() {
     super.initState();

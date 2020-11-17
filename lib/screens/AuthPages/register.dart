@@ -158,7 +158,7 @@ class _RegisterState extends State<Register> {
                             return "Veillez remplire le champ";
                           } else {
                             setState(() {
-                              lastName = value;
+                               lastName = value;
                             });
                           }
                           return null;
