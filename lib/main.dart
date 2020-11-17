@@ -3,6 +3,8 @@ import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/AuthPages/register.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:mynan/screens/HomePages/homePage.dart';
+import 'package:mynan/screens/Notes/note.dart';
+import 'package:mynan/screens/Notes/quiz.dart';
 import 'package:provider/provider.dart';
 
 import 'Provider/UserProv.dart';

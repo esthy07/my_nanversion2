@@ -1,5 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:mynan/screens/AuthPages/login.dart';
+import 'package:mynan/screens/Notes/note.dart';
+import 'package:mynan/screens/Notes/quiz.dart';
+import 'package:mynan/widgets/drawer.dart';
 class HomePage extends StatefulWidget {
 
   static const routeName = 'homePage';
@@ -16,6 +20,186 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     final deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+        title: Text('myNaN', style: TextStyle(
+          color: Colors.white, fontFamily: 'Barlow', fontSize: 20
+        ),),
+        centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            /*DrawerHeader(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage('assets/images/jeune.jpg'),
+                              fit: BoxFit.cover
+                            )
+                          ),
+                        ),
+                        SizedBox(width: deviceWidth * .02,),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('Esthy07', style: TextStyle(
+                                fontWeight: FontWeight.bold, fontFamily: 'Barlow', fontSize: 18
+                              ),),
+                              SizedBox(height: deviceHeight * .01,),
+                              Text('esthythy@nan.ci', style: TextStyle(
+                                color: Colors.grey, fontFamily: 'Barlow', fontSize: 16
+                              ),)
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(top: deviceHeight * .05),
+                    child: Text('NaN4.21_AT0131', style: TextStyle(
+                      color: Colors.purple, fontFamily: 'Barlow', fontWeight: FontWeight.bold
+                    ),),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+            ),*/
+            Container(
+              height: deviceHeight / 3.5,
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(left: deviceWidth * .05),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: deviceHeight * .05),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            height: 90,
+                            width: 90,
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/jeune.jpg'),
+                                    fit: BoxFit.cover
+                                )
+                            ),
+                          ),
+                          SizedBox(width: deviceWidth * .02,),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("Esthy N'goran", style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontFamily: 'Barlow', fontSize: 22
+                                ),),
+                                SizedBox(height: deviceHeight * .01,),
+                                Text('esthythy@nan.ci', style: TextStyle(
+                                    color: Colors.grey, fontFamily: 'Barlow', fontSize: 16
+                                ),)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      margin: EdgeInsets.only(top: deviceHeight * .05),
+                      child: Text('NaN4.21_AT0131', style: TextStyle(
+                          color: Colors.purple, fontFamily: 'Barlow', fontWeight: FontWeight.bold, fontSize: 16
+                      ),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(top: deviceHeight * .05),
+              child: Padding(
+                padding: EdgeInsets.only(left: deviceWidth * .05),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, Revision.routeName);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(left: deviceWidth * .02),
+                        margin: EdgeInsets.only(top: deviceHeight * .02),
+                        height: deviceHeight * .06,
+                        width: deviceWidth / 1.5,
+                        decoration: BoxDecoration(
+                          //color: Colors.purple,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.purple, width: 1)
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.book, color: Colors.grey, size: 20,),
+                            SizedBox(width: deviceWidth * .02,),
+                            Text('Mes Notes', style: TextStyle(
+                              fontFamily: 'Barlow', fontWeight: FontWeight.w600, fontSize: 18
+                            ),)
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, Login.routeName);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(left: deviceWidth * .02,),
+                        height: deviceHeight * .06,
+                        width: deviceWidth / 1.5,
+                        margin: EdgeInsets.only(top: deviceHeight * .05),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.purple, width: 1)
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.save_alt, color: Colors.grey, size: 20,),
+                            SizedBox(width: deviceWidth * .02,),
+                            Text('Deconnexion', style: TextStyle(
+                                fontFamily: 'Barlow', fontWeight: FontWeight.w600, fontSize: 18
+                            ),)
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            )
+          ],
+        ),
+      ),
+      //drawer: DrawerPage(),
       body: Container(
         height: deviceHeight,
         width: deviceHeight,
@@ -32,10 +216,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              /*Container(
+                child: Row(
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        print('thythy');
+                        Scaffold.of(context).openDrawer();
+                      },
+                      child: Container(
+                        height: deviceHeight * .05,
+                        width: deviceWidth * .1,
+                        decoration: BoxDecoration(
+                          color: Colors.purple.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                        margin: EdgeInsets.only(top: deviceHeight * .05,),
+                        child: Icon(Icons.menu, color: Colors.white, size: 27,),
+                      ),
+                    )
+                  ],
+                ),
+              ),*/
               Container(
-                  margin: EdgeInsets.only(top: deviceHeight * .1,),
+                  margin: EdgeInsets.only(top: deviceHeight * .05,),
                   child: Text('Bienvenue sur MyNaN', style: TextStyle(
-                      color: Colors.white, fontSize: 25
+                      color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Barlow'
                   ),)
               ),
               Container(
@@ -131,7 +337,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   child: Row(
                                     children: <Widget>[
                                       Text('Progression:', style: TextStyle(
-                                          color: Colors.black54, fontSize: 17
+                                          color: Colors.black54, fontSize: 17, fontFamily: 'Barlow'
                                       ),),
                                       SizedBox(width: deviceWidth * .02,),
                                       Text('En cours', style: TextStyle(
@@ -145,7 +351,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   child: Row(
                                     children: <Widget>[
                                       Text('Pourcentage:', style: TextStyle(
-                                          color: Colors.black54, fontSize: 17
+                                          color: Colors.black54, fontSize: 17, fontFamily: 'barlow'
                                       ),),
                                       SizedBox(width: deviceWidth * .02,),
                                       Text('75%', style: TextStyle(
