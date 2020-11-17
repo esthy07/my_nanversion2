@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynan/screens/home.dart';
 import 'package:mynan/screens/homePage.dart';
 
 void main() {
@@ -16,9 +17,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: HomePage.routeName,
+      initialRoute: Home.routeName,
       routes: {
         HomePage.routeName: (BuildContext context) => HomePage(),
+        Home.routeName:(BuildContext context) => Home()
       },
     );
   }

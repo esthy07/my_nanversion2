@@ -1,16 +1,119 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mynan/widgets/profilImage.dart';
+import 'package:mynan/widgets/rechercheRow.dart';
 
-class RecherchePage extends StatefulWidget {
+class Recherche extends StatefulWidget {
+  Recherche({Key key}) : super(key: key);
+
   @override
-  _RecherchePageState createState() => _RecherchePageState();
+  _RechercheState createState() => _RechercheState();
 }
 
-class _RecherchePageState extends State<RecherchePage> {
+class _RechercheState extends State<Recherche> {
+  String rechercherEnFonction = "Mon lieux d'habitation";
+  String dropdownValue = " Mon lieux d'habitation";
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height - 70;
+    final deviceWidth = MediaQuery.of(context).size.width;
+
+
     return Scaffold(
       body: Container(
-        color: Colors.pink,
+        height: deviceHeight,
+        width: deviceWidth,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/map.jpg"),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(.9), BlendMode.darken)),
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                  child: Container(
+                height: deviceHeight,
+                width: deviceWidth,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Container(
+                      height: deviceHeight - 200,
+                      child: ListView(
+                        children: <Widget>[
+                          RecherchRow(),
+                          RecherchRow(),
+                          RecherchRow(),
+                          RecherchRow(),
+                          RecherchRow(),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: <Widget>[
+                          ProfilImage(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              child: Text(
+                            "Rétrouver un(e) Nanien(en) pres de chez vous ",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                "Rechercher en fonctions de :",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              DropdownButton<String>(
+                                value: dropdownValue,
+                                style: TextStyle(color: Colors.purple),
+                                underline: Container(
+                                  height: 1,
+                                  color: Colors.transparent,
+                                ),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue;
+                                  });
+                                },
+                                items: <String>[
+                                  " Mon lieux d'habitation",
+                                  " Ma Positions actuelle"
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              )
+                            ],
+                          )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
+              Positioned.fill(
+                  child: SpinKitRipple(
+                color: Colors.purple,
+                size: MediaQuery.of(context).size.height,
+              )),
+            ],
+          ),
+        ),
       ),
     );
   }
