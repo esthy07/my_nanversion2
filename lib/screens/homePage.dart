@@ -22,7 +22,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         decoration: BoxDecoration(
           //color: Colors.pink,
             image: DecorationImage(
-                image: AssetImage('assets/images/bbb.jpg'),
+                image: AssetImage('assets/images/esthy.jpg'),
+                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.luminosity),
                 fit: BoxFit.cover
             )
         ),
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 Container(
                                   margin: EdgeInsets.only(left: deviceWidth * .02),
                                   child: Text('Mon Parcours', style: TextStyle(
-                                      color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20
+                                      color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
                                   ),),
                                 ),
                               ],
@@ -102,7 +103,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 Container(
                                   margin: EdgeInsets.only(left: deviceWidth * .02),
                                   child: Text('Information Pacours', style: TextStyle(
-                                      color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20
+                                      color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
                                   ),),
                                 ),
                               ],
@@ -111,13 +112,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           Container(
                             margin: EdgeInsets.only(top: deviceHeight * .02),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 Container(
                                   child: Row(
                                     children: <Widget>[
                                       Text('Status:', style: TextStyle(
-                                        color: Colors.black54, fontSize: 17
+                                        color: Colors.black54, fontSize: 17, fontFamily: 'Barlow'
                                       ),),
                                       SizedBox(width: deviceWidth * .02,),
                                       Text('Pas valider', style: TextStyle(
@@ -127,6 +127,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                 ),
                                 Container(
+                                  margin: EdgeInsets.only(top: deviceHeight * .01),
                                   child: Row(
                                     children: <Widget>[
                                       Text('Progression:', style: TextStyle(
@@ -140,6 +141,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                 ),
                                 Container(
+                                  margin: EdgeInsets.only(top: deviceHeight * .01),
                                   child: Row(
                                     children: <Widget>[
                                       Text('Pourcentage:', style: TextStyle(
