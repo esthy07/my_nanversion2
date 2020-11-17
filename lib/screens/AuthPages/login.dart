@@ -93,7 +93,13 @@
 
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  static const routeName = "Login";
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     Widget champ(
@@ -152,7 +158,7 @@ class Login extends StatelessWidget {
                       ),
                     ],
                     image: DecorationImage(
-                      image: AssetImage('images/logo.png'),
+                      image: AssetImage('assets/images/nan.png'),
                     ),
                     borderRadius: BorderRadius.circular(20)),
               ),

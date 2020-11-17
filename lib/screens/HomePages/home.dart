@@ -3,10 +3,10 @@ import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
-import 'package:mynan/screens/profile9.dart';
-import 'package:mynan/screens/recherche.dart';
+import 'package:mynan/screens/HomePages/profile9.dart';
+import 'package:mynan/screens/HomePages/recherche.dart';
 
-import 'homePage.dart';
+import '../HomePages/homePage.dart';
 
 class Home extends StatefulWidget {
   static const routeName = "home";
