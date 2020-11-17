@@ -52,7 +52,7 @@ class Profil extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                      image: AssetImage("images/jeune1.jpg"),
+                      image: AssetImage("assets/images/jeune1.jpg"),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -85,7 +85,7 @@ class Profil extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(100),
                         image: DecorationImage(
-                            image: AssetImage("images/jeune.jpg"),
+                            image: AssetImage("assets/images/jeune.jpg"),
                             fit: BoxFit.cover),
                         border: Border.all(width: 4, color: Colors.white),
                       ),
@@ -159,7 +159,7 @@ class Profil extends StatelessWidget {
           height: 30,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/nan.png"),
+              image: AssetImage("assets/images/nan.png"),
             ),
           ),
         ),
