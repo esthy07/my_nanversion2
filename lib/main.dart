@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
           Home.routeName:(BuildContext context) => Home(),
           Login.routeName:(BuildContext context) => Login(),
           Register.routeName:(BuildContext context) => Register(),
+          Revision.routeName:(BuildContext context) => Revision(),
+          
         },
       ),
     );

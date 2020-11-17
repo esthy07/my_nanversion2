@@ -3,6 +3,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
+import 'package:mynan/screens/ChatPages/detailUser.dart';
 
 class ProfilImage extends StatelessWidget {
   const ProfilImage({Key key}) : super(key: key);
@@ -30,8 +31,8 @@ class ProfilImage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => ScreenTwo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Profil()));
             }),
 
         FocusedMenuItem(
