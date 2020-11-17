@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.only(left: deviceWidth * .05),
-                      height: deviceHeight * .17,
+                      height: deviceHeight * .15,
                       width: deviceWidth,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -71,6 +71,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 ),
                               ],
                             ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: deviceHeight * .02),
+                            //alignment: Alignment.center,
+                            child: Text('JavaScript', style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold
+                            ),),
                           )
                         ],
                       ),
@@ -78,7 +85,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     Container(
                       padding: EdgeInsets.only(left: deviceWidth * .05),
                       margin: EdgeInsets.only(top: deviceHeight * .02),
-                      height: deviceHeight * .17,
+                      height: deviceHeight * .2,
                       width: deviceWidth,
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -94,10 +101,57 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 Icon(Icons.school, color: Colors.purple,),
                                 Container(
                                   margin: EdgeInsets.only(left: deviceWidth * .02),
-                                  child: Text('Status', style: TextStyle(
+                                  child: Text('Information Pacours', style: TextStyle(
                                       color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20
                                   ),),
                                 ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: deviceHeight * .02),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('Status:', style: TextStyle(
+                                        color: Colors.black54, fontSize: 17
+                                      ),),
+                                      SizedBox(width: deviceWidth * .02,),
+                                      Text('Pas valider', style: TextStyle(
+                                          fontSize: 17, fontWeight: FontWeight.w500
+                                      ),)
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('Progression:', style: TextStyle(
+                                          color: Colors.black54, fontSize: 17
+                                      ),),
+                                      SizedBox(width: deviceWidth * .02,),
+                                      Text('En cours', style: TextStyle(
+                                        fontSize: 17, fontWeight: FontWeight.w500
+                                      ),)
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('Pourcentage:', style: TextStyle(
+                                          color: Colors.black54, fontSize: 17
+                                      ),),
+                                      SizedBox(width: deviceWidth * .02,),
+                                      Text('75%', style: TextStyle(
+                                          fontSize: 17, fontWeight: FontWeight.w500, color: Colors.green
+                                      ),)
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           )
