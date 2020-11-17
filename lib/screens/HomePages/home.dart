@@ -36,7 +36,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: MotionTabBar(
-          labels: ["Home", "Search", "Chat","Dashboard"],
+          labels: ["Home", "Search", "Chat","Profil"],
           initialSelectedTab: "Home",
           tabIconColor: primaryColor,
           tabSelectedColor: primaryColor,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/screens/AuthPages/register.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 
 class Login extends StatefulWidget {
@@ -95,6 +97,14 @@ class _LoginState extends State<Login> {
                       Text('connexion', style: TextStyle(color: Colors.white)),
                 ),
               ),
+              SizedBox(height: 40),
+              InkWell(
+                onTap: ()=>Navigator.of(context).pushNamed(Register.routeName),
+                              child: Container(
+                  child: Text("S'inscrire",style: TextStyle(color: primaryColor),),
+                ),
+              )
+            
             ],
           ),
         ),
