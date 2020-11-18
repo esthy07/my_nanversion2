@@ -5,6 +5,7 @@ import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/listMessage.dart';
+import 'package:mynan/screens/HomePages/modifierProfil.dart';
 import 'package:mynan/screens/HomePages/profile9.dart';
 import 'package:mynan/screens/HomePages/recherche.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +24,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
 
   MotionTabController _tabController;
-  List<Widget> allPages = [HomePage(), Recherche(), ListMessage(), Profil()];
+  List<Widget> allPages = [HomePage(), Recherche(), ListMessage(), ModifierProfil()];
   @override
   void initState() {
     super.initState();

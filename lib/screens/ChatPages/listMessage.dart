@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mynan/screens/ChatPages/detailListMessage.dart';
 
+import '../../Constantes/customeTheme.dart';
+
 
 class ListMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios),onPressed: () => Navigator.of(context).pop(),color: primaryColor,),
         backgroundColor: Colors.white,
         title: Text(
           'MyNan',
@@ -28,6 +31,7 @@ class ListMessage extends StatelessWidget {
         ],
       ),
       body: ListView(
+        
         children: [
           detailListMessage(context, "Flore Domi", "Salus ga on dit quoi",
               "14:22", "assets/images/jeune.jpg"),

@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
           print(newUser);
           Navigator.of(context).pushNamed(Home.routeName);
         } else {
+          print("Error login ");
           print(newUser);
         }
       } catch (e) {
@@ -170,7 +171,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(height: 20),
               InkWell(
-                onTap:seveUser,
+                onTap: seveUser,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xff10182b),
