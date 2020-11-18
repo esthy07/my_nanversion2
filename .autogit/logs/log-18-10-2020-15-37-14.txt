@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Wed Nov 18 2020 15:37:14 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-18-10-2020-15-7-3.txt
+* "assets/images/421 flutter.png"
+
+
+Deleted files:
+
+
+Renamed files:
