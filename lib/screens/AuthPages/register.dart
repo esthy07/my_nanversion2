@@ -2,11 +2,14 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:mynan/Provider/UserProv.dart';
-import 'package:mynan/model/UseurModel.dart';
+import 'package:mynan/model/UseurModel.dart' as LocalUser;
 import 'package:mynan/screens/HomePages/home.dart';
 import 'dart:math';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import '../HomePages/homePage.dart';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
@@ -17,9 +20,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String name;
-  String lastName;
+  String email;
+  String passeword;
   String numerotControleur;
+  final _auth = FirebaseAuth.instance;
 
   Random _rnd = Random();
 
@@ -31,9 +35,19 @@ class _RegisterState extends State<Register> {
     print("Save Message");
     final String userName = "NaN4.21_" + getRandomString(5);
     if (isOk) {
-      User newUser =
-          User(firstName: name, lastName: lastName, username: userName);
-      Provider.of<UserProv>(context, listen: false).addUser(newUser);
+      try {
+        final newUser = await _auth.createUserWithEmailAndPassword(
+            email: email, password: passeword);
+        if (newUser != null) {
+          print(newUser);
+          Navigator.of(context).pushNamed(Home.routeName);
+        }
+      } catch (e) {
+        print("Error ${e.toString()}");
+      }
+
+      // User newUser = User(firstName: name, lastName: lastName, username: userName);
+      // Provider.of<UserProv>(context, listen: false).addUser(newUser);
     }
   }
 
@@ -41,6 +55,17 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    BoxDecoration inputDecoration = BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Color(0xff10182b).withOpacity(0.2),
+          blurRadius: 5,
+          offset: Offset(7, 5),
+        ),
+      ],
+    );
     Widget champ(
       IconData icon,
       String input,
@@ -104,69 +129,47 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Color(0xff10182b).withOpacity(0.2),
-                            blurRadius: 5,
-                            offset: Offset(7, 5),
-                          ),
-                        ],
-                      ),
+                      decoration: inputDecoration,
                       height: 60,
                       margin: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 1.4,
                       alignment: Alignment.center,
                       child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value.isEmpty) {
                             return "veillez remplire le champ ";
                           } else {
-                            setState(() {
-                              name = value;
-                            });
+                            email = value;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: Icon(Icons.lock),
                             border: InputBorder.none,
-                            hintText: "First Name"),
+                            hintText: "Email"),
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Color(0xff10182b).withOpacity(0.2),
-                            blurRadius: 5,
-                            offset: Offset(7, 5),
-                          ),
-                        ],
-                      ),
+                      decoration: inputDecoration,
                       height: 60,
                       margin: EdgeInsets.all(10),
                       width: MediaQuery.of(context).size.width / 1.4,
                       alignment: Alignment.center,
                       child: TextFormField(
+                        obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return "Veillez remplire le champ";
                           } else {
-                            setState(() {
-                               lastName = value;
-                            });
+                            passeword = value;
                           }
                           return null;
                         },
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.person),
                             border: InputBorder.none,
-                            hintText: "Last Name"),
+                            hintText: "Password"),
                       ),
                     ),
                   ],

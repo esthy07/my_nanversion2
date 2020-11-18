@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/AuthPages/register.dart';
@@ -10,7 +11,9 @@ import 'package:provider/provider.dart';
 import 'Provider/UserProv.dart';
 
 // babyboy20
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -19,11 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers:[
-        ChangeNotifierProvider.value(
-          value: UserProv())
-      ] ,
-          child: MaterialApp(
+      providers: [ChangeNotifierProvider.value(value: UserProv())],
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'My NaN ',
         theme: ThemeData(
@@ -34,11 +34,10 @@ class MyApp extends StatelessWidget {
         initialRoute: Login.routeName,
         routes: {
           HomePage.routeName: (BuildContext context) => HomePage(),
-          Home.routeName:(BuildContext context) => Home(),
-          Login.routeName:(BuildContext context) => Login(),
-          Register.routeName:(BuildContext context) => Register(),
-          Revision.routeName:(BuildContext context) => Revision(),
-          
+          Home.routeName: (BuildContext context) => Home(),
+          Login.routeName: (BuildContext context) => Login(),
+          Register.routeName: (BuildContext context) => Register(),
+          Revision.routeName: (BuildContext context) => Revision(),
         },
       ),
     );
