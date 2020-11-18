@@ -112,7 +112,7 @@ class _ChatPageState extends State<ChatPage> {
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
                       Colors.grey[200].withOpacity(0.8), BlendMode.lighten),
-                  image: AssetImage('assets/images/nan.png'),
+                  image: AssetImage('assets/images/bg-header.jpg'),
                 ),
               ),
               child: ListView(
