@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1060469934412",
+    "firebase_url": "https://mynan-ffc0a.firebaseio.com",
+    "project_id": "mynan-ffc0a",
+    "storage_bucket": "mynan-ffc0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060469934412:android:b07e9e0985b5d333b9e7e9",
+        "android_client_info": {
+          "package_name": "com.nan.mynan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060469934412-9g151o6oagrsg9g6db423k3ob8k3256f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARm6BPoss7XauaYUloCmOFe6GoOYh01Eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060469934412-9g151o6oagrsg9g6db423k3ob8k3256f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

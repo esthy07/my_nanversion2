@@ -34,7 +34,7 @@ dependencies:
   focused_menu: ^1.0.1
   shared_preferences: ^0.5.8
   carousel_slider: ^2.3.1
-
+  firebase_core: ^0.5.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
