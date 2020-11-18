@@ -298,7 +298,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)
                       ),
-                      child: Column(
+                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
