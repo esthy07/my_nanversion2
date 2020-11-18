@@ -57,7 +57,7 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
                           color: Colors.black54, fontSize: 17, fontFamily: 'Barlow'
                       ),),
                       SizedBox(width: deviceWidth * .02,),
-                      Text(widget.nomModule, style: TextStyle(
+                      Text("${widget.nomModule}", style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Barlow', color: widget.colorModule
                       ),)
                     ],

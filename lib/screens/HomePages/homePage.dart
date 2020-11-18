@@ -17,9 +17,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
 
   List<Widget> listModule = [
-    ParcoursWidget(),
-    ParcoursWidget(),
-    ParcoursWidget()
+    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Vue js',),
+    ParcoursWidget(colorParcours: Colors.white, colorModule: Colors.black, nomModule: 'React Native',),
+    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Ionic',)
 
 
   ];
@@ -261,14 +261,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           ),
                         ),
                       ),
-                      Container(
+                      /*Container(
                         child: ListView(
                           children: <Widget>[
-
+                            ParcoursWidget(colorModule:Colors.grey , ),
                           ],
                         ),
-                      )
-                      /*Container(
+                      )*/
+                      Container(
                         margin: EdgeInsets.only(top: deviceHeight * .01),
                         child: CarouselSlider(
                             items: listModule,
@@ -279,7 +279,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 enlargeCenterPage: false
                             )
                         ),
-                      )*/
+                      )
                     ],
                   ),
                 ),

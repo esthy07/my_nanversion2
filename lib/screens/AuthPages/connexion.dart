@@ -19,16 +19,21 @@ class _ConexionPageState extends State<ConexionPage> {
 
     return Scaffold(
       body: Container(
-        color: Colors.white,
         height: deviceHeight,
         width: deviceWidth,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/421flutter2.jpg'),
+            fit: BoxFit.cover
+          )
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(left: deviceWidth * .03 , right: deviceWidth * .05),
             child: Column(
               //crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
+               /* Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: deviceHeight * .2),
                   height: 100,
@@ -46,9 +51,9 @@ class _ConexionPageState extends State<ConexionPage> {
                         image: AssetImage('assets/images/nan.png'),
                       ),
                       borderRadius: BorderRadius.circular(20)),
-                ),
+                ),*/
                 Container(
-                  margin: EdgeInsets.only(top: deviceHeight * .1),
+                  margin: EdgeInsets.only(top: deviceHeight * .4),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -113,7 +118,7 @@ class _ConexionPageState extends State<ConexionPage> {
                           width: deviceWidth,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            //color: Colors.purple,
+                              //color: Color(0xff10182b)
                             gradient: LinearGradient(
 
                                 colors: [
