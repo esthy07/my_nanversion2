@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:mynan/screens/HomePages/homePage.dart';
 
+import '../../Constantes/customeTheme.dart';
+import 'register.dart';
+
 class ConexionPage extends StatefulWidget {
   static const routeName = 'connexionPage';
 
@@ -40,9 +43,9 @@ class _ConexionPageState extends State<ConexionPage> {
         }
       } catch (e) {
         setState(() {
-            errorMessage = "Login ou mot de passe incorect !!";
-            showLoader = true;
-          });
+          errorMessage = "Login ou mot de passe incorect !!";
+          showLoader = true;
+        });
         print("Error ${e.toString()}");
       }
 
@@ -173,7 +176,7 @@ class _ConexionPageState extends State<ConexionPage> {
                           width: deviceWidth,
                           decoration: inputDecoration,
                           child: TextFormField(
-                             onChanged: (value) {
+                            onChanged: (value) {
                               passeword = value;
                             },
                             validator: (value) {
@@ -193,11 +196,11 @@ class _ConexionPageState extends State<ConexionPage> {
                                 hintText: '************'),
                           ),
                         ),
-                        if(errorMessage != null)
-                        Container(
-                          margin: EdgeInsets.only(left: 15,top: 10),
-                          
-                          child: Text("$errorMessage"),),
+                        if (errorMessage != null)
+                          Container(
+                            margin: EdgeInsets.only(left: 15, top: 10),
+                            child: Text("$errorMessage"),
+                          ),
                         InkWell(
                           onTap: loginUser,
                           child: Container(
@@ -213,17 +216,27 @@ class _ConexionPageState extends State<ConexionPage> {
                                 gradient: LinearGradient(colors: [
                                   Color.fromRGBO(165, 31, 156, 1),
                                   Color.fromRGBO(67, 2, 63, 1),
-                                ])
-                                ),
+                                ])),
                             child: Center(
                               child: Text(
-                                showLoader?'Loading ...':'Connexion',
+                                showLoader ? 'Loading ...' : 'Connexion',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Barlow',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18),
                               ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 40),
+                        InkWell(
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(Register.routeName),
+                          child: Container(
+                            child: Text(
+                              "S'inscrire",
+                              style: TextStyle(color: primaryColor),
                             ),
                           ),
                         )

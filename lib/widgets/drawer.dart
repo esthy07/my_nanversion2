@@ -4,7 +4,9 @@ import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
 import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/Notes/note.dart';
+import 'package:provider/provider.dart';
 
+import '../Provider/UserProv.dart';
 import '../test.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -139,6 +141,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       InkWell(
                         onTap: () async {
                           await _auth.signOut();
+                          Provider.of<UserProv>(context,listen: false).removeUser();
                           Navigator.pushNamed(context, ConexionPage.routeName);
                         },
                         child: Container(
