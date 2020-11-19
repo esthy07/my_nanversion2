@@ -50,24 +50,33 @@ class _ConexionPageState extends State<ConexionPage> {
                       borderRadius: BorderRadius.circular(20)),
                 ),*/
                 Container(
-                  margin: EdgeInsets.only(top: deviceHeight * .45),
+                  margin: EdgeInsets.only(top: deviceHeight * .45,),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
+                        margin: EdgeInsets.only(left: deviceWidth * .04),
                         child: Text(
                           "Email ou Nom d'utilisateur",
                           style: TextStyle(
                               fontFamily: 'Barlow',
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: deviceHeight * .01),
+                        margin: EdgeInsets.only(top: deviceHeight * .01, left: deviceWidth * .04, right: deviceWidth* .04),
                         height: deviceHeight * .07,
                         width: deviceWidth,
                         decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color(0x1a000000),
+                                  blurRadius: 2,
+                                  spreadRadius: 0,
+                                  offset: Offset(0, 5)
+                              )
+                            ],
                             color: Color.fromRGBO(242, 242, 242, 1),
                             borderRadius: BorderRadius.circular(5)),
                         child: TextField(
@@ -84,20 +93,28 @@ class _ConexionPageState extends State<ConexionPage> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: deviceHeight * .03),
+                        margin: EdgeInsets.only(top: deviceHeight * .035, left: deviceWidth * .04),
                         child: Text(
                           "Mot de Passe",
                           style: TextStyle(
                               fontFamily: 'Barlow',
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: deviceHeight * .01),
+                        margin: EdgeInsets.only(top: deviceHeight * .01, left: deviceWidth * .04, right: deviceWidth* .04),
                         height: deviceHeight * .07,
                         width: deviceWidth,
                         decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color(0x1a000000),
+                                  blurRadius: 2,
+                                  spreadRadius: 0,
+                                  offset: Offset(0, 5)
+                              )
+                            ],
                             color: Color.fromRGBO(242, 242, 242, 1),
                             borderRadius: BorderRadius.circular(5)),
                         child: TextField(
@@ -117,14 +134,13 @@ class _ConexionPageState extends State<ConexionPage> {
                           Navigator.pushNamed(context, Home.routeName);
                         },
                         child: Container(
-                          margin: EdgeInsets.only(top: deviceHeight * .05),
+                          margin: EdgeInsets.only(top: deviceHeight * .07, left: deviceWidth * .15, right: deviceWidth* .15),
                           height: deviceHeight * .07,
                           width: deviceWidth,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                               //color: Color(0xff10182b)
                             gradient: LinearGradient(
-
                                 colors: [
                                   Color.fromRGBO(165, 31, 156, 1),
                                   Color.fromRGBO(67, 2, 63, 1),
