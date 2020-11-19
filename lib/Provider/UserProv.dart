@@ -16,9 +16,21 @@ class UserProv with ChangeNotifier {
     final response = await http.post(url, body: json.encode(newUser.toMap()));
     if (response.statusCode == 200) {
       print(response.body);
-      newUser.id = response.body;
+      final responseBody = json.decode(response.body) as Map<String, dynamic>;
+      newUser.id = responseBody["name"];
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
+      print('login successfully');
+    }
+  }
+
+  Future<void> getUser(String email) async {
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // prefs.setString(KEY_USER, json.encode(newUser.toMap()));
       print('login successfully');
     }
   }

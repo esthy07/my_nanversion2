@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:mynan/screens/HomePages/homePage.dart';
+import 'package:provider/provider.dart';
 
 import '../../Constantes/customeTheme.dart';
+import '../../Provider/UserProv.dart';
 import 'register.dart';
 
 class ConexionPage extends StatefulWidget {
@@ -30,6 +32,7 @@ class _ConexionPageState extends State<ConexionPage> {
       try {
         final newUser = await _auth.signInWithEmailAndPassword(
             email: email, password: passeword);
+            await Provider.of<UserProv>(context).getUser();
         if (newUser != null) {
           print(newUser);
           Navigator.of(context).pushNamed(Home.routeName);
