@@ -25,7 +25,6 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
     return   Container(
       padding: EdgeInsets.only(left: deviceWidth * .05),
       margin: EdgeInsets.only(top: deviceHeight * .02),
-      //height: deviceHeight * .2,
       width: deviceWidth / 1.4,
       decoration: BoxDecoration(
           color: widget.colorParcours,
@@ -34,22 +33,23 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(top: deviceHeight * .02),
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.school, color: widget.colorNomParcours,),
-                Container(
-                  margin: EdgeInsets.only(left: deviceWidth * .02),
-                  child: Text('Information Pacours', style: TextStyle(
-                      color: widget.colorNomParcours, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
-                  ),),
-                ),
-              ],
+          Expanded(
+            child: Container(
+              //margin: EdgeInsets.only(top: deviceHeight * .02),
+              child: Row(
+                children: <Widget>[
+                  Icon(Icons.school, color: widget.colorNomParcours,),
+                  Container(
+                    margin: EdgeInsets.only(left: deviceWidth * .02),
+                    child: Text('Information Pacours', style: TextStyle(
+                        color: widget.colorNomParcours, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
+                    ),),
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: deviceHeight * .02),
             child: Column(
               children: <Widget>[
                 Container(
@@ -94,7 +94,7 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: deviceHeight * .01),
+                  margin: EdgeInsets.only(top: deviceHeight * .01, bottom: deviceHeight * .02),
                   child: Row(
                     children: <Widget>[
                       Text('Pourcentage:', style: TextStyle(
@@ -107,7 +107,7 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
                     ],
                   ),
                 ),
-               // SizedBox(height: deviceHeight * .02,)
+                // SizedBox(height: deviceHeight * .02,)
               ],
             ),
           )

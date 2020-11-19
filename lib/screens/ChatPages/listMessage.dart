@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynan/screens/ChatPages/detailListMessage.dart';
+import 'package:mynan/widgets/drawer.dart';
 
 import '../../Constantes/customeTheme.dart';
 
@@ -9,27 +10,29 @@ class ListMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios),onPressed: () => Navigator.of(context).pop(),color: primaryColor,),
-        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+       centerTitle: true,
+        backgroundColor: primaryColor,
         title: Text(
-          'MyNan',
-          style: TextStyle(color: Colors.purple, fontSize: 20),
+          'myNaN',
+          style: TextStyle(color: Colors.white, fontFamily: 'Barlow', fontSize: 20),
         ),
         actions: [
           IconButton(
               icon: Icon(
                 Icons.search,
-                color: Colors.purple,
+                color: Colors.white,
               ),
               onPressed: () {}),
           IconButton(
               icon: Icon(
                 Icons.more_vert,
-                color: Colors.purple,
+                color: Colors.white,
               ),
               onPressed: () {}),
         ],
       ),
+      drawer:DrawerPage(),
       body: ListView(
         
         children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
 
 class ModifierProfil extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class ModifierProfil extends StatelessWidget {
             Icon(
               icon,
               size: 19,
-              color: Color(0xff983298),
+              color: primaryColor,
             ),
             SizedBox(
               width: 30,
@@ -23,7 +24,7 @@ class ModifierProfil extends StatelessWidget {
                 Text(
                   titre,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Color(0xff10182b)),
+                      fontWeight: FontWeight.bold, color: Color(0xff10182b), fontFamily: 'Barlow'),
                 ),
                 SizedBox(
                   height: 4,
@@ -32,7 +33,7 @@ class ModifierProfil extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.9,
                   child: Text(
                     desc,
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.grey, fontFamily: 'Barlow'),
                   ),
                 )
               ],
@@ -110,6 +111,14 @@ class ModifierProfil extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 180,
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0x1a000000),
+                        blurRadius: 2,
+                        spreadRadius: 0,
+                        offset: Offset(0, 5)
+                    )
+                  ],
                   color: Colors.white,
                   image: DecorationImage(
                       image: AssetImage("assets/images/jeune1.jpg"),
@@ -140,14 +149,14 @@ class ModifierProfil extends StatelessWidget {
                     Text(
                       "Chelida Domi",
                       style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold, fontFamily: 'Barlow'),
                     ),
                     SizedBox(
                       height: 6,
                     ),
                     Text(
                       "Developpeur",
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: 17, fontFamily: 'Barlow'),
                     ),
                   ],
                 ),
@@ -180,7 +189,7 @@ class ModifierProfil extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   "User Information",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Barlow'),
                 ),
               ),
               Padding(

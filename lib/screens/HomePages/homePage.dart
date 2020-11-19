@@ -17,8 +17,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
 
   List<Widget> listModule = [
-    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Vue js', colorNomParcours: Colors.black, colorPourcentage: Colors.black,),
     ParcoursWidget(colorParcours: Colors.white, colorModule: Colors.blue, nomModule: 'React Native', colorPourcentage: Colors.green, colorNomParcours: Color.fromRGBO(67, 2, 63, 1),),
+    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Vue js', colorNomParcours: Colors.black, colorPourcentage: Colors.black,),
     ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Ionic',colorNomParcours: Colors.black, colorPourcentage: Colors.black,)
 
 
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         ),),
         centerTitle: true,
       ),
-      drawer: Drawer(
+      /*drawer: Drawer(
         child: ListView(
           children: <Widget>[
             Container(
@@ -158,8 +158,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             )
           ],
         ),
-      ),
-      //drawer: DrawerPage(),
+      ),*/
+      drawer: DrawerPage(),
       body: Builder(
         builder: (BuildContext context) {
           return Container(
@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   child: Container(
                     margin: EdgeInsets.only(top: deviceHeight * .015),
                     child: Text('Vendredi 20 novembre', style: TextStyle(
-                        color: Colors.white
+                        color: Colors.white, fontFamily: 'Barlow'
                     ),),
                   ),
                 ),
@@ -276,7 +276,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 viewportFraction: 0.75,
                                 autoPlay: false,
                                 aspectRatio: 1.8,
-                                enlargeCenterPage: false
+                                enlargeCenterPage: true
                             )
                         ),
                       )

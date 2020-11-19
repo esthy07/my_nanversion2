@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
 import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/Notes/note.dart';
@@ -83,7 +84,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       child: Text(
                         'NaN4.21_AT0131',
                         style: TextStyle(
-                            color: Colors.purple,
+                            color: primaryColor,
                             fontFamily: 'Barlow',
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -113,7 +114,7 @@ class _DrawerPageState extends State<DrawerPage> {
                               //color: Colors.purple,
                               borderRadius: BorderRadius.circular(5),
                               border:
-                                  Border.all(color: Colors.purple, width: 1)),
+                                  Border.all(color: primaryColor, width: 1)),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -152,7 +153,7 @@ class _DrawerPageState extends State<DrawerPage> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border:
-                                  Border.all(color: Colors.purple, width: 1)),
+                                  Border.all(color: primaryColor, width: 1)),
                           child: Row(
                             children: <Widget>[
                               Icon(

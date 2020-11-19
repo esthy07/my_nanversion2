@@ -82,7 +82,6 @@ class _ConexionPageState extends State<ConexionPage> {
                         child: TextField(
                           cursorColor: Colors.grey,
                           decoration: InputDecoration(
-                              focusColor: Colors.purple,
                               prefixIcon: Icon(
                                 Icons.email,
                                 size: 20,

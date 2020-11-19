@@ -61,7 +61,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             });
           },
           icons: [Icons.home, Icons.search, Icons.chat, Icons.dashboard],
-          textStyle: TextStyle(color: primaryColor),
+          textStyle: TextStyle(color: primaryColor, fontFamily: 'Barlow', fontWeight: FontWeight.w500),
         ),
         body: MotionTabBarView(controller: _tabController, children: allPages));
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/widgets/profilImage.dart';
 import 'package:mynan/widgets/rechercheRow.dart';
 
@@ -63,22 +64,22 @@ class _RechercheState extends State<Recherche> {
                           Container(
                               child: Text(
                             "Rétrouver un(e) Nanien(en) pres de chez vous ",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontFamily: 'barlow'),
                           )),
                           SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
                           Container(
                               child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                "Rechercher en fonctions de :",
-                                style: TextStyle(color: Colors.white),
+                                "Rechercher en fonction de :",
+                                style: TextStyle(color: Colors.white, fontFamily: 'Barlow'),
                               ),
                               DropdownButton<String>(
                                 value: dropdownValue,
-                                style: TextStyle(color: Colors.purple),
+                                style: TextStyle(color: Colors.blue, fontFamily: 'Barlow', fontWeight: FontWeight.w500),
                                 underline: Container(
                                   height: 1,
                                   color: Colors.transparent,
@@ -100,6 +101,7 @@ class _RechercheState extends State<Recherche> {
                               )
                             ],
                           )),
+                          SizedBox(height: deviceHeight * .02)
                         ],
                       ),
                     )
@@ -108,7 +110,7 @@ class _RechercheState extends State<Recherche> {
               )),
               Positioned.fill(
                   child: SpinKitRipple(
-                color: Colors.purple,
+                color: primaryColor,
                 size: MediaQuery.of(context).size.height,
               )),
             ],
