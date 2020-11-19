@@ -32,7 +32,7 @@ class _ConexionPageState extends State<ConexionPage> {
       try {
         final newUser = await _auth.signInWithEmailAndPassword(
             email: email, password: passeword);
-            await Provider.of<UserProv>(context).getUser();
+            await Provider.of<UserProv>(context,listen: false).getUser();
         if (newUser != null) {
           print(newUser);
           Navigator.of(context).pushNamed(Home.routeName);
@@ -41,13 +41,13 @@ class _ConexionPageState extends State<ConexionPage> {
           print(newUser);
           setState(() {
             errorMessage = "Login ou mot de passe incorect !!";
-            showLoader = true;
+            showLoader = false;
           });
         }
       } catch (e) {
         setState(() {
           errorMessage = "Login ou mot de passe incorect !!";
-          showLoader = true;
+          showLoader = false;
         });
         print("Error ${e.toString()}");
       }
@@ -202,7 +202,7 @@ class _ConexionPageState extends State<ConexionPage> {
                         if (errorMessage != null)
                           Container(
                             margin: EdgeInsets.only(left: 15, top: 10),
-                            child: Text("$errorMessage"),
+                            child: Text("$errorMessage",style: TextStyle(color: Colors.red),),
                           ),
                         InkWell(
                           onTap: loginUser,

@@ -48,12 +48,13 @@ class _DrawerPageState extends State<DrawerPage> {
                             height: 60,
                             width: 60,
                             decoration: BoxDecoration(
-                                color: Colors.blue,
+                               
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image:
-                                        NetworkImage(currentUser.image),
-                                    fit: BoxFit.cover)),
+                                        NetworkImage(currentUser?.image,),
+                                    fit: BoxFit.cover)
+                                    ),
                           ),
                           SizedBox(
                             width: deviceWidth * .02,
@@ -64,7 +65,7 @@ class _DrawerPageState extends State<DrawerPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                               if(currentUser.firstName != null)  Text(
-                                  "${currentUser.firstName}",
+                                  "${currentUser?.firstName}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Barlow',

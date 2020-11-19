@@ -2,10 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mynan/model/UseurModel.dart';
 
 import '../../Constantes/customeTheme.dart';
 
 class ChatPage extends StatefulWidget {
+  UserModel userMessage;
+  ChatPage(this.userMessage);
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -49,8 +52,23 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text(
-          'ChatRoom',
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Row(
+          children: <Widget>[
+            CircleAvatar(
+              backgroundImage: NetworkImage(widget.userMessage.image),
+              radius: 20,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              '${widget.userMessage.email}',
+            ),
+          ],
         ),
         actions: <Widget>[
           PopupMenuButton<String>(
@@ -90,11 +108,14 @@ class _ChatPageState extends State<ChatPage> {
                       }
                       final messages = snapshot.data.docs.reversed;
                       List<Widget> messageList = [];
-                      for(var message in messages){
-                        if(message.data()["sender"] == _auth.currentUser.email){
-                          messageList.add(reightMessage(context, message.data()["message"]));
-                        }else{
-                          messageList.add(leftMessage(context, message.data()["message"]));
+                      for (var message in messages) {
+                        if (message.data()["sender"] ==
+                            _auth.currentUser.email) {
+                          messageList.add(reightMessage(
+                              context, message.data()["message"]));
+                        } else {
+                          messageList.add(
+                              leftMessage(context, message.data()["message"]));
                         }
                       }
                       return Column(

@@ -39,7 +39,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     final user = _auth.currentUser;
     if (user != null) {
       print("CurentUser ${user.email}");
+      
       await Provider.of<UserProv>(context,listen: false).getUser();
+      await Provider.of<UserProv>(context,listen: false).getOneUser(user.email);
     }
   }
 

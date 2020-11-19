@@ -4,14 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:firebase_database/firebase_database.dart';
 
 class UserProv with ChangeNotifier {
   static const url = "https://mynan-ffc0a.firebaseio.com/UserModel.json";
   static const KEY_USER = "Patrick_Ethere_Key";
   UserModel _user;
-  // final dbRef = FirebaseDatabase.instance.reference().child("pets");
+  List<UserModel> _allUsers;
+  final dbRef = FirebaseDatabase.instance.reference().child("UserModel");
   UserModel get loggedInUser => _user;
+
+  List<UserModel> get allUsers => _allUsers;
 
   Future<void> addUser(UserModel newUser) async {
     final response = await http.post(url, body: json.encode(newUser.toMap()));
@@ -25,14 +27,43 @@ class UserProv with ChangeNotifier {
     }
   }
 
-  Future<void> getUser(String email) async {
+  Future<void> getOneUser(String email) async {
+    var url = "https://mynan-ffc0a.firebaseio.com/UserModel.json?email=$email";
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      print(response.body);
+      final responseBody = json.decode(response.body) as Map<String, dynamic>;
+      print("###############################");
+      UserModel newUser;
+      responseBody.forEach((key, value) {
+        print(value);
+        newUser = UserModel.fromMap(value);
+        newUser.id = key;
+      });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(KEY_USER, json.encode(newUser.toMap()));
+      _user = newUser;
+      notifyListeners();
+      print('get One User successfully');
+    }
+  }
 
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // prefs.setString(KEY_USER, json.encode(newUser.toMap()));
-      print('login successfully');
+  Future<void> getAllUser() async {
+    var url = "https://mynan-ffc0a.firebaseio.com/UserModel.json";
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body) as Map<String, dynamic>;
+      print("###############################");
+      List<UserModel> allUser = [];
+      responseBody.forEach((key, value) {
+        print(value);
+        UserModel newUser = UserModel.fromMap(value);
+        newUser.id = key;
+        allUser.add(newUser);
+      });
+      
+      _allUsers = allUser;
+      notifyListeners();
+      print('get All Users ok successfully');
     }
   }
 
