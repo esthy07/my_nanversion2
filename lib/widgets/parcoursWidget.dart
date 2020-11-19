@@ -4,7 +4,9 @@ class ParcoursWidget extends StatefulWidget {
   Color colorModule;
   Color colorParcours;
   String nomModule;
-  ParcoursWidget({this.colorModule,this.colorParcours,this.nomModule});
+  Color colorNomParcours;
+  Color colorPourcentage;
+  ParcoursWidget({this.colorModule,this.colorParcours,this.nomModule, this.colorNomParcours, this.colorPourcentage});
 
   @override
   _ParcoursWidgetState createState() => _ParcoursWidgetState();
@@ -36,11 +38,11 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
             margin: EdgeInsets.only(top: deviceHeight * .02),
             child: Row(
               children: <Widget>[
-                Icon(Icons.school, color: Colors.purple,),
+                Icon(Icons.school, color: widget.colorNomParcours,),
                 Container(
                   margin: EdgeInsets.only(left: deviceWidth * .02),
                   child: Text('Information Pacours', style: TextStyle(
-                      color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
+                      color: widget.colorNomParcours, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
                   ),),
                 ),
               ],
@@ -100,7 +102,7 @@ class _ParcoursWidgetState extends State<ParcoursWidget> {
                       ),),
                       SizedBox(width: deviceWidth * .02,),
                       Text('75%', style: TextStyle(
-                          fontSize: 17, fontWeight: FontWeight.w500, color: Colors.green, fontFamily: 'Barlow'
+                          fontSize: 17, fontWeight: FontWeight.w500, color: widget.colorPourcentage, fontFamily: 'Barlow'
                       ),)
                     ],
                   ),

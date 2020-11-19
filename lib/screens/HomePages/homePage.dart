@@ -17,9 +17,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
 
   List<Widget> listModule = [
-    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Vue js',),
-    ParcoursWidget(colorParcours: Colors.white, colorModule: Colors.blue, nomModule: 'React Native',),
-    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Ionic',)
+    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Vue js', colorNomParcours: Colors.black, colorPourcentage: Colors.black,),
+    ParcoursWidget(colorParcours: Colors.white, colorModule: Colors.blue, nomModule: 'React Native', colorPourcentage: Colors.green, colorNomParcours: Color.fromRGBO(67, 2, 63, 1),),
+    ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Ionic',colorNomParcours: Colors.black, colorPourcentage: Colors.black,)
 
 
   ];
@@ -31,14 +31,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     final deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      /*appBar: AppBar(
-        backgroundColor: Colors.purple,
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(67, 2, 63, 1),
         title: Text('myNaN', style: TextStyle(
           color: Colors.white, fontFamily: 'Barlow', fontSize: 20
         ),),
         centerTitle: true,
-      ),*/
-      /*drawer: Drawer(
+      ),
+      drawer: Drawer(
         child: ListView(
           children: <Widget>[
             Container(
@@ -158,8 +158,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             )
           ],
         ),
-      ),*/
-      drawer: DrawerPage(),
+      ),
+      //drawer: DrawerPage(),
       body: Builder(
         builder: (BuildContext context) {
           return Container(
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
+                /*Container(
                   child: Row(
                     children: <Widget>[
                       InkWell(
@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                             height: deviceHeight * .05,
                             width: deviceWidth * .1,
                             decoration: BoxDecoration(
-                                color: Colors.purple.withOpacity(0.5),
+                                color: Color.fromRGBO(67, 2, 63, 0.3),
                                 borderRadius: BorderRadius.circular(5)
                             ),
                             margin: EdgeInsets.only(top: deviceHeight * .07,),
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       )
                     ],
                   ),
-                ),
+                ),*/
                 Padding(
                   padding: EdgeInsets.only(left: deviceWidth * .03, right: deviceWidth * .03),
                   child: Container(
@@ -240,11 +240,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 margin: EdgeInsets.only(top: deviceHeight * .02),
                                 child: Row(
                                   children: <Widget>[
-                                    Icon(Icons.school, color: Colors.purple,),
+                                    Icon(Icons.school, color: Color.fromRGBO(67, 2, 63, 1),),
                                     Container(
                                       margin: EdgeInsets.only(left: deviceWidth * .02),
                                       child: Text('Mon Parcours', style: TextStyle(
-                                          color: Colors.purple, fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
+                                          color: Color.fromRGBO(67, 2, 63, 1), fontWeight: FontWeight.w500, fontSize: 20, fontFamily: 'Barlow'
                                       ),),
                                     ),
                                   ],
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 margin: EdgeInsets.only(top: deviceHeight * .02),
                                 //alignment: Alignment.center,
                                 child: Text('JavaScript', style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold
+                                    fontSize: 22, fontWeight: FontWeight.bold, fontFamily: 'Barlow'
                                 ),),
                               )
                             ],
