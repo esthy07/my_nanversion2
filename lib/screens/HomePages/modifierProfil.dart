@@ -75,7 +75,7 @@ class ModifierProfil extends StatelessWidget {
                                     SizedBox(
                                       width: 6,
                                     ),
-                                    Icon(Icons.emoji_emotions),
+                                    Icon(Icons.insert_emoticon),
                                   ],
                                 ),
                               ),
