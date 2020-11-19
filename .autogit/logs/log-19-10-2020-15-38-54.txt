@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 19 2020 15:38:54 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/Constantes/customeTheme.dart
+* lib/Provider/UserProv.dart
+* lib/model/UseurModel.dart
+* lib/screens/AuthPages/register.dart
+* lib/widgets/drawer.dart
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:

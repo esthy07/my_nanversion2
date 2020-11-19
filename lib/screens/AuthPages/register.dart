@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import '../../Constantes/customeTheme.dart';
 import '../../model/UseurModel.dart';
 import '../HomePages/homePage.dart';
 
@@ -42,7 +43,8 @@ class _RegisterState extends State<Register> {
            
         if (newUser != null) {
             print(newUser);
-            UserModel newUserProv = UserModel(email: newUser.user.email);
+            var rng = new Random();
+            UserModel newUserProv = UserModel(email: newUser.user.email,image: userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],username:userName);
             Provider.of<UserProv>(context, listen: false).addUser(newUserProv);
           Navigator.of(context).pushNamed(Home.routeName);
         }

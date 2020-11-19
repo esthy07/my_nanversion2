@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProv with ChangeNotifier {
-  static const url = "https://mynan-ffc0a.firebaseio.com/User.json";
+  static const url = "https://mynan-ffc0a.firebaseio.com/UserModel.json";
   static const KEY_USER = "Patrick_Ethere_Key";
   UserModel _user;
 

@@ -47,7 +47,7 @@ class _DrawerPageState extends State<DrawerPage> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image:
-                                        AssetImage('assets/images/jeune.jpg'),
+                                        NetworkImage(userDefaultImageUrl[0]),
                                     fit: BoxFit.cover)),
                           ),
                           SizedBox(
