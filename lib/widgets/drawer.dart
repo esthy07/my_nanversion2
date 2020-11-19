@@ -4,7 +4,10 @@ import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
 import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/Notes/note.dart';
+import 'package:provider/provider.dart';
 
+import '../Provider/UserProv.dart';
+import '../Provider/UserProv.dart';
 import '../test.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -20,6 +23,8 @@ class _DrawerPageState extends State<DrawerPage> {
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+
+    final currentUser = Provider.of<UserProv>(context).loggedInUser;
 
     return Container(
       width: deviceWidth / 1.5,
@@ -47,7 +52,7 @@ class _DrawerPageState extends State<DrawerPage> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image:
-                                        AssetImage('assets/images/jeune.jpg'),
+                                        NetworkImage(currentUser.image),
                                     fit: BoxFit.cover)),
                           ),
                           SizedBox(
@@ -58,8 +63,8 @@ class _DrawerPageState extends State<DrawerPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  "Esthy N'goran",
+                              if(currentUser.firstName != null)  Text(
+                                  "${currentUser.firstName}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontFamily: 'Barlow',
@@ -67,7 +72,7 @@ class _DrawerPageState extends State<DrawerPage> {
                                 ),
                                 //SizedBox(height: deviceHeight * .01,),
                                 Text(
-                                  'esthythy@nan.ci',
+                                  '${_auth.currentUser.email}',
                                   style: TextStyle(
                                       color: Colors.grey,
                                       fontFamily: 'Barlow',
@@ -82,7 +87,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     Container(
                       margin: EdgeInsets.only(top: deviceHeight * .05),
                       child: Text(
-                        'NaN4.21_AT0131',
+                        '${currentUser.username}',
                         style: TextStyle(
                             color: primaryColor,
                             fontFamily: 'Barlow',
@@ -137,11 +142,10 @@ class _DrawerPageState extends State<DrawerPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          await _auth.signOut();
+                          Provider.of<UserProv>(context,listen: false).removeUser();
                           Navigator.pushNamed(context, ConexionPage.routeName);
-                          _auth.signOut();
-
-
                         },
                         child: Container(
                           padding: EdgeInsets.only(
