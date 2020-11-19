@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
@@ -20,12 +21,32 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _auth = FirebaseAuth.instance;
+  User user;
+  @override
+  void initState() {
+    getCurentUser();
+    super.initState();
+  }
+
+  void getCurentUser() async {
+    user = _auth.currentUser;
+    if (user != null) {
+      print("CurentUser ${user.email}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor:  Color.fromRGBO(67, 2, 63, 1), //or set color with: Color(0xFF0000FF)
+      statusBarColor:
+          Color.fromRGBO(67, 2, 63, 1), //or set color with: Color(0xFF0000FF)
     ));
     return MultiProvider(
       providers: [ChangeNotifierProvider.value(value: UserProv())],
@@ -37,7 +58,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
-        initialRoute: ConexionPage.routeName,
+        initialRoute:user != null? Home.routeName:ConexionPage.routeName,
         routes: {
           HomePage.routeName: (BuildContext context) => HomePage(),
           Home.routeName: (BuildContext context) => Home(),
