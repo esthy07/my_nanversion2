@@ -144,6 +144,7 @@ class _ChatPageState extends State<ChatPage> {
                     "message": messageText.text,
                     "sender": _auth.currentUser.email
                   });
+                  messageText.clear();
                 },
               ),
             ],

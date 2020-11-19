@@ -209,11 +209,11 @@ class _ConexionPageState extends State<ConexionPage> {
                             width: deviceWidth,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Color(0xff10182b)
-                                // gradient: LinearGradient(colors: [
-                                //   Color.fromRGBO(165, 31, 156, 1),
-                                //   Color.fromRGBO(67, 2, 63, 1),
-                                // ])
+                                // color: Color(0xff10182b)
+                                gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(165, 31, 156, 1),
+                                  Color.fromRGBO(67, 2, 63, 1),
+                                ])
                                 ),
                             child: Center(
                               child: Text(
