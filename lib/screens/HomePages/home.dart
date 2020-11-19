@@ -5,8 +5,10 @@ import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/listMessage.dart';
+import 'package:mynan/screens/HomePages/modifierProfil.dart';
 import 'package:mynan/screens/HomePages/profile9.dart';
 import 'package:mynan/screens/HomePages/recherche.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../HomePages/homePage.dart';
 
@@ -19,12 +21,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
+  final _auth = FirebaseAuth.instance;
+
   MotionTabController _tabController;
-  List<Widget> allPages = [HomePage(),Recherche(),ListMessage(),Profil()];
+  List<Widget> allPages = [HomePage(), Recherche(), ListMessage(), ModifierProfil()];
   @override
   void initState() {
     super.initState();
-    _tabController = MotionTabController(initialIndex: 0, vsync: this,length: allPages.length);
+    getCurentUser();
+    _tabController = MotionTabController(
+        initialIndex: 0, vsync: this, length: allPages.length);
+  }
+
+  void getCurentUser() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      print("CurentUser ${user.email}");
+    }
   }
 
   @override
@@ -37,7 +50,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: MotionTabBar(
-          labels: ["Home", "Search", "Chat","Profil"],
+          labels: ["Home", "Search", "Chat", "Profil"],
           initialSelectedTab: "Home",
           tabIconColor: primaryColor,
           tabSelectedColor: primaryColor,
@@ -47,12 +60,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               _tabController.index = value;
             });
           },
-          icons: [Icons.home, Icons.search, Icons.chat,Icons.dashboard],
+          icons: [Icons.home, Icons.search, Icons.chat, Icons.dashboard],
           textStyle: TextStyle(color: primaryColor),
         ),
-        body: MotionTabBarView(
-          controller: _tabController,
-          children: allPages ));
-    
+        body: MotionTabBarView(controller: _tabController, children: allPages));
   }
 }

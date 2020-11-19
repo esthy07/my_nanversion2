@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/register.dart';
@@ -10,8 +11,51 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _auth = FirebaseAuth.instance;
+  final _formKey = GlobalKey<FormState>();
+  String email;
+  String passeword;
+  Future<void> seveUser() async {
+    bool isOk = _formKey.currentState.validate();
+
+    if (isOk) {
+      try {
+        final newUser = await _auth.signInWithEmailAndPassword(
+            email: email, password: passeword);
+        if (newUser != null) {
+          print(newUser);
+          Navigator.of(context).pushNamed(Home.routeName);
+        } else {
+          print("Error login ");
+          print(newUser);
+        }
+      } catch (e) {
+        print("Error ${e.toString()}");
+      }
+
+      // User newUser = User(firstName: name, lastName: lastName, username: userName);
+      // Provider.of<UserProv>(context, listen: false).addUser(newUser);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    BoxDecoration boxDecoration = BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Color(0xff10182b).withOpacity(0.2),
+          blurRadius: 5,
+          offset: Offset(7, 5),
+        ),
+        // BoxShadow(
+        //   color: Color(0xff10182b),
+        //   blurRadius: 10,
+        //   offset: Offset(-8, -6),
+        // )
+      ],
+    );
     Widget champ(
       IconData icon,
       String input,
@@ -74,11 +118,60 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(20)),
               ),
               SizedBox(height: 90),
-              champ(Icons.person, "nom d'utlisateur ou email"),
-              champ(Icons.lock_outline, "mot de passe"),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      decoration: boxDecoration,
+                      height: 60,
+                      margin: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width / 1.4,
+                      alignment: Alignment.center,
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "veillez remplire le champ ";
+                          } else {
+                            email = value;
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.lock),
+                            border: InputBorder.none,
+                            hintText: "Email"),
+                      ),
+                    ),
+                    Container(
+                      decoration: boxDecoration,
+                      height: 60,
+                      margin: EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width / 1.4,
+                      alignment: Alignment.center,
+                      child: TextFormField(
+                        obscureText: true,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Veillez remplire le champ";
+                          } else {
+                            passeword = value;
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.person),
+                            border: InputBorder.none,
+                            hintText: "Password"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 20),
               InkWell(
-                onTap: () => Navigator.pushNamed(context, Home.routeName),
+                onTap: seveUser,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xff10182b),

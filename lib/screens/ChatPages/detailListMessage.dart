@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'chatPage.dart';
+
 Widget detailListMessage(BuildContext context, String nom, String message,
     String heure, String image) {
   return Padding(
@@ -7,48 +9,54 @@ Widget detailListMessage(BuildContext context, String nom, String message,
       left: 10,
       top: 20,
     ),
-    child: Row(
-      children: [
-        CircleAvatar(
-          backgroundImage: AssetImage(image),
-          maxRadius: 30,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    child: InkWell(
+          onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatPage(),)),
+          child: Container(
+        
+        child: Row(
           children: [
-            Text(
-              nom,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            CircleAvatar(
+              backgroundImage: AssetImage(image),
+              maxRadius: 30,
             ),
             SizedBox(
-              height: 5,
+              width: 10,
             ),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.check,
-                  color: Colors.grey,
-                  size: 20,
+                Text(
+                  nom,
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 2,
-                  child: Text(
-                    message,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.check,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Text(
+                        message,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
+            SizedBox(
+              width: 20,
+            ),
+            Text(heure),
           ],
         ),
-        SizedBox(
-          width: 20,
-        ),
-        Text(heure),
-      ],
+      ),
     ),
   );
 }
