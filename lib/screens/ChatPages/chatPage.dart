@@ -78,6 +78,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
               ),
               child: ListView(
+                reverse: true,
                 children: <Widget>[
                   StreamBuilder<QuerySnapshot>(
                     stream: _firestore.collection("messages").snapshots(),
@@ -87,7 +88,7 @@ class _ChatPageState extends State<ChatPage> {
                           backgroundColor: primaryColor,
                         );
                       }
-                      final messages = snapshot.data.docs;
+                      final messages = snapshot.data.docs.reversed;
                       List<Widget> messageList = [];
                       for(var message in messages){
                         if(message.data()["sender"] == _auth.currentUser.email){
