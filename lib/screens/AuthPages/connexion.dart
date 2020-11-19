@@ -53,7 +53,7 @@ class _ConexionPageState extends State<ConexionPage> {
                       borderRadius: BorderRadius.circular(20)),
                 ),*/
                 Container(
-                  margin: EdgeInsets.only(top: deviceHeight * .4),
+                  margin: EdgeInsets.only(top: deviceHeight * .45),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -122,9 +122,8 @@ class _ConexionPageState extends State<ConexionPage> {
                             gradient: LinearGradient(
 
                                 colors: [
-                                  Colors.purple[400],
-                                  Colors.purple,
-                                  Colors.purple[800]
+                                  Color.fromRGBO(165, 31, 156, 1),
+                                  Color.fromRGBO(67, 2, 63, 1),
                                 ]
                             )
                           ),

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.purple, //or set color with: Color(0xFF0000FF)
+      statusBarColor:  Color.fromRGBO(67, 2, 63, 1), //or set color with: Color(0xFF0000FF)
     ));
     return MultiProvider(
       providers: [ChangeNotifierProvider.value(value: UserProv())],

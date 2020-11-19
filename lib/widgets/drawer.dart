@@ -114,7 +114,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, TestPage.routeName);
+                          Navigator.pushNamed(context, ConexionPage.routeName);
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: deviceWidth * .02,),

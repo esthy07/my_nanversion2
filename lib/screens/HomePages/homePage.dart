@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   List<Widget> listModule = [
     ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Vue js',),
-    ParcoursWidget(colorParcours: Colors.white, colorModule: Colors.black, nomModule: 'React Native',),
+    ParcoursWidget(colorParcours: Colors.white, colorModule: Colors.blue, nomModule: 'React Native',),
     ParcoursWidget(colorParcours: Colors.grey, colorModule: Colors.black, nomModule: 'Ionic',)
 
 
