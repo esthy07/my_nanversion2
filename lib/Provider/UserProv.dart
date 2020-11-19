@@ -4,12 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:firebase_database/firebase_database.dart';
 
 class UserProv with ChangeNotifier {
   static const url = "https://mynan-ffc0a.firebaseio.com/UserModel.json";
   static const KEY_USER = "Patrick_Ethere_Key";
   UserModel _user;
-
+  // final dbRef = FirebaseDatabase.instance.reference().child("pets");
   UserModel get loggedInUser => _user;
 
   Future<void> addUser(UserModel newUser) async {
