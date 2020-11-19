@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../Constantes/customeTheme.dart';
+
 class ChatPage extends StatefulWidget {
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMessageStream();
-  }
-
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   TextEditingController messageText = TextEditingController();
@@ -84,24 +79,41 @@ class _ChatPageState extends State<ChatPage> {
               ),
               child: ListView(
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection("messages").snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator(
+                          backgroundColor: primaryColor,
+                        );
+                      }
+                      final messages = snapshot.data.docs;
+                      List<Widget> messageList = [];
+                      for(var message in messages){
+                        if(message.data()["sender"] == _auth.currentUser.email){
+                          messageList.add(reightMessage(context, message.data()["message"]));
+                        }else{
+                          messageList.add(leftMessage(context, message.data()["message"]));
+                        }
+                      }
+                      return Column(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Aujourd'hui",
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Aujourd'hui",
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                              )
+                            ],
+                          ),
+                          ...messageList
                         ],
-                      ),
-                      reightMessage(context,
-                          "Bonjour tu vas bien ? je suis un peu occupé on cause après bien ? je suis un peu occupé on cause après bien ? je suis un peu occupé on cause après"),
-                      leftMessage(context, "Bonjous"),
-                    ],
+                      );
+                    },
                   )
                 ],
               ),
