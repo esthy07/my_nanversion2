@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
-        initialRoute: Login.routeName,
+        initialRoute: ConexionPage.routeName,
         routes: {
           HomePage.routeName: (BuildContext context) => HomePage(),
           Home.routeName: (BuildContext context) => Home(),
