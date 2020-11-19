@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
+                  /*Container(
                     child: Row(
                       children: <Widget>[
                         InkWell(
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage>
                         )
                       ],
                     ),
-                  ),
+                  ),*/
                   Padding(
                     padding: EdgeInsets.only(
                         left: deviceWidth * .03, right: deviceWidth * .03),
