@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-User userFromMap(String str) => User.fromMap(json.decode(str));
+UserModel userFromMap(String str) => UserModel.fromMap(json.decode(str));
 
-String userToMap(User data) => json.encode(data.toMap());
+String userToMap(UserModel data) => json.encode(data.toMap());
 
-class User {
-  User({
+class UserModel {
+  UserModel({
     this.id,
     this.username,
     this.firstName,
@@ -30,7 +30,7 @@ class User {
   double lat;
   double long;
 
-  factory User.fromMap(Map<String, dynamic> json) => User(
+  factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
         id: json["id"] == null ? null : json["id"],
         username: json["username"] == null ? null : json["username"],
         firstName: json["firstName"] == null ? null : json["firstName"],

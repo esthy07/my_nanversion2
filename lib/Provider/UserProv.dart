@@ -8,9 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserProv with ChangeNotifier {
   static const url = "https://mynan-ffc0a.firebaseio.com/User.json";
   static const KEY_USER = "Patrick_Ethere_Key";
-  User _user;
+  UserModel _user;
 
-  Future<void> addUser(User newUser) async {
+  Future<void> addUser(UserModel newUser) async {
     final response = await http.post(url, body: json.encode(newUser.toMap()));
     if (response.statusCode == 200) {
       print(response.body);
@@ -21,7 +21,7 @@ class UserProv with ChangeNotifier {
     }
   }
 
-  Future<void> updateUser(User userToUpdate) async {
+  Future<void> updateUser(UserModel userToUpdate) async {
     // const url = "https://mynan-ffc0a.firebaseio.com/${userToUpdate.id}.json";
     final response =
         await http.post(url, body: json.encode(userToUpdate.toMap()));

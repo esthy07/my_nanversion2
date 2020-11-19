@@ -67,7 +67,7 @@ class _DrawerPageState extends State<DrawerPage> {
                                 ),
                                 //SizedBox(height: deviceHeight * .01,),
                                 Text(
-                                  'esthythy@nan.ci',
+                                  '${_auth.currentUser.email}',
                                   style: TextStyle(
                                       color: Colors.grey,
                                       fontFamily: 'Barlow',
@@ -137,11 +137,9 @@ class _DrawerPageState extends State<DrawerPage> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          await _auth.signOut();
                           Navigator.pushNamed(context, ConexionPage.routeName);
-                          _auth.signOut();
-
-
                         },
                         child: Container(
                           padding: EdgeInsets.only(

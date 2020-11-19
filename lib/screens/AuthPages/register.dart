@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import '../../model/UseurModel.dart';
 import '../HomePages/homePage.dart';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
@@ -38,16 +39,18 @@ class _RegisterState extends State<Register> {
       try {
         final newUser = await _auth.createUserWithEmailAndPassword(
             email: email, password: passeword);
+           
         if (newUser != null) {
-          print(newUser);
+            print(newUser);
+            UserModel newUserProv = UserModel(email: newUser.user.email);
+            Provider.of<UserProv>(context, listen: false).addUser(newUserProv);
           Navigator.of(context).pushNamed(Home.routeName);
         }
       } catch (e) {
         print("Error ${e.toString()}");
       }
 
-      // User newUser = User(firstName: name, lastName: lastName, username: userName);
-      // Provider.of<UserProv>(context, listen: false).addUser(newUser);
+    
     }
   }
 
