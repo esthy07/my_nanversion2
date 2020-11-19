@@ -1,15 +1,15 @@
 import 'dart:convert';
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProv with ChangeNotifier {
-  static const url = "https://mynan-ffc0a.firebaseio.com/User.json";
+  static const url = "https://mynan-ffc0a.firebaseio.com/UserModel.json";
   static const KEY_USER = "Patrick_Ethere_Key";
   User _user;
-
+  final dbRef = FirebaseDatabase.instance.reference().child("pets");
   Future<void> addUser(User newUser) async {
     final response = await http.post(url, body: json.encode(newUser.toMap()));
     if (response.statusCode == 200) {
