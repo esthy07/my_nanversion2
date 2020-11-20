@@ -7,6 +7,7 @@ import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/AuthPages/register.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:mynan/screens/HomePages/homePage.dart';
+import 'package:mynan/screens/HomePages/profil_adresse.dart';
 import 'package:mynan/screens/Notes/note.dart';
 import 'package:mynan/screens/Notes/quiz.dart';
 import 'package:mynan/test.dart';
@@ -68,7 +69,8 @@ class _MyAppState extends State<MyApp> {
           Register.routeName: (BuildContext context) => Register(),
           Revision.routeName: (BuildContext context) => Revision(),
           TestPage.routeName: (BuildContext context) => TestPage(),
-          ConexionPage.routeName: (BuildContext context) => ConexionPage()
+          ConexionPage.routeName: (BuildContext context) => ConexionPage(),
+          ProfilAdresse.routeName: (BuildContext context) => ProfilAdresse()
         },
       ),
     );

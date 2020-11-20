@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
 
 import 'liveCoding.dart';
 import 'projet.dart';
@@ -24,21 +25,22 @@ class _RevisionState extends State<Revision>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        centerTitle: true,
+        backgroundColor: primaryColor,
         title: Text(
           "Mes Notes",
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20, fontFamily: 'Barlow'),
         ),
         bottom: TabBar(
-          indicatorColor: Color(0xff983298),
-          labelColor: Colors.black,
-          labelStyle: TextStyle(fontSize: 16),
+          indicatorColor: primaryColor,
+          labelColor: Colors.white            ,
+          labelStyle: TextStyle(fontSize: 16, fontFamily: 'Baarlow', fontWeight: FontWeight.w500),
           indicatorSize: TabBarIndicatorSize.tab,
           controller: tabController,
           tabs: <Widget>[
             Tab(
-              text: "Mes Quiz",
+              text: "Mes Quizz",
             ),
             Tab(
               text: "Mes Projes",
