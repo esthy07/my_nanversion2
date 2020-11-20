@@ -69,11 +69,12 @@ class _ListMessageState extends State<ListMessage> {
           child: StreamBuilder<QuerySnapshot>(
             stream: _firestore.collection("salons").snapshots(),
             builder: (context, snapshot) {
-              
               List<Widget> listSalon = [];
               if (snapshot.hasData) {
                 final salons = snapshot.data.docs.reversed;
                 for (var salon in salons) {
+                  print("############################");
+                  print(salon.data());
                   if (salon.data()["sender"] == _auth.currentUser.email ||
                       salon.data()["for"] == _auth.currentUser.email)
                     listSalon.add(detailListMessage(
