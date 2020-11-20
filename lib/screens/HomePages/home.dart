@@ -9,7 +9,9 @@ import 'package:mynan/screens/HomePages/modifierProfil.dart';
 import 'package:mynan/screens/HomePages/profile9.dart';
 import 'package:mynan/screens/HomePages/recherche.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
+import '../../Provider/UserProv.dart';
 import '../HomePages/homePage.dart';
 
 class Home extends StatefulWidget {
@@ -37,6 +39,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     final user = _auth.currentUser;
     if (user != null) {
       print("CurentUser ${user.email}");
+      
+      await Provider.of<UserProv>(context,listen: false).getUser();
+      await Provider.of<UserProv>(context,listen: false).getOneUser(user.email);
     }
   }
 

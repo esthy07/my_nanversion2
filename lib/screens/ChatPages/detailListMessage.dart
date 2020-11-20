@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'chatPage.dart';
 
-Widget detailListMessage(BuildContext context, String nom, String message,
-    String heure, String image) {
+Widget detailListMessage({BuildContext context, String nom, String message,
+    String heure, String image,Function collBack}) {
   return Padding(
     padding: const EdgeInsets.only(
       left: 10,
@@ -12,13 +12,12 @@ Widget detailListMessage(BuildContext context, String nom, String message,
     child: Column(
       children: <Widget>[
         InkWell(
-              onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatPage(),)),
+              onTap:collBack,
               child: Container(
-
             child: Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage(image),
+                  backgroundImage: NetworkImage(image),
                   maxRadius: 30,
                 ),
                 SizedBox(

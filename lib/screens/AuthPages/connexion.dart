@@ -4,6 +4,11 @@ import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/register.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:mynan/screens/HomePages/homePage.dart';
+import 'package:provider/provider.dart';
+
+import '../../Constantes/customeTheme.dart';
+import '../../Provider/UserProv.dart';
+import 'register.dart';
 
 class ConexionPage extends StatefulWidget {
   static const routeName = 'connexionPage';
@@ -29,6 +34,7 @@ class _ConexionPageState extends State<ConexionPage> {
       try {
         final newUser = await _auth.signInWithEmailAndPassword(
             email: email, password: passeword);
+            await Provider.of<UserProv>(context,listen: false).getUser();
         if (newUser != null) {
           print(newUser);
           Navigator.of(context).pushNamed(Home.routeName);
@@ -37,7 +43,7 @@ class _ConexionPageState extends State<ConexionPage> {
           print(newUser);
           setState(() {
             errorMessage = "Login ou mot de passe incorect !!";
-            showLoader = true;
+            showLoader = false;
           });
         }
       } catch (e) {

@@ -42,9 +42,10 @@ class ProfilImage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ChatPage(),
-              ));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) => ChatPage(),
+              // )
+              // );
             }),
         // FocusedMenuItem(
         //     title: Text("Favorite"),

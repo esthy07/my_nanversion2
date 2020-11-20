@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Thu Nov 19 2020 16:09:09 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/Provider/UserProv.dart
+* lib/main.dart
+* lib/screens/AuthPages/connexion.dart
+* lib/screens/HomePages/home.dart
+* lib/widgets/drawer.dart
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:
