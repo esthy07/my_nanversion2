@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'chatPage.dart';
 
-Widget detailListMessage({BuildContext context, String nom, String message,
-    String heure, String image,Function collBack}) {
+Widget detailListMessage(
+    {BuildContext context,
+    String titre,
+    String lastMessage,
+    String heure,
+    String image,
+    String idSalon}) {
   return Padding(
     padding: const EdgeInsets.only(
       left: 10,
@@ -12,8 +17,8 @@ Widget detailListMessage({BuildContext context, String nom, String message,
     child: Column(
       children: <Widget>[
         InkWell(
-              onTap:collBack,
-              child: Container(
+          onTap: ()=>null,
+          child: Container(
             child: Row(
               children: [
                 CircleAvatar(
@@ -27,8 +32,11 @@ Widget detailListMessage({BuildContext context, String nom, String message,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      nom,
-                      style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, fontFamily: 'Barlow'),
+                      "$titre",
+                      style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Barlow'),
                     ),
                     SizedBox(
                       height: 5,
@@ -43,10 +51,8 @@ Widget detailListMessage({BuildContext context, String nom, String message,
                         Container(
                           width: MediaQuery.of(context).size.width / 2,
                           child: Text(
-                            message,
-                            style: TextStyle(
-                              fontFamily: 'Barlow'
-                            ),
+                            lastMessage,
+                            style: TextStyle(fontFamily: 'Barlow'),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -57,9 +63,11 @@ Widget detailListMessage({BuildContext context, String nom, String message,
                 SizedBox(
                   width: 20,
                 ),
-                Text(heure, style: TextStyle(
-                  fontFamily: 'Barlow', fontWeight: FontWeight.w500
-                ),),
+                Text(
+                  heure,
+                  style: TextStyle(
+                      fontFamily: 'Barlow', fontWeight: FontWeight.w500),
+                ),
               ],
             ),
           ),

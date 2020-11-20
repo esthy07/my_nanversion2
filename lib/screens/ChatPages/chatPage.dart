@@ -7,8 +7,11 @@ import 'package:mynan/model/UseurModel.dart';
 import '../../Constantes/customeTheme.dart';
 
 class ChatPage extends StatefulWidget {
-  UserModel userMessage;
-  ChatPage(this.userMessage);
+  String image;
+  String titre;
+  String idSalon;
+
+  ChatPage(this.idSalon,this.titre,this.image);
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -59,14 +62,14 @@ class _ChatPageState extends State<ChatPage> {
         title: Row(
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: NetworkImage(widget.userMessage.image),
+              backgroundImage: NetworkImage(widget.image),
               radius: 20,
             ),
             SizedBox(
               width: 10,
             ),
             Text(
-              '${widget.userMessage.email}',
+              '${widget.titre}',
             ),
           ],
         ),
