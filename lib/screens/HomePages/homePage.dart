@@ -22,18 +22,18 @@ class _HomePageState extends State<HomePage>
 
   List<Widget> listModule = [
     ParcoursWidget(
-      colorParcours: Colors.grey,
-      colorModule: Colors.black,
-      nomModule: 'Vue js',
-      colorNomParcours: Colors.black,
-      colorPourcentage: Colors.black,
-    ),
-    ParcoursWidget(
       colorParcours: Colors.white,
       colorModule: Colors.blue,
       nomModule: 'React Native',
       colorPourcentage: Colors.green,
       colorNomParcours: Color.fromRGBO(67, 2, 63, 1),
+    ),
+    ParcoursWidget(
+      colorParcours: Colors.grey,
+      colorModule: Colors.black,
+      nomModule: 'Vue js',
+      colorNomParcours: Colors.black,
+      colorPourcentage: Colors.black,
     ),
     ParcoursWidget(
       colorParcours: Colors.grey,
