@@ -11,7 +11,7 @@ class ChatPage extends StatefulWidget {
   String titre;
   String idSalon;
 
-  ChatPage(this.idSalon,this.titre,this.image);
+  ChatPage(this.idSalon, this.titre, this.image);
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -24,12 +24,29 @@ class _ChatPageState extends State<ChatPage> {
     'One',
     'Two',
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMessage();
+  }
 
   void getMessage() async {
-    final messages = await _firestore.collection("messages").get();
-    for (var i in messages.docs) {
-      print(i.data());
-    }
+    print("get Salons");
+    _firestore
+        .collection("salons")
+        .where(
+          'id',
+          isEqualTo: "RnEYxKdkD8srCYMNAkPy",
+        )
+        .get()
+        .then((value) => print(value));
+    // final listMessage = messages.doc().get();
+    print("Parick");
+    // print(listMessage);
+    // for (var i in messages.docs) {
+    //   print(i.data());
+    // }
   }
 
   void getMessageStream() async {
@@ -111,16 +128,16 @@ class _ChatPageState extends State<ChatPage> {
                       }
                       final messages = snapshot.data.docs.reversed;
                       List<Widget> messageList = [];
-                      for (var message in messages) {
-                        if (message.data()["sender"] ==
-                            _auth.currentUser.email) {
-                          messageList.add(reightMessage(
-                              context, message.data()["message"]));
-                        } else {
-                          messageList.add(
-                              leftMessage(context, message.data()["message"]));
-                        }
-                      }
+                      // for (var message in messages) {
+                      //   if (message.get("sender")['email'] ==
+                      //       _auth.currentUser.email) {
+                      //     messageList.add(reightMessage(
+                      //         context, message.data()["message"]));
+                      //   } else {
+                      //     messageList.add(
+                      //         leftMessage(context, message.data()["message"]));
+                      //   }
+                      // }
                       return Column(
                         children: <Widget>[
                           Row(

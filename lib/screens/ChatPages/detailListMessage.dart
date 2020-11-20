@@ -17,7 +17,7 @@ Widget detailListMessage(
     child: Column(
       children: <Widget>[
         InkWell(
-          onTap: ()=>null,
+          onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatPage(null, titre, image),)),
           child: Container(
             child: Row(
               children: [
@@ -64,7 +64,7 @@ Widget detailListMessage(
                   width: 20,
                 ),
                 Text(
-                  heure,
+                  "$heure",
                   style: TextStyle(
                       fontFamily: 'Barlow', fontWeight: FontWeight.w500),
                 ),

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/model/UseurModel.dart';
-import 'package:mynan/screens/ChatPages/ContactList.dart';
+import 'package:mynan/screens/ChatPages/contacts.dart';
 import 'package:mynan/screens/ChatPages/detailListMessage.dart';
 import 'package:mynan/widgets/drawer.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -39,7 +39,14 @@ class _ListMessageState extends State<ListMessage> {
   Widget build(BuildContext context) {
     allUser = Provider.of<UserProv>(context).allUsers;
     return Scaffold(
-      floatingActionButton: CircleAvatar(backgroundColor: primaryColor,radius: 25,child: IconButton(icon: Icon(Icons.chat),onPressed:()=>Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactList(context),)),),),
+      floatingActionButton: CircleAvatar(
+        backgroundColor: primaryColor,
+        radius: 25,
+        child: IconButton(
+          icon: Icon(Icons.chat,color: Colors.white,),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactPage(),)),
+        ),
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -126,30 +133,3 @@ class _ListMessageState extends State<ListMessage> {
   }
 }
 
-// Container(
-//   child: !_init
-//       ? ListView.builder(
-//           itemCount: allUser?.length,
-//           itemBuilder: (context, index) {
-//             if (allUser[index].email != _auth.currentUser.email) {
-//               return detailListMessage(
-//                   context: context,
-//                   heure: "12:00",
-//                   image: allUser[index].image,
-//                   message: "Ok c'est compris",
-//                   nom: allUser[index].email,
-//                   collBack: () =>
-//                       Navigator.of(context).push(MaterialPageRoute(
-//                         builder: (context) => ChatPage(allUser[index]),
-//                       )));
-//             }
-//             return null;
-//           },
-//         )
-//       : Container(
-//           child: Center(
-//             child: Text("Loading ..."),
-//           ),
-//         ),
-// ),
-//
