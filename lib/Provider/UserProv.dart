@@ -18,12 +18,10 @@ class UserProv with ChangeNotifier {
   Future<void> addUser(UserModel newUser) async {
     final response = await http.post(url, body: json.encode(newUser.toMap()));
     if (response.statusCode == 200) {
-      print(response.body);
       final responseBody = json.decode(response.body) as Map<String, dynamic>;
       newUser.id = responseBody["name"];
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
-      print('login successfully');
     }
   }
 
@@ -32,10 +30,8 @@ class UserProv with ChangeNotifier {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body) as Map<String, dynamic>;
-      print("###############################");
       UserModel newUser;
       responseBody.forEach((key, value) {
-        print(value);
         newUser = UserModel.fromMap(value);
         newUser.id = key;
       });
@@ -43,7 +39,6 @@ class UserProv with ChangeNotifier {
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
       _user = newUser;
       notifyListeners();
-      print('get One User successfully');
     }
   }
 
@@ -52,10 +47,8 @@ class UserProv with ChangeNotifier {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body) as Map<String, dynamic>;
-      print("###############################");
       List<UserModel> allUser = [];
       responseBody.forEach((key, value) {
-        print(value);
         UserModel newUser = UserModel.fromMap(value);
         newUser.id = key;
         allUser.add(newUser);
@@ -63,7 +56,6 @@ class UserProv with ChangeNotifier {
       
       _allUsers = allUser;
       notifyListeners();
-      print('get All Users ok successfully');
     }
   }
 
@@ -74,7 +66,6 @@ class UserProv with ChangeNotifier {
     if (response.statusCode == 200) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(userToUpdate.toMap()));
-      print('login successfully');
     }
   }
 
@@ -101,7 +92,6 @@ class UserProv with ChangeNotifier {
       var extratData = json.decode(prefs.getString(KEY_USER));
       _user = UserModel.fromMap(extratData);
       notifyListeners();
-      print("Get User ${_user.toMap()}");
     }
     return null;
   }

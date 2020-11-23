@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage>
                       ),),
                     ),),
                   Container(
-                      margin: EdgeInsets.only(top: deviceHeight * .12),
+                      margin: EdgeInsets.only(top: deviceHeight * .05),
                       child: Column(
                         children: <Widget>[
                           Padding(

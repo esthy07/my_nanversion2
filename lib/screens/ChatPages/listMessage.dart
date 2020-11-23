@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/model/UseurModel.dart';
-import 'package:mynan/screens/ChatPages/chatPage.dart';
+import 'package:mynan/screens/ChatPages/contacts.dart';
 import 'package:mynan/screens/ChatPages/detailListMessage.dart';
 import 'package:mynan/widgets/drawer.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +35,14 @@ class _ListMessageState extends State<ListMessage> {
   Widget build(BuildContext context) {
     allUser = Provider.of<UserProv>(context).allUsers;
     return Scaffold(
+      floatingActionButton: CircleAvatar(
+        backgroundColor: primaryColor,
+        radius: 25,
+        child: IconButton(
+          icon: Icon(Icons.chat,color: Colors.white,),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactPage(),)),
+        ),
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -65,31 +73,49 @@ class _ListMessageState extends State<ListMessage> {
           child: StreamBuilder<QuerySnapshot>(
             stream: _firestore.collection("salons").snapshots(),
             builder: (context, snapshot) {
-              
               List<Widget> listSalon = [];
               if (snapshot.hasData) {
                 final salons = snapshot.data.docs.reversed;
-                for (var salon in salons) {
-                  if (salon.data()["sender"] == _auth.currentUser.email ||
-                      salon.data()["for"] == _auth.currentUser.email)
-                    listSalon.add(detailListMessage(
-                        context: context,
-                        heure: "12:21",
-                        image:
-                            "https://cdn.pixabay.com/photo/2020/09/27/04/15/cat-5605615__340.jpg",
-                        message: "ok merci",
-                        nom: "My Salon",
-                        collBack: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ChatPage(UserModel(email: "patrick@gmail")),
-                            ))));
 
-                  return ListView(
-                    // reverse: true,
-                    children: listSalon,
-                  );
+                for (var salon in salons) {
+                  print("############################");
+                  print(salon.get("sender")["email"]);
+                  var dateLastMessage =
+                      salon.get("lastMessage")["dateMessages"];
+                  dateLastMessage =
+                      DateTime.parse(dateLastMessage.toDate().toString());
+                  final senderEmail = salon.get("sender")["email"];
+                  final senderImage = salon.get("sender")["image"];
+                  final forEmail = salon.get("for")["email"];
+                  final forImage = salon.get("for")["image"];
+                  final lastMessage = salon.get("lastMessage");
+                  final idSalon = salon.id;
+                  final curentEmail = _auth.currentUser.email;
+                  String imageSalon = "";
+                  String titreSalon = "";
+
+                  if (senderEmail == curentEmail || forEmail == curentEmail) {
+                    if (curentEmail == senderEmail) {
+                      imageSalon = forImage;
+                      titreSalon = forEmail;
+                    } else {
+                      imageSalon = senderImage;
+                      titreSalon = senderEmail;
+                    }
+                    listSalon.add(detailListMessage(
+                      context: context,
+                      heure: dateLastMessage,
+                      idSalon: idSalon,
+                      image: imageSalon,
+                      lastMessage: lastMessage,
+                      titre: titreSalon,
+                    ));
+                  }
                 }
+                return ListView(
+                  // reverse: true,
+                  children: listSalon,
+                );
               } else {
                 return Container(
                   child: Center(
@@ -103,30 +129,3 @@ class _ListMessageState extends State<ListMessage> {
   }
 }
 
-// Container(
-//   child: !_init
-//       ? ListView.builder(
-//           itemCount: allUser?.length,
-//           itemBuilder: (context, index) {
-//             if (allUser[index].email != _auth.currentUser.email) {
-//               return detailListMessage(
-//                   context: context,
-//                   heure: "12:00",
-//                   image: allUser[index].image,
-//                   message: "Ok c'est compris",
-//                   nom: allUser[index].email,
-//                   collBack: () =>
-//                       Navigator.of(context).push(MaterialPageRoute(
-//                         builder: (context) => ChatPage(allUser[index]),
-//                       )));
-//             }
-//             return null;
-//           },
-//         )
-//       : Container(
-//           child: Center(
-//             child: Text("Loading ..."),
-//           ),
-//         ),
-// ),
-//

@@ -1,10 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/screens/HomePages/profil_adresse.dart';
+import 'package:provider/provider.dart';
 
 class ModifierProfil extends StatelessWidget {
+
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+
+    final currentUsers = Provider.of<UserProv>(context).loggedInUser;
+
     Widget ligne(IconData icon, String titre, String desc, String mod) {
       return Padding(
         padding: const EdgeInsets.only(top: 20, left: 20),
@@ -102,6 +112,56 @@ class ModifierProfil extends StatelessWidget {
       );
     }
 
+    Widget adresseProfil(IconData icon, String titre, String desc, String mod) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 20, left: 20),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 19,
+              color: primaryColor,
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  titre,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Color(0xff10182b), fontFamily: 'Barlow'),
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.9,
+                  child: Text(
+                    desc,
+                    style: TextStyle(color: Colors.grey, fontFamily: 'Barlow'),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  size: 17,
+                  color: Colors.blue[100],
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, ProfilAdresse.routeName);
+                })
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       body: ListView(
         children: [
@@ -121,6 +181,7 @@ class ModifierProfil extends StatelessWidget {
                   ],
                   color: Colors.white,
                   image: DecorationImage(
+                      //image: NetworkImage(currentUsers?.image)
                       image: AssetImage("assets/images/jeune1.jpg"),
                       fit: BoxFit.cover),
                 ),
@@ -207,10 +268,10 @@ class ModifierProfil extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5)),
                     child: Column(
                       children: [
-                        ligne(Icons.location_on, "Localisation", "cocody",
+                        adresseProfil(Icons.location_on, "Localisation", "cocody",
                             "Saisir votre Localité"),
                         Divider(),
-                        ligne(Icons.email, "Email", "orphelia.domi@gmail.com",
+                        ligne(Icons.email, "Email", "${_auth.currentUser.email}",
                             "Saisir votre Email"),
                         Divider(),
                         ligne(Icons.phone, "Phone", "76625311",

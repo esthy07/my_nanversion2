@@ -14,7 +14,16 @@ Widget pageModel(
     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(
-        color: Color(0xffe9ecef), borderRadius: BorderRadius.circular(6)),
+        boxShadow: [
+          BoxShadow(
+              color: Color(0x1a000000),
+              blurRadius: 2,
+              spreadRadius: 0,
+              offset: Offset(0, 5))
+        ],
+        color: Color.fromRGBO(242, 242, 242, 1),
+        borderRadius: BorderRadius.circular(6)
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -32,12 +41,14 @@ Widget pageModel(
                 children: [
                   Text(
                     titre,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, fontFamily: 'Barlow'),
                   ),
                   SizedBox(
                     height: 25,
                   ),
-                  Text(pourc),
+                  Text(pourc, style: TextStyle(
+                    fontFamily: 'Barlow'
+                  ),),
                 ],
               ),
             ),
@@ -47,7 +58,9 @@ Widget pageModel(
           padding: const EdgeInsets.only(right: 10, top: 10),
           child: Column(
             children: [
-              Text(date),
+              Text(date, style: TextStyle(
+                fontFamily: 'Barlow'
+              ),),
               SizedBox(
                 height: 20,
               ),
