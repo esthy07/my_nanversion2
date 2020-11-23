@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../../Constantes/customeTheme.dart';
-import '../../model/UseurModel.dart';
+import '../../model/UseurModel.dart'; 
 import '../HomePages/homePage.dart';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';

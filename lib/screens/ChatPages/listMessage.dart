@@ -6,7 +6,6 @@ import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/detailListMessage.dart';
 import 'package:mynan/widgets/drawer.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
 import '../../Constantes/customeTheme.dart';
 
@@ -31,10 +30,7 @@ class _ListMessageState extends State<ListMessage> {
   List<UserModel> allUser = [];
 
   final _firestore = FirebaseFirestore.instance;
-
-  final dbRef = FirebaseDatabase.instance.reference().child("UserModel");
   final _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     allUser = Provider.of<UserProv>(context).allUsers;

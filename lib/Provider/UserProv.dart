@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +10,7 @@ class UserProv with ChangeNotifier {
   static const KEY_USER = "Patrick_Ethere_Key";
   UserModel _user;
   List<UserModel> _allUsers;
-  final dbRef = FirebaseDatabase.instance.reference().child("UserModel");
+
   UserModel get loggedInUser => _user;
 
   List<UserModel> get allUsers => _allUsers;
