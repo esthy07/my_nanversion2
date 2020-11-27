@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'Provider/UserProv.dart';
 import 'Provider/UserProv.dart';
 import 'Provider/utilisateurProv.dart';
+import 'screens/AuthPages/inscription.dart';
 import 'screens/HomePages/modif_profil.dart';
 import 'screens/homeTest.dart';
 import 'screens/modif_user.dart';
@@ -80,7 +81,8 @@ class _MyAppState extends State<MyApp> {
           ProfilAdresse.routeName: (BuildContext context) => ProfilAdresse(),
           HomeTest.routeName: (BuildContext context) => HomeTest(),
           ModifUtilisateur.routeName: (BuildContext context) => ModifUtilisateur(),
-          ModifProfil.routeName: (BuildContext context) => ModifProfil()
+          ModifProfil.routeName: (BuildContext context) => ModifProfil(),
+          InscriptionPage.routeName: (BuildContext context) => InscriptionPage()
         },
       ),
     );

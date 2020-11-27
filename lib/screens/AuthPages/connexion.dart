@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../Constantes/customeTheme.dart';
 import '../../Provider/UserProv.dart';
+import 'inscription.dart';
 import 'register.dart';
 
 class ConexionPage extends StatefulWidget {
@@ -218,13 +219,13 @@ class _ConexionPageState extends State<ConexionPage> {
                           ),
                           InkWell(
                             onTap: () =>
-                                Navigator.of(context).pushNamed(Register.routeName),
+                                Navigator.of(context).pushNamed(InscriptionPage.routeName),
                             child: Container(
                               margin: EdgeInsets.only(top: deviceHeight * .05),
                               alignment: Alignment.topRight,
                               child: Text(
                                 "S'inscrire",
-                                style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+                                style: TextStyle(color: Color.fromRGBO(16, 24, 43, 1), fontWeight: FontWeight.bold),
                               ),
                             ),
                           )

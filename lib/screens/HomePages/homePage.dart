@@ -71,138 +71,140 @@ class _HomePageState extends State<HomePage>
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.7), BlendMode.luminosity),
                       fit: BoxFit.cover)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /*Container(
-                    child: Row(
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            print('thythy');
-                            Scaffold.of(context).openDrawer();
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(left: deviceWidth * .03,
-                                right: deviceWidth * .03),
-                            child: Container(
-                              height: deviceHeight * .05,
-                              width: deviceWidth * .1,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(67, 2, 63, 0.3),
-                                  borderRadius: BorderRadius.circular(5)
-                              ),
-                              margin: EdgeInsets.only(top: deviceHeight * .07,),
-                              child: Icon(
-                                Icons.menu, color: Colors.white, size: 27,),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),*/
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: deviceWidth * .03, right: deviceWidth * .03),
-                    child: Container(
-                        margin: EdgeInsets.only(
-                          top: deviceHeight * .05,
-                        ),
-                        child: Text(
-                          'Bienvenue sur MyNaN',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: MediaQuery.of(context).textScaleFactor * 30 ,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Barlow'),
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: deviceWidth * .03, right: deviceWidth * .03),
-                    child: Container(
-                      margin: EdgeInsets.only(top: deviceHeight * .015),
-                      child: Text('Vendredi 20 novembre', style: TextStyle(
-                          color: Colors.white, fontFamily: 'Barlow'
-                      ),),
-                    ),),
-                  Container(
-                      margin: EdgeInsets.only(top: deviceHeight * .05),
-                      child: Column(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    /*Container(
+                      child: Row(
                         children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                                left: deviceWidth * .03,
-                                right: deviceWidth * .03),
-                            child: Container(
-                              padding: EdgeInsets.only(left: deviceWidth * .05),
-                              height: deviceHeight * .15,
-                              width: deviceWidth,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
+                          InkWell(
+                            onTap: () {
+                              print('thythy');
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(left: deviceWidth * .03,
+                                  right: deviceWidth * .03),
+                              child: Container(
+                                height: deviceHeight * .05,
+                                width: deviceWidth * .1,
+                                decoration: BoxDecoration(
+                                    color: Color.fromRGBO(67, 2, 63, 0.3),
+                                    borderRadius: BorderRadius.circular(5)
+                                ),
+                                margin: EdgeInsets.only(top: deviceHeight * .07,),
+                                child: Icon(
+                                  Icons.menu, color: Colors.white, size: 27,),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    margin:
-                                    EdgeInsets.only(top: deviceHeight * .02),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.school,
-                                          color: Color.fromRGBO(67, 2, 63, 1),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              left: deviceWidth * .02),
-                                          child: Text(
-                                            'Mon Parcours',
-                                            style: TextStyle(
-                                                color:
-                                                Color.fromRGBO(67, 2, 63, 1),
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 20,
-                                                fontFamily: 'Barlow'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin:
-                                    EdgeInsets.only(top: deviceHeight * .02),
-                                    //alignment: Alignment.center,
-                                    child: Text(
-                                      'JavaScript',
-                                      style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Barlow'),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: deviceHeight * .01),
-                            child: CarouselSlider(
-                                items: listModule,
-                                options: CarouselOptions(
-                                    viewportFraction: 0.75,
-                                    autoPlay: false,
-                                    aspectRatio: 1.8,
-                                    enlargeCenterPage: true
-                                )
                             ),
                           )
                         ],
-                      )
+                      ),
+                    ),*/
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: deviceWidth * .03, right: deviceWidth * .03),
+                      child: Container(
+                          margin: EdgeInsets.only(
+                            top: deviceHeight * .05,
+                          ),
+                          child: Text(
+                            'Bienvenue sur MyNaN',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: MediaQuery.of(context).textScaleFactor * 30 ,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Barlow'),
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: deviceWidth * .03, right: deviceWidth * .03),
+                      child: Container(
+                        margin: EdgeInsets.only(top: deviceHeight * .015),
+                        child: Text('Vendredi 20 novembre', style: TextStyle(
+                            color: Colors.white, fontFamily: 'Barlow'
+                        ),),
+                      ),),
+                    Container(
+                        margin: EdgeInsets.only(top: deviceHeight * .05),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: deviceWidth * .03,
+                                  right: deviceWidth * .03),
+                              child: Container(
+                                padding: EdgeInsets.only(left: deviceWidth * .05),
+                                height: deviceHeight * .15,
+                                width: deviceWidth,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      margin:
+                                      EdgeInsets.only(top: deviceHeight * .02),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.school,
+                                            color: Color.fromRGBO(67, 2, 63, 1),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                left: deviceWidth * .02),
+                                            child: Text(
+                                              'Mon Parcours',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color.fromRGBO(67, 2, 63, 1),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 20,
+                                                  fontFamily: 'Barlow'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                      EdgeInsets.only(top: deviceHeight * .02),
+                                      //alignment: Alignment.center,
+                                      child: Text(
+                                        'JavaScript',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Barlow'),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: deviceHeight * .01),
+                              child: CarouselSlider(
+                                  items: listModule,
+                                  options: CarouselOptions(
+                                      viewportFraction: 0.75,
+                                      autoPlay: false,
+                                      aspectRatio: 1.8,
+                                      enlargeCenterPage: true
+                                  )
+                              ),
+                            )
+                          ],
+                        )
 
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             );
           }),
