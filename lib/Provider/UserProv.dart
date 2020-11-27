@@ -33,22 +33,12 @@ class UserProv with ChangeNotifier {
     } catch (e) {
       print("Error to add User ${e.toString()}");
     }
-
-    // final response = await http.post(url, body: json.encode(newUser.toMap()));
-    // if (response.statusCode == 200) {
-    //   final responseBody = json.decode(response.body) as Map<String, dynamic>;
-    //   newUser.id = responseBody["name"];
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   prefs.setString(KEY_USER, json.encode(newUser.toMap()));
-    // }
   }
 
   Future<void> getOneUser(String email) async {
     try {
-      print("Email $email");
       final result =
           await userCollection.where("email", isEqualTo: email).get();
-      print("Get User ");
       UserModel newUser = UserModel.fromMap(result.docs[0].data());
       print(result.docs[0].data());
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,20 +48,6 @@ class UserProv with ChangeNotifier {
     } catch (e) {
       print("Eroor to get user by Email ${e.toString()}");
     }
-    // var url = "https://mynan-ffc0a.firebaseio.com/UserModel.json?email=$email";
-    // final response = await http.get(url);
-    // if (response.statusCode == 200) {
-    //   final responseBody = json.decode(response.body) as Map<String, dynamic>;
-    //   UserModel newUser;
-    //   responseBody.forEach((key, value) {
-    //     newUser = UserModel.fromMap(value);
-    //     // newUser.id = key;
-    //   });
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   prefs.setString(KEY_USER, json.encode(newUser.toMap()));
-    //   _user = newUser;
-    //   notifyListeners();
-    // }
   }
 
   Future<void> getAllUser() async {
@@ -91,29 +67,24 @@ class UserProv with ChangeNotifier {
     } catch (e) {
       print("Error to get all User ${e.toString()}");
     }
-    // var url = "https://mynan-ffc0a.firebaseio.com/UserModel.json";
-    // final response = await http.get(url);
-    // if (response.statusCode == 200) {
-    //   final responseBody = json.decode(response.body) as Map<String, dynamic>;
-    //   List<UserModel> allUser = [];
-    //   responseBody.forEach((key, value) {
-    //     UserModel newUser = UserModel.fromMap(value);
-    //     // newUser.id = key;
-    //     allUser.add(newUser);
-    //   });
-
-    //   _allUsers = allUser;
-    //   notifyListeners();
-    // }
   }
 
   Future<void> updateUser(UserModel userToUpdate) async {
     // const url = "https://mynan-ffc0a.firebaseio.com/${userToUpdate.id}.json";
-    final response =
-        await http.post(url, body: json.encode(userToUpdate.toMap()));
-    if (response.statusCode == 200) {
+
+    //  final getUser = await  userCollection.doc("").set("place");
+    final userInstance = await userCollection
+        .where("email", isEqualTo: userToUpdate.email)
+        .get();
+    if (userInstance.docs.isNotEmpty) {
+      String idDoc = userInstance.docs[0].id;
+      userCollection.doc(idDoc).update(userToUpdate.toMap());
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(userToUpdate.toMap()));
+      _user = userToUpdate;
+      notifyListeners();
+      print("Mise a jour ok ");
     }
   }
 
