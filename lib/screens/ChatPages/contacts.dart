@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/Provider/dataBaseMethode.dart';
 import 'package:mynan/model/UseurModel.dart';
-import 'package:mynan/screens/ChatPages/detailListMessage.dart';
+import 'package:mynan/screens/ChatPages/chatPage.dart';
+import 'package:mynan/widgets/chatWidget/contactContainer.dart';
 import 'package:mynan/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,7 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   bool _init = true;
+  DataBaseMethode dataBaseMethode = DataBaseMethode();
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
@@ -27,11 +30,34 @@ class _ContactPageState extends State<ContactPage> {
     }
   }
 
+  Future creatNewChatRoom(UserModel curentUser, UserModel otherUser) async {
+    try {
+      print("Add new chatRoom");
+      Map<String, String> user1 = {
+        "email": curentUser.email,
+        "image": curentUser.image
+      };
+      Map<String, String> user2 = {
+        "email": otherUser.email,
+        "image": otherUser.image
+      };
+      List<Map<String, dynamic>> users = [user1, user2];
+      String idSalon = await dataBaseMethode.createChatRoom(users);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ChatPage(idSalon: idSalon,image: otherUser.image,titre: otherUser.username,),
+      ));
+    } catch (e) {
+      print("ERROR TO ADD NEWS CHATROOM ${e.toString()}");
+    }
+  }
+
   final _auth = FirebaseAuth.instance;
   List<UserModel> allUser = [];
+  UserModel currentUser;
   @override
   Widget build(BuildContext context) {
     allUser = Provider.of<UserProv>(context).allUsers;
+    currentUser = Provider.of<UserProv>(context).loggedInUser;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -57,16 +83,16 @@ class _ContactPageState extends State<ContactPage> {
               onPressed: () {}),
         ],
       ),
-      drawer: DrawerPage(),
       body: Container(
         child: !_init
             ? ListView.builder(
                 itemCount: allUser?.length,
                 itemBuilder: (context, index) {
                   if (allUser[index].email != _auth.currentUser.email) {
-                    return detailListMessage(context: context,heure: null,idSalon: null,image: allUser[index].image,lastMessage: "",titre: allUser[index].email);
+                    return ContactContainer(allUser[index],
+                        () => creatNewChatRoom(currentUser, allUser[index]));
                   }
-                  return null;
+                  return Container();
                 },
               )
             : Container(

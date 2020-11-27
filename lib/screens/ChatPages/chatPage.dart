@@ -11,7 +11,7 @@ class ChatPage extends StatefulWidget {
   String titre;
   String idSalon;
 
-  ChatPage(this.idSalon, this.titre, this.image);
+  ChatPage({this.idSalon, this.titre, this.image});
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -42,7 +42,7 @@ class _ChatPageState extends State<ChatPage> {
         .get()
         .then((value) => print(value));
     // final listMessage = messages.doc().get();
-    print("Parick");
+
     // print(listMessage);
     // for (var i in messages.docs) {
     //   print(i.data());
@@ -87,6 +87,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
             Text(
               '${widget.titre}',
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
@@ -115,50 +116,32 @@ class _ChatPageState extends State<ChatPage> {
                   image: AssetImage('assets/images/backgroundNaN.png'),
                 ),
               ),
-              child: ListView(
-                reverse: true,
-                children: <Widget>[
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection("messages").snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return CircularProgressIndicator(
-                          backgroundColor: primaryColor,
-                        );
-                      }
-                      final messages = snapshot.data.docs.reversed;
-                      List<Widget> messageList = [];
-                      // for (var message in messages) {
-                      //   if (message.get("sender")['email'] ==
-                      //       _auth.currentUser.email) {
-                      //     messageList.add(reightMessage(
-                      //         context, message.data()["message"]));
-                      //   } else {
-                      //     messageList.add(
-                      //         leftMessage(context, message.data()["message"]));
-                      //   }
-                      // }
-                      return Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Aujourd'hui",
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              )
-                            ],
-                          ),
-                          ...messageList
-                        ],
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: _firestore
+                      .collection("ChatRoom")
+                      .doc(widget.idSalon)
+                      .collection("chats")
+                      .orderBy("dateAdd", descending: false)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator(
+                        backgroundColor: primaryColor,
                       );
-                    },
-                  )
-                ],
-              ),
+                    }
+                    final messages = snapshot.data.docs.reversed;
+                    List<Widget> messageList = [];
+                    for (var message in messages) {
+                      if (message.get("sender") == _auth.currentUser.email) {
+                        messageList.add(
+                            reightMessage(context, message.data()["message"]));
+                      } else {
+                        messageList.add(
+                            leftMessage(context, message.data()["message"]));
+                      }
+                    }
+                    return ListView(reverse: true, children: messageList);
+                  }),
             ),
           ),
           Row(
@@ -181,9 +164,15 @@ class _ChatPageState extends State<ChatPage> {
                   color: Theme.of(context).primaryColor,
                 ),
                 onPressed: () {
-                  _firestore.collection('messages').add({
+                  _firestore
+                      .collection("ChatRoom")
+                      .doc(widget.idSalon)
+                      .collection("chats")
+                      .add({
                     "message": messageText.text,
-                    "sender": _auth.currentUser.email
+                    "sender": _auth.currentUser.email,
+                    "dateAdd": DateTime.now(),
+                    "isRead": false,
                   });
                   messageText.clear();
                 },

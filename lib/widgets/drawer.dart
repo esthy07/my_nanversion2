@@ -44,18 +44,18 @@ class _DrawerPageState extends State<DrawerPage> {
                       margin: EdgeInsets.only(top: deviceHeight * .05),
                       child: Row(
                         children: <Widget>[
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                               
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image:
-                                        NetworkImage(currentUser?.image,),
-                                    fit: BoxFit.cover)
-                                    ),
-                          ),
+                          if (currentUser != null)
+                            Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        currentUser?.image,
+                                      ),
+                                      fit: BoxFit.cover)),
+                            ),
                           SizedBox(
                             width: deviceWidth * .02,
                           ),
@@ -64,20 +64,24 @@ class _DrawerPageState extends State<DrawerPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                              if(currentUser.firstName != null)  Text(
-                                  "${currentUser?.firstName}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Barlow',
-                                      fontSize: 18),
-                                ),
+                                if (currentUser?.username != null)
+                                  Text(
+                                    "${currentUser?.username}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Barlow',
+                                        fontSize: 18),
+                                  ),
                                 //SizedBox(height: deviceHeight * .01,),
-                                Text(
-                                  '${_auth.currentUser.email}',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontFamily: 'Barlow',
-                                      fontSize: 15),
+                                FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: Text(
+                                    '${_auth.currentUser.email}',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontFamily: 'Barlow',
+                                        fontSize: 15),
+                                  ),
                                 )
                               ],
                             ),
@@ -88,7 +92,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     Container(
                       margin: EdgeInsets.only(top: deviceHeight * .05),
                       child: Text(
-                        '${currentUser.username}',
+                        '${currentUser?.username}',
                         style: TextStyle(
                             color: primaryColor,
                             fontFamily: 'Barlow',
@@ -145,7 +149,8 @@ class _DrawerPageState extends State<DrawerPage> {
                       InkWell(
                         onTap: () async {
                           await _auth.signOut();
-                          Provider.of<UserProv>(context,listen: false).removeUser();
+                          Provider.of<UserProv>(context, listen: false)
+                              .removeUser();
                           Navigator.pushNamed(context, ConexionPage.routeName);
                         },
                         child: Container(
