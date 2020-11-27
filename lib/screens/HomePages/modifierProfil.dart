@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:google_maps_webservice/places.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/UserProv.dart';
@@ -12,6 +12,8 @@ import 'package:mynan/screens/HomePages/profil_adresse.dart';
 import 'package:mynan/widgets/profilWidget/LigneDimo.dart';
 import 'package:provider/provider.dart';
 import 'modif_profil.dart';
+
+import 'package:geolocator/geolocator.dart';
 
 const kGoogleApiKey = "AIzaSyCk77TfuPCTmAYFGMB2sF27Tb3LhJYHt7Q";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);

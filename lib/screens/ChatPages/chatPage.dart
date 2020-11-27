@@ -79,6 +79,7 @@ class _ChatPageState extends State<ChatPage> {
         title: Row(
           children: <Widget>[
             CircleAvatar(
+              backgroundColor: Color.fromRGBO(16, 24, 43, 1),
               backgroundImage: NetworkImage(widget.image),
               radius: 20,
             ),
@@ -91,7 +92,7 @@ class _ChatPageState extends State<ChatPage> {
                 '${widget.titre}',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontFamily: 'Barlow'
+                  fontFamily: 'Barlow',
                 ),
               ),
             ),
@@ -116,11 +117,12 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
-                image: DecorationImage(
+                color: Color.fromRGBO(242, 242, 242, 1)
+                //color: Colors.grey[200],
+                /*image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage('assets/images/backgroundNaN.png'),
-                ),
+                ),*/
               ),
               child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
@@ -163,10 +165,14 @@ class _ChatPageState extends State<ChatPage> {
                   width: MediaQuery.of(context).size.width / 1.3,
                   alignment: Alignment.center,
                   child: TextField(
+                    cursorColor: Colors.grey,
                     maxLines: null,
                     controller: messageText,
                     decoration: InputDecoration(
                         hintText: 'Taper votre message',
+                        hintStyle: TextStyle(
+                          fontFamily: 'Barlow', fontSize: 16
+                        ),
                         border: InputBorder.none),
                   ),
                 ),
@@ -174,7 +180,7 @@ class _ChatPageState extends State<ChatPage> {
               IconButton(
                 icon: Icon(
                   Icons.send,
-                  color: Theme.of(context).primaryColor,
+                  color: primaryColor,
                 ),
                 onPressed: () {
                   _firestore

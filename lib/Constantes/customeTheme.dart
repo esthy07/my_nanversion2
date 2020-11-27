@@ -41,7 +41,7 @@ Widget reightMessage (BuildContext context ,rdse){
                       child: Text(
                         rdse,
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: primaryColor, fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
                         ),
                       ))
                 ],
@@ -81,7 +81,7 @@ Widget leftMessage (BuildContext context ,String message){
                       constraints: BoxConstraints(minWidth: 10, maxWidth: 300),
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: primaryColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(5),
                             bottomRight: Radius.circular(5),
@@ -90,7 +90,7 @@ Widget leftMessage (BuildContext context ,String message){
                       child: Text(
                         message,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.white,fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
                         ),
                       ))
                 ],
