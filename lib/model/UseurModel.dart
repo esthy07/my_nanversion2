@@ -55,7 +55,7 @@ class UserModel {
         "lastname": lastname == null ? null : lastname,
         "number": number == null ? null : number,
         "parcour": parcour == null ? null : parcour,
-        "place": place == null ? null : place.toString(),
+        // "place": place == null ? null : place.toString(),
         "address": address == null ? null : address,
         "ville": ville == null ? null : ville,
       };

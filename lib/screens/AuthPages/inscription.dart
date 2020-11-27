@@ -52,7 +52,8 @@ class _InscriptionPageState extends State<InscriptionPage> {
               email: newUser.user.email,
               image:
                   userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],
-              username: userName);
+              username: userName,
+              ville: "Abidjan");
           setState(() {
             loader = false;
           });
