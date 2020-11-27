@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'Provider/UserProv.dart';
 import 'Provider/UserProv.dart';
 import 'Provider/utilisateurProv.dart';
+import 'screens/HomePages/modif_profil.dart';
 import 'screens/homeTest.dart';
 import 'screens/modif_user.dart';
 
@@ -78,7 +79,8 @@ class _MyAppState extends State<MyApp> {
           ConexionPage.routeName: (BuildContext context) => ConexionPage(),
           ProfilAdresse.routeName: (BuildContext context) => ProfilAdresse(),
           HomeTest.routeName: (BuildContext context) => HomeTest(),
-          ModifUtilisateur.routeName: (BuildContext context) => ModifUtilisateur()
+          ModifUtilisateur.routeName: (BuildContext context) => ModifUtilisateur(),
+          ModifProfil.routeName: (BuildContext context) => ModifProfil()
         },
       ),
     );

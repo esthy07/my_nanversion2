@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/screens/HomePages/modif_profil.dart';
 
 class Profil extends StatelessWidget {
   @override
@@ -52,7 +54,7 @@ class Profil extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                      image: AssetImage("assets/images/jeune1.jpg"),
+                      image: AssetImage("assets/images/apple.jpg"),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -113,12 +115,23 @@ class Profil extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  "User Information",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      "User Information",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  IconButton(
+                      icon: Icon(Icons.edit, color: primaryColor,),
+                      onPressed: () {
+                        Navigator.pushNamed(context, ModifProfil.routeName);
+                      }
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 20),

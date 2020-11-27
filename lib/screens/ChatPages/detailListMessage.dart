@@ -27,61 +27,69 @@ Widget detailListMessage(
           child: Container(
             child: Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(image),
-                  maxRadius: 30,
+                Expanded(
+                  flex: 1,
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(image),
+                    maxRadius: 30,
+                  ),
                 ),
                 SizedBox(
-                  width: 10,
+                  width: MediaQuery.of(context).size.width * .02,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: Text(
-                        "$titre",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Barlow'),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.check,
-                          color: Colors.grey,
-                          size: 20,
-                        ),
                         Container(
                           width: MediaQuery.of(context).size.width / 2,
                           child: Text(
-                            lastMessage,
-                            style: TextStyle(fontFamily: 'Barlow'),
+                            "$titre",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Barlow'),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.check,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: Text(
+                                lastMessage,
+                                style: TextStyle(fontFamily: 'Barlow', color: Colors.grey,),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: MediaQuery.of(context).size.width * .06,
                 ),
-                Row(
-                  children: <Widget>[
-                    Text(
+                Expanded(
+                  flex:1,
+                  child: Container(
+                    child:   Text(
                       "$heure",
                       style: TextStyle(
-                          fontFamily: 'Barlow', fontWeight: FontWeight.w500),
+                          fontFamily: 'Barlow', fontWeight: FontWeight.w500, fontSize: 13),
                     ),
-                    Icon(Icons.done_all,color: Colors.greenAccent,)
-                  ],
+                  ),
                 ),
               ],
             ),

@@ -73,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Row(
@@ -83,11 +83,17 @@ class _ChatPageState extends State<ChatPage> {
               radius: 20,
             ),
             SizedBox(
-              width: 10,
+              width: MediaQuery.of(context).size.width * .02,
             ),
-            Text(
-              '${widget.titre}',
-              overflow: TextOverflow.ellipsis,
+            Container(
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Text(
+                '${widget.titre}',
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontFamily: 'Barlow'
+                ),
+              ),
             ),
           ],
         ),
@@ -147,15 +153,22 @@ class _ChatPageState extends State<ChatPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Container(
-                height: 60,
-                width: MediaQuery.of(context).size.width / 1.3,
-                alignment: Alignment.center,
-                child: TextField(
-                  controller: messageText,
-                  decoration: InputDecoration(
-                      hintText: 'Taper votre message',
-                      border: InputBorder.none),
+              ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: 60,
+                    maxHeight: 100
+                  ),
+                child: Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  alignment: Alignment.center,
+                  child: TextField(
+                    maxLines: null,
+                    controller: messageText,
+                    decoration: InputDecoration(
+                        hintText: 'Taper votre message',
+                        border: InputBorder.none),
+                  ),
                 ),
               ),
               IconButton(

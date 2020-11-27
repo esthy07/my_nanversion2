@@ -6,6 +6,8 @@ import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/screens/HomePages/profil_adresse.dart';
 import 'package:provider/provider.dart';
 
+import 'modif_profil.dart';
+
 class ModifierProfil extends StatelessWidget {
 
   final _auth = FirebaseAuth.instance;
@@ -182,7 +184,7 @@ class ModifierProfil extends StatelessWidget {
                   color: Colors.white,
                   image: DecorationImage(
                       //image: NetworkImage(currentUsers?.image)
-                      image: AssetImage("assets/images/jeune1.jpg"),
+                      image: AssetImage("assets/images/apple.jpg"),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -246,12 +248,23 @@ class ModifierProfil extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  "User Information",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Barlow'),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Text(
+                      "User Information",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Barlow'),
+                    ),
+                  ),
+                  IconButton(
+                      icon: Icon(Icons.edit, color: primaryColor,),
+                      onPressed: () {
+                        Navigator.pushNamed(context, ModifProfil.routeName);
+                      }
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
