@@ -25,9 +25,7 @@ class UserProv with ChangeNotifier {
 
   Future<void> addUser(UserModel newUser) async {
     try {
-      DocumentReference addedUser = await userCollection.add(newUser.toMap());
-      print("Added User");
-      print(addedUser);
+     await userCollection.add(newUser.toMap());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
     } catch (e) {
@@ -40,7 +38,6 @@ class UserProv with ChangeNotifier {
       final result =
           await userCollection.where("email", isEqualTo: email).get();
       UserModel newUser = UserModel.fromMap(result.docs[0].data());
-      print(result.docs[0].data());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
       _user = newUser;
@@ -70,21 +67,24 @@ class UserProv with ChangeNotifier {
   }
 
   Future<void> updateUser(UserModel userToUpdate) async {
-    // const url = "https://mynan-ffc0a.firebaseio.com/${userToUpdate.id}.json";
+    try {
+      final userInstance = await userCollection
+          .where("email", isEqualTo: userToUpdate.email)
+          .get();
+      if (userInstance.docs.isNotEmpty) {
+        String idDoc = userInstance.docs[0].id;
+        userCollection.doc(idDoc).update(userToUpdate.toMap());
 
-    //  final getUser = await  userCollection.doc("").set("place");
-    final userInstance = await userCollection
-        .where("email", isEqualTo: userToUpdate.email)
-        .get();
-    if (userInstance.docs.isNotEmpty) {
-      String idDoc = userInstance.docs[0].id;
-      userCollection.doc(idDoc).update(userToUpdate.toMap());
-
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString(KEY_USER, json.encode(userToUpdate.toMap()));
-      _user = userToUpdate;
-      notifyListeners();
-      print("Mise a jour ok ");
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        print(userToUpdate.toMap());
+        
+        prefs.setString(KEY_USER, json.encode(userToUpdate.toMap()));
+        _user = userToUpdate;
+        notifyListeners();
+        print("Mise a jour ok ");
+      }
+    } catch (e) {
+      print("Error to update User ");
     }
   }
 

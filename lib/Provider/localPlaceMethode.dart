@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:geolocator/geolocator.dart';
 
 const kGoogleApiKey = "AIzaSyCk77TfuPCTmAYFGMB2sF27Tb3LhJYHt7Q";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
@@ -31,32 +32,39 @@ class LocalPlaceMethode {
 
   Future<Map<String, dynamic>> displayPrediction(Prediction p) async {
     if (p != null) {
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId);
-      final lat = detail.result.geometry.location.lat;
-      final lng = detail.result.geometry.location.lng;
-      print(p.description);
-      print("${p.description} => $lat,$lng");
-      GeoPoint place = GeoPoint(lat, lng);
-      return {"place": place, "address": p.description};
+      try {
+        PlacesDetailsResponse detail =
+            await _places.getDetailsByPlaceId(p.placeId);
+        final lat = detail.result.geometry.location.lat;
+        final lng = detail.result.geometry.location.lng;
+        print("${p.description} => $lat,$lng");
+        return {"lat": lat, "long": lng, "address": p.description};
+      } catch (e) {
+        print("Error to get Position ");
+        return null;
+      }
     }
     return null;
   }
 
-  getCurrentLocation() {
+  Future<void> getCurrentLocation() async {
     print("Géolocator");
-    geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((Position position) {
-      print("=> Longitude ${position.latitude} ${position.longitude}");
-      _getAddressFromLatLng(position);
-    }).catchError((e) {
-      print("Error");
-      print(e);
-    });
+    try {
+      Position position = await geolocator
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+          .then((value) {
+        print("THEN");  
+        print(value.latitude);
+      });
+      print(position.latitude);
+      print("poss");
+      await getAddressFromLatLng(position);
+    } catch (e) {
+      print("Error geolocation ${e.toString()}");
+    }
   }
 
-  _getAddressFromLatLng(Position pos) async {
+  getAddressFromLatLng(Position pos) async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           pos.latitude, pos.longitude);
@@ -66,7 +74,7 @@ class LocalPlaceMethode {
       print("=> Current Adresse");
       print(currentAddress);
     } catch (e) {
-      print(e);
+      print("Error geolocation $e");
     }
   }
 }

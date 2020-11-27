@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +28,10 @@ class _ModifierProfilState extends State<ModifierProfil> {
     try {
       Map<String, dynamic> result =
           await localPlaceMethode.handlePressButton(context);
-      print("Reslt ${result['place']}");
-      currentUsers.place = result["place"];
+
+      final lat = result['lat'] as double;
+      final lng = result['long'] as double;
+      currentUsers.place = GeoPoint(lat, lng);
       currentUsers.address = result["address"];
       Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
     } catch (e) {

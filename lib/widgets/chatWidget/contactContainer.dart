@@ -19,9 +19,11 @@ class ContactContainer extends StatelessWidget {
             child: Container(
               child: Row(
                 children: [
+                  
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user.image),
+                    backgroundImage:user.image != null? NetworkImage(user?.image):AssetImage('assets/images/nan.png'),
                     maxRadius: 30,
+                    backgroundColor: Colors.transparent,
                   ),
                   SizedBox(
                     width: 10,
