@@ -49,6 +49,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       await Provider.of<UserProv>(context, listen: false).getUser();
       await Provider.of<UserProv>(context, listen: false)
           .getOneUser(user.email);
+
+    
+
+      
+      // print("user From Firebase ${userFromStrore.docs[0].id}");
     }
   }
 
@@ -60,7 +65,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     //     .then((value) {
     //   print('zzzzzzzzzzzzzzz');
     //   print(value.docs);
-      
+
     // });
   }
 
