@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage>
                           'Bienvenue sur MyNaN',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: 30,
+                              fontSize: MediaQuery.of(context).textScaleFactor * 30 ,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Barlow'),
                         )),

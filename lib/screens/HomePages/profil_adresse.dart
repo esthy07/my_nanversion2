@@ -158,7 +158,14 @@ class _ProfilAdresseState extends State<ProfilAdresse> {
             ),
           ),
         ],
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryColor,
+          onPressed: () {
+            print('esthy est une star');
+          },
+        child: Icon(Icons.map)
+      ),
     );
   }
 

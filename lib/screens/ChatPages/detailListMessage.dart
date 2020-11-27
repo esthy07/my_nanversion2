@@ -31,12 +31,16 @@ Widget detailListMessage(
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "$titre",
-                      style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Barlow'),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Text(
+                        "$titre",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Barlow'),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     SizedBox(
                       height: 5,

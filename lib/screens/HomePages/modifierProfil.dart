@@ -199,7 +199,7 @@ class ModifierProfil extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(100),
                         image: DecorationImage(
-                            image: AssetImage("assets/images/jeune.jpg"),
+                            image: NetworkImage(currentUsers?.image),
                             fit: BoxFit.cover),
                         border: Border.all(width: 4, color: Colors.white),
                       ),

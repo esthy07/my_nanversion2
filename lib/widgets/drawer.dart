@@ -48,12 +48,12 @@ class _DrawerPageState extends State<DrawerPage> {
                             height: 60,
                             width: 60,
                             decoration: BoxDecoration(
-                               
+                               color: primaryColor,
                                 shape: BoxShape.circle,
-                                image: DecorationImage(
+                                /*image: DecorationImage(
                                     image:
                                         NetworkImage(currentUser?.image,),
-                                    fit: BoxFit.cover)
+                                    fit: BoxFit.cover)*/
                                     ),
                           ),
                           SizedBox(
@@ -77,7 +77,7 @@ class _DrawerPageState extends State<DrawerPage> {
                                   style: TextStyle(
                                       color: Colors.grey,
                                       fontFamily: 'Barlow',
-                                      fontSize: 15),
+                                      fontSize: MediaQuery.of(context).textScaleFactor * 18),
                                 )
                               ],
                             ),
@@ -109,7 +109,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, Revision.routeName);
+                          Navigator.pushNamed(context, TestPage.routeName);
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: deviceWidth * .02),

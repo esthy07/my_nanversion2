@@ -16,6 +16,9 @@ import 'package:flutter/services.dart';
 
 import 'Provider/UserProv.dart';
 import 'Provider/UserProv.dart';
+import 'Provider/utilisateurProv.dart';
+import 'screens/homeTest.dart';
+import 'screens/modif_user.dart';
 
 // babyboy20
 void main() async {
@@ -52,7 +55,10 @@ class _MyAppState extends State<MyApp> {
           Color.fromRGBO(67, 2, 63, 1), //or set color with: Color(0xFF0000FF)
     ));
     return MultiProvider(
-      providers: [ChangeNotifierProvider.value(value: UserProv())],
+      providers: [
+        ChangeNotifierProvider.value(value: UserProv()),
+        ChangeNotifierProvider.value(value: UtilisateurProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'My NaN ',
@@ -61,7 +67,7 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
-        initialRoute:user != null? Home.routeName:ConexionPage.routeName,
+        initialRoute: user != null? Home.routeName: ConexionPage.routeName,
         routes: {
           HomePage.routeName: (BuildContext context) => HomePage(),
           Home.routeName: (BuildContext context) => Home(),
@@ -70,7 +76,9 @@ class _MyAppState extends State<MyApp> {
           Revision.routeName: (BuildContext context) => Revision(),
           TestPage.routeName: (BuildContext context) => TestPage(),
           ConexionPage.routeName: (BuildContext context) => ConexionPage(),
-          ProfilAdresse.routeName: (BuildContext context) => ProfilAdresse()
+          ProfilAdresse.routeName: (BuildContext context) => ProfilAdresse(),
+          HomeTest.routeName: (BuildContext context) => HomeTest(),
+          ModifUtilisateur.routeName: (BuildContext context) => ModifUtilisateur()
         },
       ),
     );
