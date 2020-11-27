@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/Provider/localPlaceMethode.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,6 @@ import 'connexion.dart';
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
 class InscriptionPage extends StatefulWidget {
-
   static const routeName = 'inscription';
 
   @override
@@ -21,13 +21,13 @@ class InscriptionPage extends StatefulWidget {
 }
 
 class _InscriptionPageState extends State<InscriptionPage> {
-
   final _formKey = GlobalKey<FormState>();
 
   String email;
   String passeword;
   String numerotControleur;
   final _auth = FirebaseAuth.instance;
+  LocalPlaceMethode localPlaceMethode = LocalPlaceMethode();
 
   Random _rnd = Random();
   bool loader = false;
@@ -37,7 +37,6 @@ class _InscriptionPageState extends State<InscriptionPage> {
 
   Future<void> seveUser() async {
     bool isOk = _formKey.currentState.validate();
-    print("Add News user ");
     final String userName = "NaN4.21_" + getRandomString(4);
     if (isOk) {
       setState(() {
@@ -47,12 +46,12 @@ class _InscriptionPageState extends State<InscriptionPage> {
         final newUser = await _auth.createUserWithEmailAndPassword(
             email: email, password: passeword);
         if (newUser != null) {
-          print(newUser);
+         
           var rng = new Random();
           UserModel newUserProv = UserModel(
               email: newUser.user.email,
               image:
-              userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],
+                  userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],
               username: userName);
           setState(() {
             loader = false;
@@ -71,7 +70,6 @@ class _InscriptionPageState extends State<InscriptionPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
 
@@ -97,8 +95,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/421flutter2.jpg'),
-                fit: BoxFit.cover)
-        ),
+                fit: BoxFit.cover)),
         child: Padding(
           padding: EdgeInsets.only(
               left: deviceWidth * .03, right: deviceWidth * .05),
@@ -189,7 +186,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
                                 hintText: '************'),
                           ),
                         ),
-                          /*Container(
+                        /*Container(
                             margin: EdgeInsets.only(left: 15,top: 10),
 
                             child: Text("$errorMessage"),),*/
@@ -208,11 +205,10 @@ class _InscriptionPageState extends State<InscriptionPage> {
                                 gradient: LinearGradient(colors: [
                                   Color.fromRGBO(165, 31, 156, 1),
                                   Color.fromRGBO(67, 2, 63, 1),
-                                ])
-                            ),
+                                ])),
                             child: Center(
                               child: Text(
-                                loader ?'Loading ...':'inscription',
+                                loader ? 'Loading ...' : 'inscription',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Barlow',
@@ -223,14 +219,16 @@ class _InscriptionPageState extends State<InscriptionPage> {
                           ),
                         ),
                         InkWell(
-                         onTap: () => Navigator.of(context).pushNamed(ConexionPage.routeName),
-
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(ConexionPage.routeName),
                           child: Container(
                             margin: EdgeInsets.only(top: deviceHeight * .05),
                             alignment: Alignment.topRight,
                             child: Text(
                               "Se connecter",
-                              style: TextStyle(color: Color.fromRGBO(16, 24, 43, 1), fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Color.fromRGBO(16, 24, 43, 1),
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         )
@@ -238,7 +236,9 @@ class _InscriptionPageState extends State<InscriptionPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: deviceHeight * .03,)
+                SizedBox(
+                  height: deviceHeight * .03,
+                )
               ],
             ),
           ),

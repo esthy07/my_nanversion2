@@ -4,6 +4,7 @@ import 'package:motion_tab_bar/MotionTabBarView.dart';
 import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/localPlaceMethode.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/listMessage.dart';
 import 'package:mynan/screens/HomePages/modifierProfil.dart';
@@ -34,6 +35,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     ModifierProfil()
   ];
   final _firestore = FirebaseFirestore.instance;
+  LocalPlaceMethode localPlaceMethode = LocalPlaceMethode();
+
   @override
   void initState() {
     super.initState();
@@ -49,10 +52,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       await Provider.of<UserProv>(context, listen: false).getUser();
       await Provider.of<UserProv>(context, listen: false)
           .getOneUser(user.email);
+      await localPlaceMethode.getCurrentLocation();
 
-    
-
-      
       // print("user From Firebase ${userFromStrore.docs[0].id}");
     }
   }

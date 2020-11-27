@@ -8,10 +8,10 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/model/UseurModel.dart';
-import 'package:mynan/screens/HomePages/profil_adresse.dart';
 import 'package:mynan/widgets/profilWidget/LigneDimo.dart';
 import 'package:provider/provider.dart';
 import 'modif_profil.dart';
+import 'package:mynan/Provider/localPlaceMethode.dart';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -25,67 +25,21 @@ class ModifierProfil extends StatefulWidget {
 
 class _ModifierProfilState extends State<ModifierProfil> {
   final _auth = FirebaseAuth.instance;
-  TextEditingController _placeControleur = TextEditingController();
-  Mode _mode = Mode.overlay;
-  final homeScaffoldKey = GlobalKey<ScaffoldState>();
-  Position _currentPosition;
-  String _currentAddress;
-  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  LocalPlaceMethode localPlaceMethode = LocalPlaceMethode();
   UserModel currentUsers;
 
-  Future<void> _handlePressButton() async {
-    Prediction p = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: kGoogleApiKey,
-      onError: onError,
-      mode: _mode,
-      language: "fr",
-      components: [Component(Component.country, "ci")],
-    );
-
-    displayPrediction(p, homeScaffoldKey.currentState);
-  }
-
-  //End chanp de recherche widget
-  void onError(PlacesAutocompleteResponse response) {
-    print(response.errorMessage);
-    homeScaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text(response.errorMessage)),
-    );
-  }
-
-  Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
-    if (p != null) {
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId);
-      final lat = detail.result.geometry.location.lat;
-      final lng = detail.result.geometry.location.lng;
-
-      print(p.description);
-      print("${p.description} => $lat,$lng");
-      GeoPoint place = GeoPoint(lat, lng);
-      currentUsers.place = place;
-      currentUsers.address = p.description;
-      Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
-      setState(() {
-        _placeControleur.text = p.description;
-      });
-    }
-  }
-
-  _getAddressFromLatLng() async {
+  Future<void> uploadLocation() async {
     try {
-      List<Placemark> p = await geolocator.placemarkFromCoordinates(
-          _currentPosition.latitude, _currentPosition.longitude);
-      Placemark place = p[0];
-      setState(() {
-        _currentAddress =
-            "${place.locality}, ${place.postalCode}, ${place.country} ";
-      });
-      print("=> Current Adresse");
-      print(_currentAddress);
+      Map<String, dynamic> result =
+          await localPlaceMethode.handlePressButton(context);
+
+      final lat = result['lat'] as double;
+      final lng = result['long'] as double;
+      currentUsers.place = GeoPoint(lat, lng);
+      currentUsers.address = result["address"];
+      Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
     } catch (e) {
-      print(e);
+      print("Error to update Location ${e.toString()}");
     }
   }
 
@@ -216,14 +170,13 @@ class _ModifierProfilState extends State<ModifierProfil> {
                     child: Column(
                       children: [
                         LigneDomi(
-                          icon: Icons.location_on,
-                          titre: "Localisation",
-                          desc: currentUsers?.address != null
-                              ? "${currentUsers?.address}"
-                              : "...",
-                          mod: "Saisir votre Localité",
-                          coolback: _handlePressButton,
-                        ),
+                            icon: Icons.location_on,
+                            titre: "Localisation",
+                            desc: currentUsers?.address != null
+                                ? "${currentUsers?.address}"
+                                : "...",
+                            mod: "Saisir votre Localité",
+                            coolback: uploadLocation),
                         // LigneDomi( Icons.location_on, "",
                         //     "cocody", "Saisir votre Localité"),
                         Divider(),

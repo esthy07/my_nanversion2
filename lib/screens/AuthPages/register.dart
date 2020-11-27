@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
 
   Random _rnd = Random();
   bool loader = false;
-
+  
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
@@ -46,6 +46,7 @@ class _RegisterState extends State<Register> {
             email: email, password: passeword);
         if (newUser != null) {
           print(newUser);
+
           var rng = new Random();
           UserModel newUserProv = UserModel(
               email: newUser.user.email,

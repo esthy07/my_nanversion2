@@ -20,7 +20,8 @@ class UserModel {
       this.number,
       this.parcour,
       this.place,
-      this.address});
+      this.address,
+      this.ville});
 
   String username;
   String image;
@@ -31,6 +32,7 @@ class UserModel {
   String parcour;
   GeoPoint place;
   String address;
+  String ville; // Ce cham vas nous pernetre de filtré notre requette 
 
   factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
         username: json["username"] == null ? null : json["username"],
@@ -40,8 +42,9 @@ class UserModel {
         lastname: json["lastname"] == null ? null : json["lastname"],
         number: json["number"] == null ? null : json["number"],
         parcour: json["parcour"] == null ? null : json["parcour"],
-        place: json["place"] == null ? null : json["place"],
+        // place: json["place"] == null ? null : json["place"],
         address: json["address"] == null ? null : json["address"],
+        ville: json["ville"] == null ? null : json["ville"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -52,7 +55,8 @@ class UserModel {
         "lastname": lastname == null ? null : lastname,
         "number": number == null ? null : number,
         "parcour": parcour == null ? null : parcour,
-        "place": place == null ? null : place,
+        "place": place == null ? null : place.toString(),
         "address": address == null ? null : address,
+        "ville": ville == null ? null : ville,
       };
 }
