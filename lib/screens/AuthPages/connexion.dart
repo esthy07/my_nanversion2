@@ -36,7 +36,6 @@ class _ConexionPageState extends State<ConexionPage> {
             email: email, password: passeword);
             await Provider.of<UserProv>(context,listen: false).getUser();
         if (newUser != null) {
-          print(newUser);
           Navigator.of(context).pushNamed(Home.routeName);
         } else {
           print("Error login ");
@@ -49,7 +48,7 @@ class _ConexionPageState extends State<ConexionPage> {
       } catch (e) {
         setState(() {
           errorMessage = "Login ou mot de passe incorect !!";
-          showLoader = true;
+          showLoader = false;
         });
         print("Error ${e.toString()}");
       }

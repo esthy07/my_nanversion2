@@ -50,7 +50,7 @@ Widget reightMessage (BuildContext context ,rdse){
                 children: <Widget>[
                   Text('12:24',
                       style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  Icon(Icons.check, size: 12),
+                  Icon(Icons.done_all, size: 12,color: Colors.green,),
                 ],
               )
             ],
@@ -99,7 +99,7 @@ Widget leftMessage (BuildContext context ,String message){
                 children: <Widget>[
                   Text('12:24',
                       style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  Icon(Icons.check, size: 12),
+                   Icon(Icons.done_all, size: 12,color: Colors.green,),
                 ],
               )
             ],

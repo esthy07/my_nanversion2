@@ -17,7 +17,13 @@ Widget detailListMessage(
     child: Column(
       children: <Widget>[
         InkWell(
-          onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatPage(null, titre, image),)),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ChatPage(
+              idSalon: idSalon,
+              image: image,
+              titre: titre,
+            ),
+          )),
           child: Container(
             child: Row(
               children: [
@@ -67,10 +73,15 @@ Widget detailListMessage(
                 SizedBox(
                   width: 20,
                 ),
-                Text(
-                  "$heure",
-                  style: TextStyle(
-                      fontFamily: 'Barlow', fontWeight: FontWeight.w500),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      "$heure",
+                      style: TextStyle(
+                          fontFamily: 'Barlow', fontWeight: FontWeight.w500),
+                    ),
+                    Icon(Icons.done_all,color: Colors.greenAccent,)
+                  ],
                 ),
               ],
             ),

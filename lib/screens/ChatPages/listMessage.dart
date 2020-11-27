@@ -27,6 +27,7 @@ class _ListMessageState extends State<ListMessage> {
     }
   }
 
+  UserModel currentUser;
   List<UserModel> allUser = [];
 
   final _firestore = FirebaseFirestore.instance;
@@ -34,13 +35,23 @@ class _ListMessageState extends State<ListMessage> {
   @override
   Widget build(BuildContext context) {
     allUser = Provider.of<UserProv>(context).allUsers;
+    currentUser = Provider.of<UserProv>(context).loggedInUser;
+    Map<String, String> user1 = {
+      "email": currentUser.email,
+      "image": currentUser.image
+    };
     return Scaffold(
       floatingActionButton: CircleAvatar(
         backgroundColor: primaryColor,
         radius: 25,
         child: IconButton(
-          icon: Icon(Icons.chat,color: Colors.white,),
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactPage(),)),
+          icon: Icon(
+            Icons.chat,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ContactPage(),
+          )),
         ),
       ),
       appBar: AppBar(
@@ -71,7 +82,10 @@ class _ListMessageState extends State<ListMessage> {
       body: Container(
           height: MediaQuery.of(context).size.height - 100,
           child: StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection("salons").snapshots(),
+            stream: _firestore
+                .collection("ChatRoom")
+                .where("users", arrayContains: user1)
+                .snapshots(),
             builder: (context, snapshot) {
               List<Widget> listSalon = [];
               if (snapshot.hasData) {
@@ -79,38 +93,30 @@ class _ListMessageState extends State<ListMessage> {
 
                 for (var salon in salons) {
                   print("############################");
-                  print(salon.get("sender")["email"]);
-                  var dateLastMessage =
-                      salon.get("lastMessage")["dateMessages"];
+                  print(salon.get("users")[0]);
+
+                  var dateLastMessage = salon.get("lastMessage")["dateAdd"];
+                  
+                  String image = "";
+                  String titre = "";
+                 final user1 = salon.get("users")[0] ;
+                  final user2 = salon.get("users")[1] ;
+                  if (_auth.currentUser.email == user1["email"]) {
+                    titre = user2["email"];
+                    image = user2["image"];
+                  } else {
+                    titre = user1["email"];
+                    image = user1["image"];
+                  }
                   dateLastMessage =
                       DateTime.parse(dateLastMessage.toDate().toString());
-                  final senderEmail = salon.get("sender")["email"];
-                  final senderImage = salon.get("sender")["image"];
-                  final forEmail = salon.get("for")["email"];
-                  final forImage = salon.get("for")["image"];
-                  final lastMessage = salon.get("lastMessage");
-                  final idSalon = salon.id;
-                  final curentEmail = _auth.currentUser.email;
-                  String imageSalon = "";
-                  String titreSalon = "";
-
-                  if (senderEmail == curentEmail || forEmail == curentEmail) {
-                    if (curentEmail == senderEmail) {
-                      imageSalon = forImage;
-                      titreSalon = forEmail;
-                    } else {
-                      imageSalon = senderImage;
-                      titreSalon = senderEmail;
-                    }
-                    listSalon.add(detailListMessage(
+                  listSalon.add(detailListMessage(
                       context: context,
-                      heure: dateLastMessage,
-                      idSalon: idSalon,
-                      image: imageSalon,
-                      lastMessage: lastMessage,
-                      titre: titreSalon,
-                    ));
-                  }
+                      heure: dateLastMessage.toString(),
+                      idSalon: salon.get("chatRoomId"),
+                      image: image,
+                      lastMessage: salon.get("lastMessage")["message"],
+                      titre: titre));
                 }
                 return ListView(
                   // reverse: true,
@@ -128,4 +134,3 @@ class _ListMessageState extends State<ListMessage> {
     );
   }
 }
-

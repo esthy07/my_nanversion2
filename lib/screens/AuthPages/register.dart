@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../../Constantes/customeTheme.dart';
-import '../../model/UseurModel.dart'; 
+import '../../model/UseurModel.dart';
 import '../HomePages/homePage.dart';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
@@ -28,31 +28,42 @@ class _RegisterState extends State<Register> {
   final _auth = FirebaseAuth.instance;
 
   Random _rnd = Random();
+  bool loader = false;
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   Future<void> seveUser() async {
     bool isOk = _formKey.currentState.validate();
-    print("Save Message");
-    final String userName = "NaN4.21_" + getRandomString(5);
+    print("Add News user ");
+    final String userName = "NaN4.21_" + getRandomString(4);
     if (isOk) {
+      setState(() {
+        loader = true;
+      });
       try {
         final newUser = await _auth.createUserWithEmailAndPassword(
             email: email, password: passeword);
-           
         if (newUser != null) {
-            print(newUser);
-            var rng = new Random();
-            UserModel newUserProv = UserModel(email: newUser.user.email,image: userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],username:userName);
-            Provider.of<UserProv>(context, listen: false).addUser(newUserProv);
+          print(newUser);
+          var rng = new Random();
+          UserModel newUserProv = UserModel(
+              email: newUser.user.email,
+              image:
+                  userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],
+              username: userName);
+               setState(() {
+        loader = false;
+      });
+          Provider.of<UserProv>(context, listen: false).addUser(newUserProv);
           Navigator.of(context).pushNamed(Home.routeName);
         }
       } catch (e) {
+         setState(() {
+        loader = false;
+      });
         print("Error ${e.toString()}");
       }
-
-    
     }
   }
 
@@ -198,7 +209,7 @@ class _RegisterState extends State<Register> {
                   alignment: Alignment.center,
                   height: 50,
                   width: MediaQuery.of(context).size.width / 1.4,
-                  child: Text('inscription',
+                  child: Text( loader? 'loading...':'inscription',
                       style: TextStyle(color: Colors.white)),
                 ),
               ),
