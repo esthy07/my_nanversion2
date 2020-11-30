@@ -35,7 +35,7 @@ class _ModifierProfilState extends State<ModifierProfil> {
 
       final lat = result['lat'] as double;
       final lng = result['long'] as double;
-      currentUsers.place = GeoPoint(lat, lng);
+      currentUsers.place = [lat,lng];
       currentUsers.address = result["address"];
       Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
     } catch (e) {

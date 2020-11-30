@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
-import 'package:mynan/screens/AuthPages/login.dart';
 import 'package:mynan/screens/Notes/note.dart';
 import 'package:mynan/screens/Notes/quiz.dart';
 import 'package:mynan/test.dart';

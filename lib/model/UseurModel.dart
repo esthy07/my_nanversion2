@@ -30,7 +30,7 @@ class UserModel {
   String lastname;
   String number;
   String parcour;
-  GeoPoint place;
+  List<dynamic> place;
   String address;
   String ville; // Ce cham vas nous pernetre de filtré notre requette 
 
@@ -42,7 +42,7 @@ class UserModel {
         lastname: json["lastname"] == null ? null : json["lastname"],
         number: json["number"] == null ? null : json["number"],
         parcour: json["parcour"] == null ? null : json["parcour"],
-        // place: json["place"] == null ? null : json["place"],
+        place: json["place"] == null ? null : json["place"],
         address: json["address"] == null ? null : json["address"],
         ville: json["ville"] == null ? null : json["ville"],
       );
@@ -55,7 +55,7 @@ class UserModel {
         "lastname": lastname == null ? null : lastname,
         "number": number == null ? null : number,
         "parcour": parcour == null ? null : parcour,
-        "place": place == null ? null : place.toString(),
+        "place": place == null ? null : place,
         "address": address == null ? null : address,
         "ville": ville == null ? null : ville,
       };

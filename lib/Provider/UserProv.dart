@@ -25,7 +25,7 @@ class UserProv with ChangeNotifier {
 
   Future<void> addUser(UserModel newUser) async {
     try {
-     await userCollection.add(newUser.toMap());
+      await userCollection.add(newUser.toMap());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
     } catch (e) {
@@ -54,9 +54,12 @@ class UserProv with ChangeNotifier {
       print(result.docs[0].data());
       List<UserModel> allUser = [];
       result.docs.forEach((element) {
+        print(element.data()["place"].latitude);
+        if (element.data()["place"] != null) {}
+        // final point = element.data()["place"] as GeoPoint;
         UserModel newUser = UserModel.fromMap(element.data());
+        // newUser.place = GeoPoint(point.latitude,point.longitude);
         allUser.add(newUser);
-        print("News add");
       });
       _allUsers = allUser;
       print(_allUsers.length);
@@ -74,10 +77,8 @@ class UserProv with ChangeNotifier {
       if (userInstance.docs.isNotEmpty) {
         String idDoc = userInstance.docs[0].id;
         userCollection.doc(idDoc).update(userToUpdate.toMap());
-
         SharedPreferences prefs = await SharedPreferences.getInstance();
         print(userToUpdate.toMap());
-        
         prefs.setString(KEY_USER, json.encode(userToUpdate.toMap()));
         _user = userToUpdate;
         notifyListeners();
@@ -110,8 +111,8 @@ class UserProv with ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       var extratData = json.decode(prefs.getString(KEY_USER));
       _user = UserModel.fromMap(extratData);
+      print("Get User from sharedPref ${_user.toMap()}");
       notifyListeners();
     }
-    return null;
   }
 }
