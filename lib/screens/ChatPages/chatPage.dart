@@ -143,7 +143,7 @@ class _ChatPageState extends State<ChatPage> {
                     List<Widget> messageList = [];
                     for (var message in messages) {
                       var dateLastMessage =
-                          message.get("lastMessage")["dateAdd"];
+                          message.get("dateAdd");
                       dateLastMessage =
                           DateTime.parse(dateLastMessage.toDate().toString());
                       if (message.get("sender") == _auth.currentUser.email) {

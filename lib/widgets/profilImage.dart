@@ -66,7 +66,6 @@ class ProfilImage extends StatelessWidget {
       onPressed: () {},
       child: Container(
         child: CircleAvatar(
-          
           backgroundImage:imagePath!=null? NetworkImage(imagePath):AssetImage("assets/images/bg-header.jpg"),
           radius: 30,
         ),

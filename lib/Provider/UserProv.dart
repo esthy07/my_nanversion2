@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mynan/model/UseurModel.dart';
+import 'package:geodesy/geodesy.dart';
 
 class UserProv with ChangeNotifier {
   FirebaseFirestore firebase = FirebaseFirestore.instance;
@@ -18,10 +18,35 @@ class UserProv with ChangeNotifier {
   static const KEY_USER = "Patrick_Ethere_Key";
   UserModel _user;
   List<UserModel> _allUsers;
-
+  Geodesy geodesy = Geodesy();
   UserModel get loggedInUser => _user;
 
   List<UserModel> get allUsers => _allUsers;
+
+  Future<List<Map<String, dynamic>>> rechercheUser({String ville}) async {
+    try {
+      QuerySnapshot result =
+          await userCollection.where("ville", isEqualTo: _user.ville).get();
+      print(result.docs[0].data());
+      List<Map<String, dynamic>> userAndDistance = [];
+      LatLng l1 = LatLng(_user.place[0], _user.place[1]);
+      result.docs.forEach((element) {
+        UserModel newUser = UserModel.fromMap(element.data());
+        if (newUser.place != null && newUser.email != _user.email) {
+          LatLng l2 = LatLng(newUser.place[0], newUser.place[1]);
+          num distance = geodesy.distanceBetweenTwoGeoPoints(l1, l2);
+          print(
+              "Distance entre ${_user.address} et ${newUser.address} est => $distance");
+          userAndDistance.add({"user": newUser, "distance": distance});
+        }
+      });
+      userAndDistance.sort((a, b) => a["distance"].compareTo(b["distance"]));
+      return userAndDistance;
+    } catch (e) {
+      print("Error to find uses ${e.toString()}");
+      return null;
+    }
+  }
 
   Future<void> addUser(UserModel newUser) async {
     try {

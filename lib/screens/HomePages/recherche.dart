@@ -18,6 +18,19 @@ class _RechercheState extends State<Recherche> {
   String rechercherEnFonction = "Mon lieux d'habitation";
   String dropdownValue = " Mon lieux d'habitation";
   UserModel currentUsers;
+  bool isInit = true;
+  @override
+  Future<void> didChangeDependencies() async {
+    // TODO: implement didChangeDependencies
+    if (isInit) {
+      await Provider.of<UserProv>(context, listen: false).rechercheUser();
+      setState(() {
+        isInit = false;
+      });
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     currentUsers = Provider.of<UserProv>(context).loggedInUser;
@@ -49,11 +62,11 @@ class _RechercheState extends State<Recherche> {
                       height: deviceHeight - 200,
                       child: ListView(
                         children: <Widget>[
-                          RecherchRow(),
-                          RecherchRow(),
-                          RecherchRow(),
-                          RecherchRow(),
-                          RecherchRow(),
+                          Wrap(children: <Widget>[
+                             ProfilImage(),
+                              ProfilImage(),
+                               ProfilImage()
+                          ],)
                         ],
                       ),
                     ),
