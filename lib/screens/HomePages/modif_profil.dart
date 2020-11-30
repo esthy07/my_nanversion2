@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/model/UseurModel.dart';
+import 'package:provider/provider.dart';
 
 class ModifProfil extends StatefulWidget {
 
@@ -11,6 +14,8 @@ class ModifProfil extends StatefulWidget {
 
 class _ModifProfilState extends State<ModifProfil> {
 
+  UserModel currentUsers;
+
   final GlobalKey<FormState> _modifFormKey = GlobalKey<FormState>();
   TextEditingController nomController;
   TextEditingController prenomController;
@@ -19,10 +24,33 @@ class _ModifProfilState extends State<ModifProfil> {
   TextEditingController parcoursController;
 
   @override
+  initState() {
+    nomController = new TextEditingController();
+    prenomController = new TextEditingController();
+    parcoursController = new TextEditingController();
+    telephoneController = new TextEditingController();
+    super.initState();
+  }
+
+  Future<void> updateUsers() async{
+    if( parcoursController != null && telephoneController != null && nomController != null && prenomController != null) {
+      currentUsers.parcour = parcoursController.text;
+      currentUsers.number = telephoneController.text;
+      currentUsers.firstname = nomController.text;
+      currentUsers.lastname = prenomController.text;
+      Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
+      }
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
 
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+
+     currentUsers = Provider.of<UserProv>(context).loggedInUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -79,10 +107,9 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               controller: nomController,
                               cursorColor: Colors.grey,
-                              initialValue: '',
+                              initialValue: currentUsers?.firstname != null ?'${currentUsers?.firstname}' : 'null',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'Kouassi',
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
@@ -122,10 +149,9 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               controller: prenomController,
                               cursorColor: Colors.grey,
-                              initialValue: '',
+                              initialValue: currentUsers?.lastname != null ?'${currentUsers?.lastname}' :'null',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'Esthy',
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
@@ -165,54 +191,10 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               controller: telephoneController,
-                              initialValue: '',
+                              initialValue: currentUsers.number != null ?'${currentUsers.number}' :'null',
                               cursorColor: Colors.grey,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: '73304955',
-                                  hintStyle: TextStyle(
-                                      fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
-                                  )
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    Container(
-                      margin: EdgeInsets.only(left: deviceWidth * .05, top: deviceHeight * .02, right: deviceWidth * .05),
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: Text('Email: ', style: TextStyle(
-                                color: primaryColor, fontFamily: 'barlow', fontSize: 16, fontWeight: FontWeight.bold
-                            ),),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: deviceWidth * .03),
-                            margin: EdgeInsets.only(top: deviceHeight * .01),
-                            height: deviceHeight * .07,
-                            width: deviceWidth,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color(0x1a000000),
-                                    blurRadius: 1,
-                                    offset: Offset(0, 2))
-                              ],
-                            ),
-                            child: TextFormField(
-                              controller: emailController,
-                              cursorColor: Colors.grey,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'esthy@gmail.com',
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
@@ -252,10 +234,9 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               controller: parcoursController,
                               cursorColor: Colors.grey,
-                              initialValue: '',
+                              initialValue: currentUsers.parcour != null ?'${currentUsers.parcour}' :'null',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'Dev mobile Flutter',
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
@@ -268,6 +249,7 @@ class _ModifProfilState extends State<ModifProfil> {
 
                     InkWell(
                       onTap: () {
+                        updateUsers();
                         Navigator.pop(context);
                       },
                       child: Container(

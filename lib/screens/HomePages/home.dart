@@ -42,6 +42,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.initState();
     getCurentUser();
     getMessage();
+
     _tabController = MotionTabController(
         initialIndex: 0, vsync: this, length: allPages.length);
   }
