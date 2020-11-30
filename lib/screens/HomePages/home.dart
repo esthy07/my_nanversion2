@@ -5,10 +5,8 @@ import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/localPlaceMethode.dart';
-import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/listMessage.dart';
-import 'package:mynan/screens/HomePages/modifierProfil.dart';
-import 'package:mynan/screens/HomePages/profile9.dart';
+import 'package:mynan/screens/HomePages/userProfil.dart';
 import 'package:mynan/screens/HomePages/recherche.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   final _auth = FirebaseAuth.instance;
+  bool isInit = true;
 
   MotionTabController _tabController;
   List<Widget> allPages = [
@@ -40,34 +39,27 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    getCurentUser();
-    getMessage();
     _tabController = MotionTabController(
         initialIndex: 0, vsync: this, length: allPages.length);
   }
 
-  void getCurentUser() async {
+  @override
+  void didChangeDependencies() async {
+    if (isInit) {
+      await getCurentUser();
+      setState(() {
+        isInit = false;
+      });
+    }
+    super.didChangeDependencies();
+  }
+
+  Future<void> getCurentUser() async {
     final user = _auth.currentUser;
     if (user != null) {
       await Provider.of<UserProv>(context, listen: false).getUser();
-      await Provider.of<UserProv>(context, listen: false)
-          .getOneUser(user.email);
-      await localPlaceMethode.getCurrentLocation();
 
-      // print("user From Firebase ${userFromStrore.docs[0].id}");
     }
-  }
-
-  void getMessage() async {
-    print("GET DDD");
-    // _firestore
-    //     .collection("salons").where("sender",arrayContainsAny: "patrick")
-    //     .get()
-    //     .then((value) {
-    //   print('zzzzzzzzzzzzzzz');
-    //   print(value.docs);
-
-    // });
   }
 
   @override
@@ -79,23 +71,29 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: MotionTabBar(
-          labels: ["Home", "Search", "Chat", "Profil"],
-          initialSelectedTab: "Home",
-          tabIconColor: primaryColor,
-          tabSelectedColor: primaryColor,
-          onTabItemSelected: (int value) {
-            print(value);
-            setState(() {
-              _tabController.index = value;
-            });
-          },
-          icons: [Icons.home, Icons.search, Icons.chat, Icons.dashboard],
-          textStyle: TextStyle(
-              color: primaryColor,
-              fontFamily: 'Barlow',
-              fontWeight: FontWeight.w500),
-        ),
-        body: MotionTabBarView(controller: _tabController, children: allPages));
+      bottomNavigationBar: MotionTabBar(
+        labels: ["Home", "Search", "Chat", "Profil"],
+        initialSelectedTab: "Home",
+        tabIconColor: primaryColor,
+        tabSelectedColor: primaryColor,
+        onTabItemSelected: (int value) {
+          print(value);
+          setState(() {
+            _tabController.index = value;
+          });
+        },
+        icons: [Icons.home, Icons.search, Icons.chat, Icons.dashboard],
+        textStyle: TextStyle(
+            color: primaryColor,
+            fontFamily: 'Barlow',
+            fontWeight: FontWeight.w500),
+      ),
+      body: !isInit
+          ? MotionTabBarView(controller: _tabController, children: allPages)
+          : Container(
+              child: Center(
+              child: Text("Loading user info ..."),
+            )),
+    );
   }
 }

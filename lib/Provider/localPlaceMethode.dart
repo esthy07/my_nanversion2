@@ -51,12 +51,10 @@ class LocalPlaceMethode {
     print("Géolocator");
     try {
       Position position = await geolocator
-          .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-          .then((value) {
-        print("THEN");  
-        print(value.latitude);
-      });
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+      print("Get Pos user ");
       print(position.latitude);
+      print(position.longitude);
       print("poss");
       await getAddressFromLatLng(position);
     } catch (e) {
@@ -70,7 +68,7 @@ class LocalPlaceMethode {
           pos.latitude, pos.longitude);
       Placemark place = p[0];
       final currentAddress =
-          "${place.locality}, ${place.postalCode}, ${place.country} ";
+          "${place.name}, ${place.locality}, ${place.country} ";
       print("=> Current Adresse");
       print(currentAddress);
     } catch (e) {

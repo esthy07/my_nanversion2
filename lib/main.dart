@@ -3,8 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
-import 'package:mynan/screens/AuthPages/login.dart';
-import 'package:mynan/screens/AuthPages/register.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:mynan/screens/HomePages/homePage.dart';
 import 'package:mynan/screens/HomePages/profil_adresse.dart';
@@ -73,8 +71,6 @@ class _MyAppState extends State<MyApp> {
         routes: {
           HomePage.routeName: (BuildContext context) => HomePage(),
           Home.routeName: (BuildContext context) => Home(),
-          Login.routeName: (BuildContext context) => Login(),
-          Register.routeName: (BuildContext context) => Register(),
           Revision.routeName: (BuildContext context) => Revision(),
           TestPage.routeName: (BuildContext context) => TestPage(),
           ConexionPage.routeName: (BuildContext context) => ConexionPage(),
