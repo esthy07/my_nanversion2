@@ -111,7 +111,6 @@ class UserProv with ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       var extratData = json.decode(prefs.getString(KEY_USER));
       _user = UserModel.fromMap(extratData);
-      print("Get User from sharedPref ${_user.toMap()}");
       notifyListeners();
     }
   }

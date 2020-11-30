@@ -46,18 +46,21 @@ class _InscriptionPageState extends State<InscriptionPage> {
         final newUser = await _auth.createUserWithEmailAndPassword(
             email: email, password: passeword);
         if (newUser != null) {
-         
+          Map<String, dynamic> mapPlace =
+              await localPlaceMethode.getCurrentLocation();
           var rng = new Random();
           UserModel newUserProv = UserModel(
               email: newUser.user.email,
               image:
                   userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],
               username: userName,
-              ville: "Abidjan");
+              ville: "Abidjan",
+              address: mapPlace["address"],
+              place: mapPlace["place"]);
           setState(() {
             loader = false;
           });
-          Provider.of<UserProv>(context, listen: false).addUser(newUserProv);
+          Provider.of<UserProv>(context, listen: false).addUser(newUserProv); 
           Navigator.of(context).pushNamed(Home.routeName);
         }
       } catch (e) {

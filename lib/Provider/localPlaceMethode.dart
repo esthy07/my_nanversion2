@@ -47,22 +47,28 @@ class LocalPlaceMethode {
     return null;
   }
 
-  Future<void> getCurrentLocation() async {
+  Future<Map<String, dynamic>> getCurrentLocation() async {
     print("Géolocator");
     try {
-      Position position = await geolocator
-          .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+      Position position = await geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
       print("Get Pos user ");
       print(position.latitude);
       print(position.longitude);
       print("poss");
-      await getAddressFromLatLng(position);
+      String placeString = await getAddressFromLatLng(position);
+      Map<String, dynamic> result = {
+        "place": [position.latitude, position.longitude],
+        "address": placeString
+      };
+      return result;
     } catch (e) {
       print("Error geolocation ${e.toString()}");
+      return null;
     }
   }
 
-  getAddressFromLatLng(Position pos) async {
+  Future<String> getAddressFromLatLng(Position pos) async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           pos.latitude, pos.longitude);
@@ -71,8 +77,10 @@ class LocalPlaceMethode {
           "${place.name}, ${place.locality}, ${place.country} ";
       print("=> Current Adresse");
       print(currentAddress);
+      return currentAddress;
     } catch (e) {
       print("Error geolocation $e");
+      return null;
     }
   }
 }
