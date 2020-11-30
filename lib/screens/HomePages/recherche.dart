@@ -62,11 +62,11 @@ class _RechercheState extends State<Recherche> {
                       height: deviceHeight - 200,
                       child: ListView(
                         children: <Widget>[
-                          Wrap(children: <Widget>[
-                             ProfilImage(),
-                              ProfilImage(),
-                               ProfilImage()
-                          ],)
+                          RecherchRow(),
+                          RecherchRow(),
+                          RecherchRow(),
+                          RecherchRow(),
+                          RecherchRow(),
                         ],
                       ),
                     ),
