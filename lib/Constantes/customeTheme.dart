@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const primaryColor = Color.fromRGBO(67, 2, 63, 1);
 
@@ -15,97 +16,37 @@ List<String> userDefaultImageUrl = [
   "https://cdn.pixabay.com/photo/2014/08/29/03/02/horses-430441__480.jpg",
 ];
 
-Widget reightMessage (BuildContext context ,rdse){
-
-  return    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                      constraints: BoxConstraints(minWidth: 10, maxWidth: 300),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            bottomLeft: Radius.circular(5),
-                            topRight: Radius.circular(5)),
-                      ),
-                      child: Text(
-                        rdse,
-                        style: TextStyle(
-                          color: primaryColor, fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
-                        ),
-                      ))
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Text('12:24',
-                      style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  Icon(Icons.done_all, size: 12,color: Colors.green,),
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
 
 
- 
-}
+
+class DateFormatter {
+
+  static String getVerboseDateTimeRepresentation(DateTime dateTime) {
+    DateTime now = DateTime.now();
+    DateTime justNow = now.subtract(Duration(minutes: 1));
+    DateTime localDateTime = dateTime.toLocal();
+
+    if (!localDateTime.difference(justNow).isNegative) {
+      return "à l'instant";
+    }
+
+    String roughTimeString = DateFormat('Hm').format(dateTime);
+    if (localDateTime.day == now.day && localDateTime.month == now.month && localDateTime.year == now.year) {
+      return roughTimeString;
+    }
+
+    DateTime yesterday = now.subtract(Duration(days: 1));
+    if (localDateTime.day == yesterday.day && localDateTime.month == yesterday.month && localDateTime.year == yesterday.year) {
+      return 'Hier, ' + roughTimeString;
+    }
+
+    if (now.difference(localDateTime).inDays < 4) {
+      String weekday = DateFormat('EEEE').format(localDateTime);
+      return '$weekday, $roughTimeString';
+    }
+
+    return '${DateFormat('yMd').format(dateTime)}, $roughTimeString';
 
 
-Widget leftMessage (BuildContext context ,String message){
-    
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                      constraints: BoxConstraints(minWidth: 10, maxWidth: 300),
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            bottomRight: Radius.circular(5),
-                            topRight: Radius.circular(5)),
-                      ),
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          color: Colors.white,fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
-                        ),
-                      ))
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Text('12:24',
-                      style: TextStyle(fontSize: 10, color: Colors.grey)),
-                   Icon(Icons.done_all, size: 12,color: Colors.green,),
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  
+  }
 }

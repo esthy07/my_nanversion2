@@ -112,7 +112,7 @@ class _ListMessageState extends State<ListMessage> {
                       DateTime.parse(dateLastMessage.toDate().toString());
                   listSalon.add(detailListMessage(
                       context: context,
-                      heure: dateLastMessage.toString(),
+                      heure: dateLastMessage,
                       idSalon: salon.get("chatRoomId"),
                       image: image,
                       lastMessage: salon.get("lastMessage")["message"],

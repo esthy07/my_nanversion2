@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mynan/model/UseurModel.dart';
+import 'package:mynan/widgets/chatWidget/leftMessage.dart';
+import 'package:mynan/widgets/chatWidget/reightMessage.dart';
 
 import '../../Constantes/customeTheme.dart';
 
@@ -117,12 +119,11 @@ class _ChatPageState extends State<ChatPage> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Color.fromRGBO(242, 242, 242, 1)
-                //color: Colors.grey[200],
-                /*image: DecorationImage(
+                //color: Color.fromRGBO(242, 242, 242, 1),
+                image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/backgroundNaN.png'),
-                ),*/
+                  image: AssetImage('assets/images/BG-NaN 2.jpg'),
+                ),
               ),
               child: StreamBuilder<QuerySnapshot>(
                   stream: _firestore
@@ -138,14 +139,20 @@ class _ChatPageState extends State<ChatPage> {
                       );
                     }
                     final messages = snapshot.data.docs.reversed;
+
                     List<Widget> messageList = [];
                     for (var message in messages) {
+                      var dateLastMessage =
+                          message.get("lastMessage")["dateAdd"];
+                      dateLastMessage =
+                          DateTime.parse(dateLastMessage.toDate().toString());
                       if (message.get("sender") == _auth.currentUser.email) {
-                        messageList.add(
-                            reightMessage(context, message.data()["message"]));
+                        messageList.add(RightMessage(
+                            message.data()["message"],dateLastMessage));
+                        //message.get("lastMessage")["dateAdd"]
                       } else {
                         messageList.add(
-                            leftMessage(context, message.data()["message"]));
+                            LeftMessage(message.data()["message"],dateLastMessage));
                       }
                     }
                     return ListView(reverse: true, children: messageList);
@@ -156,10 +163,7 @@ class _ChatPageState extends State<ChatPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: 60,
-                    maxHeight: 100
-                  ),
+                constraints: BoxConstraints(minHeight: 60, maxHeight: 100),
                 child: Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width / 1.3,
@@ -170,9 +174,8 @@ class _ChatPageState extends State<ChatPage> {
                     controller: messageText,
                     decoration: InputDecoration(
                         hintText: 'Taper votre message',
-                        hintStyle: TextStyle(
-                          fontFamily: 'Barlow', fontSize: 16
-                        ),
+                        hintStyle:
+                            TextStyle(fontFamily: 'Barlow', fontSize: 16),
                         border: InputBorder.none),
                   ),
                 ),
