@@ -54,7 +54,6 @@ class UserProv with ChangeNotifier {
       print(result.docs[0].data());
       List<UserModel> allUser = [];
       result.docs.forEach((element) {
-        print(element.data()["place"].latitude);
         if (element.data()["place"] != null) {}
         // final point = element.data()["place"] as GeoPoint;
         UserModel newUser = UserModel.fromMap(element.data());

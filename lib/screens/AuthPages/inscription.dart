@@ -54,7 +54,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
               image:
                   userDefaultImageUrl[rng.nextInt(userDefaultImageUrl.length)],
               username: userName,
-              ville: "Abidjan",
+              ville: mapPlace["ville"],
               address: mapPlace["address"],
               place: mapPlace["place"]);
           setState(() {

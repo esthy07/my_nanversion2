@@ -6,7 +6,8 @@ import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/detailUser.dart';
 
 class ProfilImage extends StatelessWidget {
-  const ProfilImage({Key key}) : super(key: key);
+  String imagePath;
+  ProfilImage({this.imagePath});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +32,8 @@ class ProfilImage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Profil()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Profil()));
             }),
 
         FocusedMenuItem(
@@ -65,7 +66,8 @@ class ProfilImage extends StatelessWidget {
       onPressed: () {},
       child: Container(
         child: CircleAvatar(
-          backgroundImage: AssetImage('assets/images/bg-header.jpg'),
+          
+          backgroundImage:imagePath!=null? NetworkImage(imagePath):AssetImage("assets/images/bg-header.jpg"),
           radius: 30,
         ),
       ),

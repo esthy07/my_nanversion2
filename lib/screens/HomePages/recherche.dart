@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/widgets/profilImage.dart';
 import 'package:mynan/widgets/rechercheRow.dart';
+import 'package:provider/provider.dart';
 
 class Recherche extends StatefulWidget {
   Recherche({Key key}) : super(key: key);
@@ -14,11 +17,12 @@ class Recherche extends StatefulWidget {
 class _RechercheState extends State<Recherche> {
   String rechercherEnFonction = "Mon lieux d'habitation";
   String dropdownValue = " Mon lieux d'habitation";
+  UserModel currentUsers;
   @override
   Widget build(BuildContext context) {
+    currentUsers = Provider.of<UserProv>(context).loggedInUser;
     final deviceHeight = MediaQuery.of(context).size.height - 70;
     final deviceWidth = MediaQuery.of(context).size.width;
-
 
     return Scaffold(
       body: Container(
@@ -57,14 +61,15 @@ class _RechercheState extends State<Recherche> {
                       alignment: Alignment.center,
                       child: Column(
                         children: <Widget>[
-                          ProfilImage(),
+                          ProfilImage(imagePath: currentUsers.image),
                           SizedBox(
                             height: 20,
                           ),
                           Container(
                               child: Text(
                             "Rétrouver un(e) Nanien(en) pres de chez vous ",
-                            style: TextStyle(color: Colors.white, fontFamily: 'barlow'),
+                            style: TextStyle(
+                                color: Colors.white, fontFamily: 'barlow'),
                           )),
                           SizedBox(
                             height: 5,
@@ -75,11 +80,15 @@ class _RechercheState extends State<Recherche> {
                             children: <Widget>[
                               Text(
                                 "Rechercher en fonction de :",
-                                style: TextStyle(color: Colors.white, fontFamily: 'Barlow'),
+                                style: TextStyle(
+                                    color: Colors.white, fontFamily: 'Barlow'),
                               ),
                               DropdownButton<String>(
                                 value: dropdownValue,
-                                style: TextStyle(color: Colors.blue, fontFamily: 'Barlow', fontWeight: FontWeight.w500),
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: 'Barlow',
+                                    fontWeight: FontWeight.w500),
                                 underline: Container(
                                   height: 1,
                                   color: Colors.transparent,
