@@ -117,6 +117,7 @@ class _ListMessageState extends State<ListMessage> {
                       image: image,
                       lastMessage: salon.get("lastMessage")["message"],
                       titre: titre));
+                  print(salon.get("lastMessage")["message"]);
                 }
                 return ListView(
                   // reverse: true,

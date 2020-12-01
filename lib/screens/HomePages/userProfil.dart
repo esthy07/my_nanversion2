@@ -91,7 +91,7 @@ class _ModifierProfilState extends State<ModifierProfil> {
                       height: 10,
                     ),
                     Text(
-                      "Chelida Domi 2",
+                      "${currentUsers.firstname} ${currentUsers.lastname}",
                       style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.bold,

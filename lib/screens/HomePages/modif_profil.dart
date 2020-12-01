@@ -95,7 +95,7 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               //controller: nomController,
                               cursorColor: Colors.grey,
-                              initialValue: currentUsers?.firstname != null ?'${currentUsers?.firstname}' : 'null',
+                              initialValue: currentUsers?.firstname != null ?'${currentUsers?.firstname}' : '',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
@@ -104,11 +104,11 @@ class _ModifProfilState extends State<ModifProfil> {
                               ),
                               validator: (value) {
                                 if(value.isEmpty) {
-                                  // ignore: missing_return
                                   return 'Entrez votre nom';
                                 }
+                                return null;
                               },
-                              onSaved: (value) => firstname = value,
+                              onSaved: (value) => currentUsers.firstname = value,
                             ),
                           )
                         ],
@@ -144,7 +144,7 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               //controller: prenomController,
                               cursorColor: Colors.grey,
-                              initialValue: currentUsers?.lastname != null ?'${currentUsers?.lastname}' :'null',
+                              initialValue: currentUsers?.lastname != null ?'${currentUsers?.lastname}' :'',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
@@ -156,8 +156,9 @@ class _ModifProfilState extends State<ModifProfil> {
                                 if(value.isEmpty) {
                                   return 'Entrez votre prennom';
                                 }
+                                return null;
                               },
-                              onSaved: ( value) => lastname = value,
+                              onSaved: ( value) => currentUsers.lastname = value,
                             ),
                           )
                         ],
@@ -193,7 +194,7 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               //controller: telephoneController,
-                              initialValue: currentUsers.number != null ?'${currentUsers.number}' :'null',
+                              initialValue: currentUsers.number != null ?'${currentUsers.number}' :'',
                               cursorColor: Colors.grey,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -206,8 +207,9 @@ class _ModifProfilState extends State<ModifProfil> {
                                 if(value.isEmpty) {
                                   return 'Entrez votre numero';
                                 }
+                                return null;
                               },
-                              onSaved: (value) => number = value,
+                              onSaved: (value) => currentUsers.number = value,
                             ),
                           )
                         ],
@@ -243,7 +245,7 @@ class _ModifProfilState extends State<ModifProfil> {
                             child: TextFormField(
                               //controller: parcoursController,
                               cursorColor: Colors.grey,
-                              initialValue: currentUsers.parcour != null ?'${currentUsers.parcour}' :'null',
+                              initialValue: currentUsers.parcour != null ?'${currentUsers.parcour}' :'',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
@@ -254,8 +256,9 @@ class _ModifProfilState extends State<ModifProfil> {
                                 if(value.isEmpty) {
                                   return 'Entrez votre nom';
                                 }
+                                return null;
                               },
-                              onSaved: (value) => parcour = value,
+                              onSaved: (value) => currentUsers.parcour = value,
                             ),
                           )
                         ],

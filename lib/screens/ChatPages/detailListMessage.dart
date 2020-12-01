@@ -69,7 +69,7 @@ Widget detailListMessage(
                               width: MediaQuery.of(context).size.width / 3,
                               child: Text(
                                 lastMessage,
-                                style: TextStyle(fontFamily: 'Barlow', color: Colors.grey,),
+                                style: TextStyle(fontFamily: 'Barlow', color: Colors.black, fontSize: 12),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
