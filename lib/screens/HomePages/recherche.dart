@@ -46,11 +46,15 @@ class _RechercheState extends State<Recherche> {
         l1 = LatLng(place["place"][0], place["place"][1]);
         currentAddress = place["address"];
         print("New pLACE ");
+
         print(l1);
       });
     } else {
-      villeToSearche = currentUsers.ville;
-      l1 = LatLng(currentUsers.place[0], currentUsers.place[1]);
+      setState(() {
+        villeToSearche = currentUsers.ville;
+        l1 = LatLng(currentUsers.place[0], currentUsers.place[1]);
+        currentAddress = null;
+      });
     }
   }
 
@@ -150,20 +154,27 @@ class _RechercheState extends State<Recherche> {
                             height: 20,
                           ),
                           Container(
-                              child: !rechercheEnFonctionDeMonLieux? Text(
-                            "Rétrouver un(e) Nanien(en) pres de chez vous ",
-                            style: TextStyle(
-                                color: Colors.white, fontFamily: 'barlow'),
-                          ):Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.place,color: primaryColor,),
-                Text(
-                  '${.address}',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),),
+                            child: currentAddress == null
+                                ? Text(
+                                    "Rétrouver un(e) Nanien(en) pres de chez vous ",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'barlow'),
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.place,
+                                        color: primaryColor,
+                                      ),
+                                      Text(
+                                        '${currentAddress}',
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                          ),
                           SizedBox(
                             height: 5,
                           ),

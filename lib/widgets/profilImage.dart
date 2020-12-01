@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/Provider/dataBaseMethode.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/detailUser.dart';
+import 'package:provider/provider.dart';
 
 class ProfilImage extends StatelessWidget {
   UserModel user;
+  DataBaseMethode dataBaseMethode = DataBaseMethode();
+  UserModel currentUser ;
   ProfilImage({this.user});
 
   @override
   Widget build(BuildContext context) {
+    currentUser = Provider.of<UserProv>(context).loggedInUser;
     return FocusedMenuHolder(
       menuWidth: MediaQuery.of(context).size.width * 0.50,
       blurSize: 5.0,
@@ -44,10 +50,14 @@ class ProfilImage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) => ChatPage(),
-              // )
-              // );
+               String idSalon = dataBaseMethode.generatChatId(currentUser.email,user.email);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                idSalon: idSalon,
+                                image: user.image,
+                                titre: user.email,
+                              ),
+                            ));
             }),
         // FocusedMenuItem(
         //     title: Text("Favorite"),
