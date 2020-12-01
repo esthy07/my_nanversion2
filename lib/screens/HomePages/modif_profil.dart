@@ -17,29 +17,17 @@ class _ModifProfilState extends State<ModifProfil> {
   UserModel currentUsers;
 
   final GlobalKey<FormState> _modifFormKey = GlobalKey<FormState>();
-  TextEditingController nomController;
-  TextEditingController prenomController;
-  TextEditingController telephoneController;
-  TextEditingController emailController;
-  TextEditingController parcoursController;
 
-  @override
-  initState() {
-    nomController = new TextEditingController();
-    prenomController = new TextEditingController();
-    parcoursController = new TextEditingController();
-    telephoneController = new TextEditingController();
-    super.initState();
-  }
+  String firstname;
+  String lastname;
+  String number;
+  String parcour;
+
+
 
   Future<void> updateUsers() async{
-    if( parcoursController != null && telephoneController != null && nomController != null && prenomController != null) {
-      currentUsers.parcour = parcoursController.text;
-      currentUsers.number = telephoneController.text;
-      currentUsers.firstname = nomController.text;
-      currentUsers.lastname = prenomController.text;
-      Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
-      }
+
+
   }
 
 
@@ -105,15 +93,22 @@ class _ModifProfilState extends State<ModifProfil> {
                               ],
                             ),
                             child: TextFormField(
-                              controller: nomController,
+                              //controller: nomController,
                               cursorColor: Colors.grey,
-                              initialValue: currentUsers?.firstname != null ?'${currentUsers?.firstname}' : 'null',
+                              initialValue: currentUsers?.firstname != null ?'${currentUsers?.firstname}' : '',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
                               ),
+                              validator: (value) {
+                                if(value.isEmpty) {
+                                  return 'Entrez votre nom';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) => currentUsers.firstname = value,
                             ),
                           )
                         ],
@@ -147,15 +142,23 @@ class _ModifProfilState extends State<ModifProfil> {
                               ],
                             ),
                             child: TextFormField(
-                              controller: prenomController,
+                              //controller: prenomController,
                               cursorColor: Colors.grey,
-                              initialValue: currentUsers?.lastname != null ?'${currentUsers?.lastname}' :'null',
+                              initialValue: currentUsers?.lastname != null ?'${currentUsers?.lastname}' :'',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
                               ),
+                              // ignore: missing_return
+                              validator: (value) {
+                                if(value.isEmpty) {
+                                  return 'Entrez votre prennom';
+                                }
+                                return null;
+                              },
+                              onSaved: ( value) => currentUsers.lastname = value,
                             ),
                           )
                         ],
@@ -190,8 +193,8 @@ class _ModifProfilState extends State<ModifProfil> {
                             ),
                             child: TextFormField(
                               keyboardType: TextInputType.number,
-                              controller: telephoneController,
-                              initialValue: currentUsers.number != null ?'${currentUsers.number}' :'null',
+                              //controller: telephoneController,
+                              initialValue: currentUsers.number != null ?'${currentUsers.number}' :'',
                               cursorColor: Colors.grey,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -199,6 +202,14 @@ class _ModifProfilState extends State<ModifProfil> {
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
                               ),
+                              // ignore: missing_return
+                              validator: (value) {
+                                if(value.isEmpty) {
+                                  return 'Entrez votre numero';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) => currentUsers.number = value,
                             ),
                           )
                         ],
@@ -232,15 +243,22 @@ class _ModifProfilState extends State<ModifProfil> {
                               ],
                             ),
                             child: TextFormField(
-                              controller: parcoursController,
+                              //controller: parcoursController,
                               cursorColor: Colors.grey,
-                              initialValue: currentUsers.parcour != null ?'${currentUsers.parcour}' :'null',
+                              initialValue: currentUsers.parcour != null ?'${currentUsers.parcour}' :'',
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(
                                       fontFamily: 'Barlow', fontSize: 17, fontWeight: FontWeight.w500
                                   )
                               ),
+                              validator: (value) {
+                                if(value.isEmpty) {
+                                  return 'Entrez votre nom';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) => currentUsers.parcour = value,
                             ),
                           )
                         ],
@@ -248,9 +266,12 @@ class _ModifProfilState extends State<ModifProfil> {
                     ),
 
                     InkWell(
-                      onTap: () {
-                        updateUsers();
-                        Navigator.pop(context);
+                      onTap: () async{
+                        if (_modifFormKey.currentState.validate()) {
+                          _modifFormKey.currentState.save();
+                          await Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
+                          Navigator.pop(context);
+                        }
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: deviceHeight * .05, bottom: deviceHeight * .05),
