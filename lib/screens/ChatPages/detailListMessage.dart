@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'chatPage.dart';
 
@@ -87,7 +88,8 @@ Widget detailListMessage(
                   child: Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Text(
-                      DateFormatter.getVerboseDateTimeRepresentation(heure),
+                      timeago.format(heure, locale: "fr"),
+                      //DateFormatter.getVerboseDateTimeRepresentation(heure),
                       style: TextStyle(
                           fontFamily: 'Barlow', fontWeight: FontWeight.w500, fontSize: 13),
                     ),

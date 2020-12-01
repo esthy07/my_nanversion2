@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class RightMessage extends StatelessWidget {
   String message;
@@ -39,7 +40,8 @@ class RightMessage extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
-                  Text(DateFormatter.getVerboseDateTimeRepresentation(time),
+                  Text(timeago.format(time, locale: "fr"),
+                      //DateFormatter.getVerboseDateTimeRepresentation(time,DateTime.now()),
                       style: TextStyle(fontSize: 10, color: Colors.grey)),
                   Icon(Icons.done_all, size: 12,color: Colors.green,),
                 ],

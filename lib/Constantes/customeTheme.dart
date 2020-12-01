@@ -11,7 +11,7 @@ List<String> userDefaultImageUrl = [
   "https://cdn.pixabay.com/photo/2017/10/31/07/49/horses-2904536__480.jpg",
   "https://cdn.pixabay.com/photo/2017/01/14/12/59/iceland-1979445__480.jpg",
   "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterfly-1127666__480.jpg",
-  "https://cdn.pixabay.com/photo/2017/12/11/15/34/lion-3012515__480.jpg",
+  "https://cdn. DateTime now = DateTime.now();pixabay.com/photo/2017/12/11/15/34/lion-3012515__480.jpg",
   "https://cdn.pixabay.com/photo/2018/07/31/22/08/lion-3576045__480.jpg",
   "https://cdn.pixabay.com/photo/2014/08/29/03/02/horses-430441__480.jpg",
 ];
@@ -21,8 +21,8 @@ List<String> userDefaultImageUrl = [
 
 class DateFormatter {
 
-  static String getVerboseDateTimeRepresentation(DateTime dateTime) {
-    DateTime now = DateTime.now();
+  static String getVerboseDateTimeRepresentation(DateTime dateTime,DateTime now) {
+
     DateTime justNow = now.subtract(Duration(minutes: 1));
     DateTime localDateTime = dateTime.toLocal();
 

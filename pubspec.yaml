@@ -45,6 +45,8 @@ dependencies:
   geolocator: ^5.3.1
   intl: ^0.16.1
   geodesy: ^0.3.2
+  timeago:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
