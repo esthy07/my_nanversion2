@@ -9,11 +9,44 @@ import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/detailUser.dart';
 import 'package:provider/provider.dart';
 
-class ProfilImage extends StatelessWidget {
+class ProfilImage extends StatefulWidget {
   UserModel user;
-  DataBaseMethode dataBaseMethode = DataBaseMethode();
-  UserModel currentUser ;
+
   ProfilImage({this.user});
+
+  @override
+  _ProfilImageState createState() => _ProfilImageState();
+}
+
+class _ProfilImageState extends State<ProfilImage> {
+  DataBaseMethode dataBaseMethode = DataBaseMethode();
+
+  UserModel currentUser;
+
+  Future creatNewChatRoom(UserModel curentUser, UserModel otherUser) async {
+    try {
+      print("Add new chatRoom");
+      Map<String, String> user1 = {
+        "email": curentUser.email,
+        "image": curentUser.image
+      };
+      Map<String, String> user2 = {
+        "email": otherUser.email,
+        "image": otherUser.image
+      };
+      List<Map<String, dynamic>> users = [user1, user2];
+      String idSalon = await dataBaseMethode.createChatRoom(users);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ChatPage(
+          idSalon: idSalon,
+          image: otherUser.image,
+          titre: otherUser.username,
+        ),
+      ));
+    } catch (e) {
+      print("ERROR TO ADD NEWS CHATROOM ${e.toString()}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +72,8 @@ class ProfilImage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profil(user)));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Profil(widget.user)));
             }),
 
         FocusedMenuItem(
@@ -50,14 +83,7 @@ class ProfilImage extends StatelessWidget {
               color: primaryColor,
             ),
             onPressed: () {
-               String idSalon = dataBaseMethode.generatChatId(currentUser.email,user.email);
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ChatPage(
-                                idSalon: idSalon,
-                                image: user.image,
-                                titre: user.email,
-                              ),
-                            ));
+              creatNewChatRoom(currentUser, widget.user);
             }),
         // FocusedMenuItem(
         //     title: Text("Favorite"),
@@ -77,7 +103,9 @@ class ProfilImage extends StatelessWidget {
       onPressed: () {},
       child: Container(
         child: CircleAvatar(
-          backgroundImage:user.image!=null? NetworkImage(user.image):AssetImage("assets/images/bg-header.jpg"),
+          backgroundImage: widget.user.image != null
+              ? NetworkImage(widget.user.image)
+              : AssetImage("assets/images/bg-header.jpg"),
           radius: 30,
         ),
       ),
