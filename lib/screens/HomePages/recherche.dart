@@ -24,6 +24,8 @@ class _RechercheState extends State<Recherche> {
   bool isInit = true;
   List<List<Map<String, dynamic>>> userRecherche = [];
   Geodesy geodesy = Geodesy();
+
+  
   @override
   Widget build(BuildContext context) {
     currentUsers = Provider.of<UserProv>(context).loggedInUser;
@@ -51,66 +53,66 @@ class _RechercheState extends State<Recherche> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    if (userRecherche.isNotEmpty)
-                      StreamBuilder(
-                        stream: _firestore
-                            .collection("UserModel")
-                            .where("ville", isEqualTo: currentUsers.ville)
-                            .snapshots(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            List<List<Map<String, dynamic>>> userAndDistance =
-                                [];
-                            List<Map<String, dynamic>> listUser = [];
-                            LatLng l1 = LatLng(
-                                currentUsers.place[0], currentUsers.place[1]);
-                            snapshot.data.docs.forEach((element) {
-                              UserModel newUser =
-                                  UserModel.fromMap(element.data());
-                              if (newUser.place != null &&
-                                  newUser.email != currentUsers.email) {
-                                LatLng l2 =
-                                    LatLng(newUser.place[0], newUser.place[1]);
-                                num distance =
-                                    geodesy.distanceBetweenTwoGeoPoints(l1, l2);
-                                listUser.add(
-                                    {"user": newUser, "distance": distance});
-                              }
-                            });
-                            listUser.sort((a, b) =>
-                                a["distance"].compareTo(b["distance"]));
-                            // SUBDIVISé LES LISTE POUR L4AFFICHAGE
-
-                            int multiple = (listUser.length / 3).toInt();
-
-                            if (multiple >= 1) {
-                              for (int i = 0; i < multiple; i++) {
-                                List<Map<String, dynamic>> sublist =
-                                    listUser.sublist(3 * i, 3 + 3 * i);
-                                userAndDistance.add(sublist);
-                              }
-                              if (listUser.length % 3 != 0) {
-                                userAndDistance.add(listUser.sublist(
-                                    3 * multiple, listUser.length));
-                              }
-                            } else {
-                              userAndDistance.add(listUser);
+                    StreamBuilder(
+                      stream: _firestore
+                          .collection("UserModel")
+                          .where("ville", isEqualTo: currentUsers.ville)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<List<Map<String, dynamic>>> userAndDistance = [];
+                          List<Map<String, dynamic>> listUser = [];
+                          LatLng l1 = LatLng(
+                              currentUsers.place[0], currentUsers.place[1]);
+                          snapshot.data.docs.forEach((element) {
+                            UserModel newUser =
+                                UserModel.fromMap(element.data());
+                 
+                            if (newUser.place != null &&
+                                newUser.email != currentUsers.email) {
+                              LatLng l2 =
+                                  LatLng(newUser.place[0], newUser.place[1]);
+                              num distance =
+                                  geodesy.distanceBetweenTwoGeoPoints(l1, l2);
+                              listUser
+                                  .add({"user": newUser, "distance": distance});
                             }
-                            print(userAndDistance.length);
-                            return Container(
-                              height: deviceHeight - 200,
-                              child: ListView.builder(
-                                reverse: true,
-                                itemCount: userRecherche.length,
-                                itemBuilder: (context, index) =>
-                                    RecherchRow(userRecherche[index]),
-                              ),
-                            );
+                          });
+                          listUser.sort(
+                              (a, b) => a["distance"].compareTo(b["distance"]));
+                          // SUBDIVISé LES LISTE POUR L4AFFICHAGE
+
+                          int multiple = (listUser.length / 3).toInt();
+
+                          if (multiple >= 1) {
+                            for (int i = 0; i < multiple; i++) {
+                              List<Map<String, dynamic>> sublist =
+                                  listUser.sublist(3 * i, 3 + 3 * i);
+                              userAndDistance.add(sublist);
+                            }
+                            if (listUser.length % 3 != 0) {
+                              userAndDistance.add(listUser.sublist(
+                                  3 * multiple, listUser.length));
+                            }
                           } else {
-                            return Container();
+                            userAndDistance.add(listUser);
                           }
-                        },
-                      ),
+                          print("Final lenght ");
+                          print(userAndDistance.length);
+                          return Container(
+                            height: deviceHeight - 200,
+                            child: ListView.builder(
+                              reverse: true,
+                              itemCount: userAndDistance.length,
+                              itemBuilder: (context, index) =>
+                                  RecherchRow(userAndDistance[index]),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    ),
                     Container(
                       alignment: Alignment.center,
                       child: Column(

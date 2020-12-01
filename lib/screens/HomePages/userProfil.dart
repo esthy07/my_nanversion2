@@ -35,8 +35,9 @@ class _ModifierProfilState extends State<ModifierProfil> {
 
       final lat = result['lat'] as double;
       final lng = result['long'] as double;
-      currentUsers.place = [lat,lng];
+      currentUsers.place = [lat, lng];
       currentUsers.address = result["address"];
+      currentUsers.ville = result["ville"];
       Provider.of<UserProv>(context, listen: false).updateUser(currentUsers);
     } catch (e) {
       print("Error to update Location ${e.toString()}");

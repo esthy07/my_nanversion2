@@ -38,7 +38,17 @@ class LocalPlaceMethode {
         final lat = detail.result.geometry.location.lat;
         final lng = detail.result.geometry.location.lng;
         print("${p.description} => $lat,$lng");
-        return {"lat": lat, "long": lng, "address": p.description};
+        List<String> tab = p.description.split(',');
+        print(tab);
+        print(tab.length);
+        String ville = tab[tab.length - 2];
+        print("Ville $ville");
+        return {
+          "lat": lat,
+          "long": lng,
+          "address": p.description,
+          "ville": "Abidjan"
+        };
       } catch (e) {
         print("Error to get Position ");
         return null;
@@ -46,7 +56,6 @@ class LocalPlaceMethode {
     }
     return null;
   }
-
   Future<Map<String, dynamic>> getCurrentLocation() async {
     print("Géolocator");
     try {
@@ -56,11 +65,11 @@ class LocalPlaceMethode {
       print(position.latitude);
       print(position.longitude);
       print("poss");
-      Map<String,dynamic> placeString = await getAddressFromLatLng(position);
+      Map<String, dynamic> placeString = await getAddressFromLatLng(position);
       Map<String, dynamic> result = {
         "place": [position.latitude, position.longitude],
         "address": placeString["plassComplet"],
-        "ville":placeString["ville"]
+        "ville": placeString["ville"]
       };
       return result;
     } catch (e) {
