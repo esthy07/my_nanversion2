@@ -19,11 +19,12 @@ class _RechercheState extends State<Recherche> {
   String dropdownValue = " Mon lieux d'habitation";
   UserModel currentUsers;
   bool isInit = true;
+  List<List<Map<String, dynamic>>> userRecherche = [];
   @override
   Future<void> didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     if (isInit) {
-      await Provider.of<UserProv>(context, listen: false).rechercheUser();
+    userRecherche = await Provider.of<UserProv>(context, listen: false).rechercheUser();
       setState(() {
         isInit = false;
       });
@@ -60,21 +61,18 @@ class _RechercheState extends State<Recherche> {
                   children: <Widget>[
                     Container(
                       height: deviceHeight - 200,
-                      child: ListView(
-                        children: <Widget>[
-                          RecherchRow(),
-                          RecherchRow(),
-                          RecherchRow(),
-                          RecherchRow(),
-                          RecherchRow(),
-                        ],
+                      child: ListView.builder(
+                        reverse: true,
+                        itemCount: userRecherche.length,
+                        itemBuilder: (context, index) => RecherchRow(userRecherche[index]),
+                      
                       ),
                     ),
                     Container(
                       alignment: Alignment.center,
                       child: Column(
                         children: <Widget>[
-                          ProfilImage(imagePath: currentUsers.image),
+                          ProfilImage(user: currentUsers),
                           SizedBox(
                             height: 20,
                           ),

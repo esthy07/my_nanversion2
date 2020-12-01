@@ -23,24 +23,43 @@ class UserProv with ChangeNotifier {
 
   List<UserModel> get allUsers => _allUsers;
 
-  Future<List<Map<String, dynamic>>> rechercheUser({String ville}) async {
+  Future<List<List<Map<String, dynamic>>>> rechercheUser({String ville}) async {
     try {
       QuerySnapshot result =
           await userCollection.where("ville", isEqualTo: _user.ville).get();
       print(result.docs[0].data());
-      List<Map<String, dynamic>> userAndDistance = [];
+      List<List<Map<String, dynamic>>> userAndDistance = [];
+      List<Map<String, dynamic>> listUser = [];
       LatLng l1 = LatLng(_user.place[0], _user.place[1]);
+      int i = 0;
+
       result.docs.forEach((element) {
         UserModel newUser = UserModel.fromMap(element.data());
         if (newUser.place != null && newUser.email != _user.email) {
           LatLng l2 = LatLng(newUser.place[0], newUser.place[1]);
           num distance = geodesy.distanceBetweenTwoGeoPoints(l1, l2);
-          print(
-              "Distance entre ${_user.address} et ${newUser.address} est => $distance");
-          userAndDistance.add({"user": newUser, "distance": distance});
+          listUser.add({"user": newUser, "distance": distance});
         }
       });
-      userAndDistance.sort((a, b) => a["distance"].compareTo(b["distance"]));
+      listUser.sort((a, b) => a["distance"].compareTo(b["distance"]));
+
+      // SUBDIVISé LES LISTE POUR L4AFFICHAGE
+
+      int multiple = (listUser.length / 3).toInt();
+
+      if (multiple >= 1) {
+        for (int i = 0; i < multiple; i++) {
+          List<Map<String, dynamic>> sublist =
+              listUser.sublist(3 * i, 3 + 3 * i);
+          userAndDistance.add(sublist);
+        }
+        if (listUser.length % 3 != 0) {
+          userAndDistance.add(listUser.sublist(3 * multiple, listUser.length));
+        }
+      } else {
+        userAndDistance.add(listUser);
+      }
+      print(userAndDistance.length);
       return userAndDistance;
     } catch (e) {
       print("Error to find uses ${e.toString()}");

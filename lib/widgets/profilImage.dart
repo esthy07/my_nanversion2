@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/screens/ChatPages/chatPage.dart';
 import 'package:mynan/screens/ChatPages/detailUser.dart';
 
 class ProfilImage extends StatelessWidget {
-  String imagePath;
-  ProfilImage({this.imagePath});
+  UserModel user;
+  ProfilImage({this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class ProfilImage extends StatelessWidget {
       onPressed: () {},
       child: Container(
         child: CircleAvatar(
-          backgroundImage:imagePath!=null? NetworkImage(imagePath):AssetImage("assets/images/bg-header.jpg"),
+          backgroundImage:user.image!=null? NetworkImage(user.image):AssetImage("assets/images/bg-header.jpg"),
           radius: 30,
         ),
       ),
