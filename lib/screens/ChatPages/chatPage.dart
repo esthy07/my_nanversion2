@@ -78,9 +78,7 @@ class _ChatPageState extends State<ChatPage> {
               if (newValue.trim() == "Supprimer la discution".trim()) {
                 _firestore
                     .collection("ChatRoom")
-                    .doc(widget.idSalon).collection("chats").doc()
-                    .delete()
-                    .then((value) => Navigator.of(context).pop());
+                    .doc(widget.idSalon).delete().then((value) => Navigator.of(context).pop());
               }
             },
             itemBuilder: (BuildContext context) => _popUpMenuItems,

@@ -21,7 +21,32 @@ class RecherchRow extends StatefulWidget {
 
 class _RecherchRowState extends State<RecherchRow> {
   DataBaseMethode dataBaseMethode = DataBaseMethode();
-  UserModel currentUser ;
+  UserModel currentUser;
+  Future creatNewChatRoom(UserModel curentUser, UserModel otherUser) async {
+    try {
+      print("Add new chatRoom");
+      Map<String, String> user1 = {
+        "email": curentUser.email,
+        "image": curentUser.image
+      };
+      Map<String, String> user2 = {
+        "email": otherUser.email,
+        "image": otherUser.image
+      };
+      List<Map<String, dynamic>> users = [user1, user2];
+      String idSalon = await dataBaseMethode.createChatRoom(users);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ChatPage(
+          idSalon: idSalon,
+          image: otherUser.image,
+          titre: otherUser.username,
+        ),
+      ));
+    } catch (e) {
+      print("ERROR TO ADD NEWS CHATROOM ${e.toString()}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     currentUser = Provider.of<UserProv>(context).loggedInUser;
@@ -74,14 +99,8 @@ class _RecherchRowState extends State<RecherchRow> {
                             color: primaryColor,
                           ),
                           onPressed: () {
-                            String idSalon = dataBaseMethode.generatChatId(currentUser.email,widget.userDistanceList[2]["user"].email);
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ChatPage(
-                                idSalon: idSalon,
-                                image: widget.userDistanceList[2]["user"].image,
-                                titre: widget.userDistanceList[2]["user"].email,
-                              ),
-                            ));
+                            creatNewChatRoom(currentUser,
+                                widget.userDistanceList[2]["user"]);
                           }),
 
                       FocusedMenuItem(
