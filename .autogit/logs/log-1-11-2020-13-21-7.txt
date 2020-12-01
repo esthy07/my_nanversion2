@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Tue Dec 01 2020 13:21:07 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/Provider/localPlaceMethode.dart
+* lib/screens/HomePages/recherche.dart
+* lib/screens/HomePages/userProfil.dart
+
+
+Created files:
+* .autogit/logs/log-1-11-2020-12-50-50.txt
+
+
+Deleted files:
+
+
+Renamed files:
