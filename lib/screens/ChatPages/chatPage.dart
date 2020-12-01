@@ -116,6 +116,7 @@ class _ChatPageState extends State<ChatPage> {
                       var dateLastMessage = message.get("dateAdd");
                       dateLastMessage =
                           DateTime.parse(dateLastMessage.toDate().toString());
+                      
                       if (message.get("sender") == _auth.currentUser.email) {
                         messageList.add(RightMessage(
                             message.data()["message"], dateLastMessage));
