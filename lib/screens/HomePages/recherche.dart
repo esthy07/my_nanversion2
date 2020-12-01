@@ -21,6 +21,7 @@ class _RechercheState extends State<Recherche> {
   LocalPlaceMethode localPlaceMethode = LocalPlaceMethode();
   String rechercherEnFonction = "Mon lieux d'habitation";
   String dropdownValue = " Mon lieux d'habitation";
+  bool rechercheEnFonctionDeMonLieux = true;
   UserModel currentUsers;
   final _firestore = FirebaseFirestore.instance;
   bool isInit = true;
@@ -28,6 +29,7 @@ class _RechercheState extends State<Recherche> {
   Geodesy geodesy = Geodesy();
   String villeToSearche;
   LatLng l1;
+  String currentAddress;
   @override
   void initState() {
     currentUsers = Provider.of<UserProv>(context, listen: false).loggedInUser;
@@ -37,12 +39,19 @@ class _RechercheState extends State<Recherche> {
   }
 
   Future<void> changePlaceSearch() async {
-    Map<String, dynamic> place = await localPlaceMethode.getCurrentLocation();
-    setState(() {
-      villeToSearche = place["ville"];
-      l1 = LatLng(place["place"][0], place["place"][1]);
-      print(l1);
-    });
+    if (!rechercheEnFonctionDeMonLieux) {
+      Map<String, dynamic> place = await localPlaceMethode.getCurrentLocation();
+      setState(() {
+        villeToSearche = place["ville"];
+        l1 = LatLng(place["place"][0], place["place"][1]);
+        currentAddress = place["address"];
+        print("New pLACE ");
+        print(l1);
+      });
+    } else {
+      villeToSearche = currentUsers.ville;
+      l1 = LatLng(currentUsers.place[0], currentUsers.place[1]);
+    }
   }
 
   @override
@@ -74,7 +83,7 @@ class _RechercheState extends State<Recherche> {
                     StreamBuilder(
                       stream: _firestore
                           .collection("UserModel")
-                          .where("ville", isEqualTo: currentUsers.ville)
+                          .where("ville", isEqualTo: villeToSearche)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -114,17 +123,19 @@ class _RechercheState extends State<Recherche> {
                           } else {
                             userAndDistance.add(listUser);
                           }
-                          print("Final lenght ");
-                          print(userAndDistance.length);
-                          return Container(
-                            height: deviceHeight - 200,
-                            child: ListView.builder(
-                              reverse: true,
-                              itemCount: userAndDistance.length,
-                              itemBuilder: (context, index) =>
-                                  RecherchRow(userAndDistance[index]),
-                            ),
-                          );
+                          print("Result ${userAndDistance}");
+                          return (userAndDistance.isNotEmpty ||
+                                  userAndDistance == null)
+                              ? Container(
+                                  height: deviceHeight - 200,
+                                  child: ListView.builder(
+                                    reverse: true,
+                                    itemCount: userAndDistance.length,
+                                    itemBuilder: (context, index) =>
+                                        RecherchRow(userAndDistance[index]),
+                                  ),
+                                )
+                              : Container();
                         } else {
                           return Container();
                         }
@@ -139,11 +150,20 @@ class _RechercheState extends State<Recherche> {
                             height: 20,
                           ),
                           Container(
-                              child: Text(
+                              child: !rechercheEnFonctionDeMonLieux? Text(
                             "Rétrouver un(e) Nanien(en) pres de chez vous ",
                             style: TextStyle(
                                 color: Colors.white, fontFamily: 'barlow'),
-                          )),
+                          ):Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.place,color: primaryColor,),
+                Text(
+                  '${.address}',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),),
                           SizedBox(
                             height: 5,
                           ),
@@ -166,10 +186,13 @@ class _RechercheState extends State<Recherche> {
                                   height: 1,
                                   color: Colors.transparent,
                                 ),
-                                onChanged: (String newValue) {
+                                onChanged: (String newValue) async {
                                   setState(() {
                                     dropdownValue = newValue;
+                                    rechercheEnFonctionDeMonLieux =
+                                        !rechercheEnFonctionDeMonLieux;
                                   });
+                                  await changePlaceSearch();
                                 },
                                 items: <String>[
                                   " Mon lieux d'habitation",
