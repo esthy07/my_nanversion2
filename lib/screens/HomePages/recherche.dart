@@ -59,7 +59,7 @@ class _RechercheState extends State<Recherche> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
+                  if(userRecherche.isNotEmpty) Container(
                       height: deviceHeight - 200,
                       child: ListView.builder(
                         reverse: true,

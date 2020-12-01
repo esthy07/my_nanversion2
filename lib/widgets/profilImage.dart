@@ -34,7 +34,7 @@ class ProfilImage extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profil()));
+                  context, MaterialPageRoute(builder: (context) => Profil(user)));
             }),
 
         FocusedMenuItem(
