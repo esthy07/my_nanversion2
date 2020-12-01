@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/widgets/chatWidget/leftMessage.dart';
 import 'package:mynan/widgets/chatWidget/reightMessage.dart';
+import 'package:provider/provider.dart';
 
 import '../../Constantes/customeTheme.dart';
 
@@ -22,42 +24,11 @@ class _ChatPageState extends State<ChatPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   TextEditingController messageText = TextEditingController();
+  UserModel currentUser;
   static const menuItems = <String>[
-    'One',
-    'Two',
+    'Afficher contact',
+    'Supprimer la discution',
   ];
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMessage();
-  }
-
-  void getMessage() async {
-    print("get Salons");
-    _firestore
-        .collection("salons")
-        .where(
-          'id',
-          isEqualTo: "RnEYxKdkD8srCYMNAkPy",
-        )
-        .get()
-        .then((value) => print(value));
-    // final listMessage = messages.doc().get();
-
-    // print(listMessage);
-    // for (var i in messages.docs) {
-    //   print(i.data());
-    // }
-  }
-
-  void getMessageStream() async {
-    await for (var snapshot in _firestore.collection("messages").snapshots()) {
-      for (var i in snapshot.docs) {
-        print(i.data());
-      }
-    }
-  }
 
   String _btn3SelectedVal;
   final List<PopupMenuItem<String>> _popUpMenuItems = menuItems
@@ -71,6 +42,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    currentUser = Provider.of<UserProv>(context).loggedInUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -103,12 +75,13 @@ class _ChatPageState extends State<ChatPage> {
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: (String newValue) {
-              _btn3SelectedVal = newValue;
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(_btn3SelectedVal),
-                ),
-              );
+              if (newValue.trim() == "Supprimer la discution".trim()) {
+                _firestore
+                    .collection("ChatRoom")
+                    .doc(widget.idSalon).collection("chats").doc()
+                    .delete()
+                    .then((value) => Navigator.of(context).pop());
+              }
             },
             itemBuilder: (BuildContext context) => _popUpMenuItems,
           ),
@@ -142,18 +115,17 @@ class _ChatPageState extends State<ChatPage> {
 
                     List<Widget> messageList = [];
                     for (var message in messages) {
-                      var dateLastMessage =
-                          message.get("dateAdd");
+                      var dateLastMessage = message.get("dateAdd");
                       dateLastMessage =
                           DateTime.parse(dateLastMessage.toDate().toString());
                       
                       if (message.get("sender") == _auth.currentUser.email) {
                         messageList.add(RightMessage(
-                            message.data()["message"],dateLastMessage));
+                            message.data()["message"], dateLastMessage));
                         //message.get("lastMessage")["dateAdd"]
                       } else {
-                        messageList.add(
-                            LeftMessage(message.data()["message"],dateLastMessage));
+                        messageList.add(LeftMessage(
+                            message.data()["message"], dateLastMessage));
                       }
                     }
                     return ListView(reverse: true, children: messageList);
@@ -193,7 +165,7 @@ class _ChatPageState extends State<ChatPage> {
                       .collection("chats")
                       .add({
                     "message": messageText.text,
-                    "sender": _auth.currentUser.email,
+                    "sender": currentUser.email,
                     "dateAdd": DateTime.now(),
                     "isRead": false,
                   });
