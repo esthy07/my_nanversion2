@@ -31,7 +31,6 @@ class UserProv with ChangeNotifier {
       List<List<Map<String, dynamic>>> userAndDistance = [];
       List<Map<String, dynamic>> listUser = [];
       LatLng l1 = LatLng(_user.place[0], _user.place[1]);
-      int i = 0;
 
       result.docs.forEach((element) {
         UserModel newUser = UserModel.fromMap(element.data());
