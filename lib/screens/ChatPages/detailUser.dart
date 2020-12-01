@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/model/UseurModel.dart';
 
 class Profil extends StatelessWidget {
+  UserModel user;
+  Profil(this.user);
   @override
   Widget build(BuildContext context) {
     Widget champ(String text, String text1) {
@@ -32,7 +36,11 @@ class Profil extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                IconButton(icon: Icon(Icons.arrow_back), onPressed: () {}),
+                IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    }),
                 IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
               ],
             ),
@@ -42,9 +50,11 @@ class Profil extends StatelessWidget {
                   height: 150,
                   width: 150,
                   decoration: BoxDecoration(
-                      image:
-                          DecorationImage(image: AssetImage("images/will.jpg")),
-                      color: Color(0xff983298),
+                      image: DecorationImage(
+                          image: user.image == null
+                              ? AssetImage("assets/images/nan.png")
+                              : NetworkImage(user.image),
+                          fit: BoxFit.cover),
                       shape: BoxShape.circle),
                 ),
                 Positioned(
@@ -66,7 +76,7 @@ class Profil extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Will Smith',
+                  '${user.username}',
                   style: TextStyle(color: Colors.black, fontSize: 30),
                 ),
               ],
@@ -74,17 +84,18 @@ class Profil extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Icon(Icons.place,color: primaryColor,),
                 Text(
-                  'Developpeur',
+                  '${user.address}',
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),
             SizedBox(height: 20),
-            champ('Nom', 'Yapi'),
-            champ('Prenoms', 'yapo'),
-            champ('Adresse email', 'yapiyapo@flutter.org'),
-            champ('Specialité', 'Flutter'),
+            champ('Nom', '${user.firstname}'),
+            champ('Prenoms', '${user.lastname}'),
+            champ('Adresse email', '${user.email}'),
+            // champ('Specialité', 'Flutter'),
           ],
         ),
       ),

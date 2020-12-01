@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mynan/widgets/profilImage.dart';
 
 class RecherchRow extends StatefulWidget {
-  RecherchRow({Key key}) : super(key: key);
+  List<Map<String, dynamic>> userDistanceList;
+
+  RecherchRow(this.userDistanceList);
 
   @override
   _RecherchRowState createState() => _RecherchRowState();
@@ -20,15 +22,17 @@ class _RecherchRowState extends State<RecherchRow> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Container(
-            child: ProfilImage(),
+            child: ProfilImage(user: widget.userDistanceList[0]["user"]),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: rowHeight * .35),
-            child: ProfilImage(),
-          ),
-          Container(
-            child: ProfilImage(),
-          )
+          if (widget.userDistanceList.length > 2)
+            Container(
+              margin: EdgeInsets.only(bottom: rowHeight * .35),
+              child: ProfilImage(user: widget.userDistanceList[2]["user"]),
+            ),
+          if (widget.userDistanceList.length > 1)
+            Container(
+              child: ProfilImage(user: widget.userDistanceList[1]["user"]),
+            )
         ],
       ),
     );
