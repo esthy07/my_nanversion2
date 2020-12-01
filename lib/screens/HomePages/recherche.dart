@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geodesy/geodesy.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/Provider/localPlaceMethode.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/widgets/profilImage.dart';
 import 'package:mynan/widgets/rechercheRow.dart';
@@ -17,6 +18,7 @@ class Recherche extends StatefulWidget {
 }
 
 class _RechercheState extends State<Recherche> {
+  LocalPlaceMethode localPlaceMethode = LocalPlaceMethode();
   String rechercherEnFonction = "Mon lieux d'habitation";
   String dropdownValue = " Mon lieux d'habitation";
   UserModel currentUsers;
@@ -24,11 +26,27 @@ class _RechercheState extends State<Recherche> {
   bool isInit = true;
   List<List<Map<String, dynamic>>> userRecherche = [];
   Geodesy geodesy = Geodesy();
+  String villeToSearche;
+  LatLng l1;
+  @override
+  void initState() {
+    currentUsers = Provider.of<UserProv>(context, listen: false).loggedInUser;
+    villeToSearche = currentUsers.ville;
+    l1 = LatLng(currentUsers.place[0], currentUsers.place[1]);
+    super.initState();
+  }
 
-  
+  Future<void> changePlaceSearch() async {
+    Map<String, dynamic> place = await localPlaceMethode.getCurrentLocation();
+    setState(() {
+      villeToSearche = place["ville"];
+      l1 = LatLng(place["place"][0], place["place"][1]);
+      print(l1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    currentUsers = Provider.of<UserProv>(context).loggedInUser;
     final deviceHeight = MediaQuery.of(context).size.height - 70;
     final deviceWidth = MediaQuery.of(context).size.width;
 
@@ -62,12 +80,11 @@ class _RechercheState extends State<Recherche> {
                         if (snapshot.hasData) {
                           List<List<Map<String, dynamic>>> userAndDistance = [];
                           List<Map<String, dynamic>> listUser = [];
-                          LatLng l1 = LatLng(
-                              currentUsers.place[0], currentUsers.place[1]);
+
                           snapshot.data.docs.forEach((element) {
                             UserModel newUser =
                                 UserModel.fromMap(element.data());
-                 
+
                             if (newUser.place != null &&
                                 newUser.email != currentUsers.email) {
                               LatLng l2 =
