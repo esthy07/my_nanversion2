@@ -105,8 +105,10 @@ class _ListMessageState extends State<ListMessage> {
                     titre = user1["email"];
                     image = user1["image"];
                   }
+                  // dateLastMessage =
+                  //     DateTime.parse(dateLastMessage.toDate().toString());
                   dateLastMessage =
-                      DateTime.parse(dateLastMessage.toDate().toString());
+                      DateTime.now();
                   listSalon.add(detailListMessage(
                       context: context,
                       heure: dateLastMessage,
