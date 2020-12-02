@@ -12,7 +12,7 @@ class DataBaseMethode {
           await chatRoomCollection.where("chatRoomId", isEqualTo: chatId).get();
       print(result.docs);
       if (result.docs.isNotEmpty) {
-        if (!result.docs[0].exists || true) {
+        if (!result.docs[0].exists) {
           Map<String, dynamic> map = {
             "users": users,
             "chatRoomId": chatId,
@@ -20,8 +20,6 @@ class DataBaseMethode {
           };
           print("Add chat ");
           chatRoomCollection.doc(chatId).set(map);
-          // print(response);
-          // chatRoomCollection.doc(chatId).set(map);
         } else {
           print("Le salon exist dejat ");
         }
@@ -39,6 +37,7 @@ class DataBaseMethode {
       return chatId;
     } catch (e) {
       print("Error to add News chatRoom ${e.toString()}");
+      return null;
     }
   }
 
