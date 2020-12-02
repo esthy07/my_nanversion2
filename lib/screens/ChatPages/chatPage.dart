@@ -14,8 +14,9 @@ class ChatPage extends StatefulWidget {
   String image;
   String titre;
   String idSalon;
+  String otherEmail;
 
-  ChatPage({this.idSalon, this.titre, this.image});
+  ChatPage({this.idSalon, this.titre, this.image,this.otherEmail});
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -38,7 +39,7 @@ class _ChatPageState extends State<ChatPage> {
         .doc(currentUser.email)
         .update({"enLigne": enlign, "dateLigne": DateTime.now()});
   }
-  
+
   String _btn3SelectedVal;
   final List<PopupMenuItem<String>> _popUpMenuItems = menuItems
       .map(
@@ -79,12 +80,39 @@ class _ChatPageState extends State<ChatPage> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 2.5,
-                child: Text(
-                  '${widget.titre}',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Barlow',
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      '${widget.titre}',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                      ),
+                    ),
+                    StreamBuilder(
+                        stream: _firestore
+                            .collection("ChatRoom")
+                            .doc(widget.idSalon)
+                            .collection("enLigne")
+                            .doc(widget.otherEmail)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            print("Is En lign ????");
+                            print(snapshot.data["enLigne"]);
+                            return Text(
+                            snapshot.data["enLigne"]
+                                ? "en ligne"
+                                : "${snapshot.data["dateLigne"]}",
+                            style: TextStyle(fontSize: 12),
+                          );
+                          }else{
+                            return Text("");
+                          }
+                          
+                        })
+                  ],
                 ),
               ),
             ],

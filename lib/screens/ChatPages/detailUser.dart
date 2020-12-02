@@ -34,7 +34,8 @@ class _ProfilState extends State<Profil> {
         builder: (context) => ChatPage(
           idSalon: idSalon,
           image: otherUser.image,
-          titre: otherUser.username,
+          titre: otherUser.email,
+          otherEmail: otherUser.email,
         ),
       ));
     } catch (e) {

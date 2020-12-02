@@ -40,6 +40,7 @@ class _RecherchRowState extends State<RecherchRow> {
           idSalon: idSalon,
           image: otherUser.image,
           titre: otherUser.username,
+          otherEmail: otherUser.email,
         ),
       ));
     } catch (e) {
