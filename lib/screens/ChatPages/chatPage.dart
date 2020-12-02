@@ -167,11 +167,20 @@ class _ChatPageState extends State<ChatPage> {
 
                         if (message.get("sender") == _auth.currentUser.email) {
                           messageList.add(RightMessage(
-                              message.data()["message"], dateLastMessage,message.data()["isRead"]));
+                              message.data()["message"],
+                              dateLastMessage,
+                              message.data()["isRead"]));
                           //message.get("lastMessage")["dateAdd"]
                         } else {
-                          messageList.add(LeftMessage(
-                              message.data()["message"], dateLastMessage,message.data()["isRead"]));
+                          _firestore
+                              .collection("ChatRoom")
+                              .doc(widget.idSalon)
+                              .collection("chats")
+                              .doc(message.id)
+                              .update({"isRead": true});
+
+                          messageList.add(LeftMessage(message.data()["message"],
+                              dateLastMessage, message.data()["isRead"]));
                         }
                       }
                       return ListView(reverse: true, children: messageList);
