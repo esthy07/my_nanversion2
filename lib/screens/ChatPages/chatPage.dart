@@ -57,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
     return WillPopScope(
       onWillPop: () async {
         setEnLigne(false);
-        return false;
+        return true;
       },
       child: Scaffold(
         appBar: AppBar(
