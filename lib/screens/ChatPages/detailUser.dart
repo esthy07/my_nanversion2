@@ -136,7 +136,9 @@ class _ProfilState extends State<Profil> {
               ],
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                creatNewChatRoom(currentUser,widget.user);
+              },
               child: Container(
                 margin: EdgeInsets.only(
                     left: deviceWidth * .05,
