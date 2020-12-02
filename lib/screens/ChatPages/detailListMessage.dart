@@ -69,7 +69,7 @@ Widget detailListMessage(
                             Container(
                               width: MediaQuery.of(context).size.width / 3,
                               child: Text(
-                                lastMessage,
+                                "$lastMessage",
                                 style: TextStyle(fontFamily: 'Barlow', color: Colors.black, fontSize: 12),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -88,8 +88,8 @@ Widget detailListMessage(
                   child: Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Text(
-                      timeago.format(heure, locale: "fr"),
-                      //DateFormatter.getVerboseDateTimeRepresentation(heure),
+                      //timeago.format(heure, locale: "fr"),
+                      DateFormatter.getVerboseDateTimeRepresentation(heure),
                       style: TextStyle(
                           fontFamily: 'Barlow', fontWeight: FontWeight.w500, fontSize: 13),
                     ),

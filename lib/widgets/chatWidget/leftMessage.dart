@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class LeftMessage extends StatelessWidget {
+class LeftMessage extends StatefulWidget {
   String message;
   DateTime time;
   LeftMessage(this.message,this.time);
+
+  @override
+  _LeftMessageState createState() => _LeftMessageState();
+}
+
+class _LeftMessageState extends State<LeftMessage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,7 +36,7 @@ class LeftMessage extends StatelessWidget {
                             topRight: Radius.circular(5)),
                       ),
                       child: Text(
-                        message,
+                        widget.message,
                         style: TextStyle(
                             color: Colors.white,fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
                         ),
@@ -39,8 +45,8 @@ class LeftMessage extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
-                 Text(timeago.format(time, locale: "fr"),
-                     //DateFormatter.getVerboseDateTimeRepresentation(time,DateTime.now()),
+                 Text(//timeago.format(widget.time, locale: "fr"),
+                     DateFormatter.getVerboseDateTimeRepresentation(widget.time,DateTime.now()),
                       style: TextStyle(fontSize: 10, color: Colors.grey)),
                   Icon(Icons.done_all, size: 12,color: Colors.green,),
                 ],
