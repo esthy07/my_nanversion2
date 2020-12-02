@@ -4,6 +4,7 @@ import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/Provider/utilisateurProv.dart';
 import 'package:mynan/screens/modif_user.dart';
 import 'package:provider/provider.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 
 
@@ -16,6 +17,8 @@ class HomeTest extends StatefulWidget {
 }
 
 class _HomeTestState extends State<HomeTest> {
+
+  final assetsAudioPlayer = AssetsAudioPlayer();
 
   final _auth = FirebaseAuth.instance;
 
@@ -57,7 +60,26 @@ class _HomeTestState extends State<HomeTest> {
                     ),
                   ),
                 ),
-                Container(
+
+               FlatButton(
+                   onPressed: () {
+                     assetsAudioPlayer.open(
+                       Audio("assets/sound/intuition-561.mp3"),
+                       //autoPlay: true,
+                     );
+                     /*AssetsAudioPlayer.newPlayer().open(
+                       Audio("assets/audios/song1.mp3"),
+                       autoPlay: true,
+                       showNotification: true,
+                     );*/
+                   },
+                   child: Center(
+                     child: Text('jouer', style: TextStyle(
+                       color: Colors.black, fontSize: 20, fontFamily: 'Barlow'
+                     ),),
+                   )
+               )
+               /* Container(
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -148,7 +170,7 @@ class _HomeTestState extends State<HomeTest> {
                       // SizedBox(height: deviceHeight * .02,)
                     ],
                   ),
-                )
+                )*/
               ],
             ),
           ),

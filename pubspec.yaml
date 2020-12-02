@@ -46,8 +46,7 @@ dependencies:
   intl: ^0.16.1
   geodesy: ^0.3.2
   timeago:
-  #firebase_messaging: ^7.0.3
-  #flutter_local_notifications: ^3.0.1+6
+  assets_audio_player: ^2.0.13+1
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +66,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/sound/
     - assets/translator/de.json
     - assets/translator/en.json.dart
   #   - images/a_dot_ham.jpeg

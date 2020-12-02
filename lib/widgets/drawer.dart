@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:mynan/screens/AuthPages/connexion.dart';
 import 'package:mynan/screens/Notes/note.dart';
+import 'package:mynan/screens/homeTest.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/UserProv.dart';
@@ -109,7 +110,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, TestPage.routeName);
+                          Navigator.pushNamed(context, HomeTest.routeName);
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: deviceWidth * .02),
