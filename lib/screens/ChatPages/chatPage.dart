@@ -78,7 +78,9 @@ class _ChatPageState extends State<ChatPage> {
               if (newValue.trim() == "Supprimer la discution".trim()) {
                 _firestore
                     .collection("ChatRoom")
-                    .doc(widget.idSalon).delete().then((value) => Navigator.of(context).pop());
+                    .doc(widget.idSalon)
+                    .delete()
+                    .then((value) => Navigator.of(context).pop());
               }
             },
             itemBuilder: (BuildContext context) => _popUpMenuItems,
@@ -116,7 +118,7 @@ class _ChatPageState extends State<ChatPage> {
                       var dateLastMessage = message.get("dateAdd");
                       dateLastMessage =
                           DateTime.parse(dateLastMessage.toDate().toString());
-                      
+
                       if (message.get("sender") == _auth.currentUser.email) {
                         messageList.add(RightMessage(
                             message.data()["message"], dateLastMessage));
@@ -157,6 +159,7 @@ class _ChatPageState extends State<ChatPage> {
                   color: primaryColor,
                 ),
                 onPressed: () {
+                  DateTime timeSend = DateTime.now();
                   _firestore
                       .collection("ChatRoom")
                       .doc(widget.idSalon)
@@ -164,8 +167,14 @@ class _ChatPageState extends State<ChatPage> {
                       .add({
                     "message": messageText.text,
                     "sender": currentUser.email,
-                    "dateAdd": DateTime.now(),
+                    "dateAdd": timeSend,
                     "isRead": false,
+                  });
+                  _firestore.collection("ChatRoom").doc(widget.idSalon).update({
+                    "lastMessage": {
+                      "dateAdd": timeSend,
+                      "message": messageText.text
+                    }
                   });
                   messageText.clear();
                 },
