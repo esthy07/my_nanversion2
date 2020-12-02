@@ -94,10 +94,12 @@ class _ListMessageState extends State<ListMessage> {
                 final salons = snapshot.data.docs.reversed;
                 for (var salon in salons) {
                   var dateLastMessage = salon.get("lastMessage")["dateAdd"];
+                  print("Last date ");
+                  print(dateLastMessage);
                   String image = "";
                   String titre = "";
-                 final user1 = salon.get("users")[0] ;
-                  final user2 = salon.get("users")[1] ;
+                  final user1 = salon.get("users")[0];
+                  final user2 = salon.get("users")[1];
                   if (_auth.currentUser.email == user1["email"]) {
                     titre = user2["email"];
                     image = user2["image"];
@@ -107,6 +109,7 @@ class _ListMessageState extends State<ListMessage> {
                   }
                   dateLastMessage =
                       DateTime.parse(dateLastMessage.toDate().toString());
+                  // dateLastMessage = DateTime.now();
                   listSalon.add(detailListMessage(
                       context: context,
                       heure: dateLastMessage,

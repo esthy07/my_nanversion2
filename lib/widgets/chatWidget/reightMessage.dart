@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -6,7 +5,8 @@ import 'package:timeago/timeago.dart' as timeago;
 class RightMessage extends StatefulWidget {
   String message;
   DateTime time;
-  RightMessage(this.message,this.time)  ;
+  bool isRead;
+  RightMessage(this.message, this.time,this.isRead);
 
   @override
   _RightMessageState createState() => _RightMessageState();
@@ -15,7 +15,7 @@ class RightMessage extends StatefulWidget {
 class _RightMessageState extends State<RightMessage> {
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -39,17 +39,29 @@ class _RightMessageState extends State<RightMessage> {
                       child: Text(
                         "${widget.message}",
                         style: TextStyle(
-                            color: primaryColor, fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
-                        ),
+                            color: primaryColor,
+                            fontFamily: 'Barlow',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
                       ))
                 ],
               ),
               Row(
                 children: <Widget>[
-                  Text(//timeago.format(widget.time, locale: "fr"),
-                      DateFormatter.getVerboseDateTimeRepresentation(widget.time,DateTime.now()),
+                  Text(
+                      //timeago.format(widget.time, locale: "fr"),
+                      DateFormatter.getVerboseDateTimeRepresentation(
+                          widget.time, DateTime.now()),
                       style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  Icon(Icons.done_all, size: 12,color: Colors.green,),
+               widget.isRead?   Icon(
+                    Icons.done_all,
+                    size: 12,
+                    color: Colors.green,
+                  ):Icon(
+                    Icons.done,
+                    size: 12,
+                    color: Colors.grey,
+                  )
                 ],
               )
             ],
@@ -57,7 +69,5 @@ class _RightMessageState extends State<RightMessage> {
         ],
       ),
     );
-
-
   }
 }
