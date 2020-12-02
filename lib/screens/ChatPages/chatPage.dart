@@ -39,10 +39,14 @@ class _ChatPageState extends State<ChatPage> {
         ),
       )
       .toList();
-
+  @override
   @override
   Widget build(BuildContext context) {
     currentUser = Provider.of<UserProv>(context).loggedInUser;
+    _firestore.collection("ChatRoom").doc(widget.idSalon).collection("enLigne").doc(currentUser.email).update({
+      "enLigne":true,
+      "dateLigne":DateTime.now()
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,

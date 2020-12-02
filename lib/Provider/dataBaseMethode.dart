@@ -19,7 +19,18 @@ class DataBaseMethode {
             "lastMessage": {"dateAdd": DateTime.now(), "message": ""}
           };
           print("Add chat ");
-          chatRoomCollection.doc(chatId).set(map);
+          chatRoomCollection.doc(chatId).set(map).then((value) {
+            chatRoomCollection
+                .doc(chatId)
+                .collection("enLigne")
+                .doc(users[0]["email"])
+                .set({"dateLigne": null, "enLigne": false});
+            chatRoomCollection
+                .doc(chatId)
+                .collection("enLigne")
+                .doc(users[1]["email"])
+                .set({"dateLigne": null, "enLigne": false});
+          });
         } else {
           print("Le salon exist dejat ");
         }
@@ -30,8 +41,19 @@ class DataBaseMethode {
           "chatRoomId": chatId,
           "lastMessage": {"dateAdd": DateTime.now(), "message": ""}
         };
-        print("Add chat");
-        chatRoomCollection.doc(chatId).set(map);
+        chatRoomCollection.doc(chatId).set(map).then((value) {
+          chatRoomCollection
+              .doc(chatId)
+              .collection("enLigne")
+              .doc(users[0]["email"])
+              .set({"dateLigne": null, "enLigne": false});
+          chatRoomCollection
+              .doc(chatId)
+              .collection("enLigne")
+              .doc(users[1]["email"])
+              .set({"dateLigne": null, "enLigne": false});
+        });
+
         // print(response);
       }
       return chatId;
