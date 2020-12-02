@@ -1,15 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/Provider/dataBaseMethode.dart';
 import 'package:mynan/model/UseurModel.dart';
+import 'package:mynan/screens/ChatPages/chatPage.dart';
+import 'package:provider/provider.dart';
 
-class Profil extends StatelessWidget {
+class Profil extends StatefulWidget {
   UserModel user;
   Profil(this.user);
+
+  @override
+  _ProfilState createState() => _ProfilState();
+}
+
+class _ProfilState extends State<Profil> {
+  UserModel currentUser;
+  DataBaseMethode dataBaseMethode = DataBaseMethode();
+  Future creatNewChatRoom(UserModel curentUser, UserModel otherUser) async {
+    try {
+      print("Add new chatRoom");
+      Map<String, String> user1 = {
+        "email": curentUser.email,
+        "image": curentUser.image
+      };
+      Map<String, String> user2 = {
+        "email": otherUser.email,
+        "image": otherUser.image
+      };
+      List<Map<String, dynamic>> users = [user1, user2];
+      String idSalon = await dataBaseMethode.createChatRoom(users);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ChatPage(
+          idSalon: idSalon,
+          image: otherUser.image,
+          titre: otherUser.username,
+        ),
+      ));
+    } catch (e) {
+      print("ERROR TO ADD NEWS CHATROOM ${e.toString()}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+    currentUser = Provider.of<UserProv>(context).loggedInUser;
 
     Widget champ(String text, String text1) {
       return Container(
@@ -55,9 +92,9 @@ class Profil extends StatelessWidget {
                   width: 150,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: user.image == null
+                          image: widget.user.image == null
                               ? AssetImage("assets/images/nan.png")
-                              : NetworkImage(user.image),
+                              : NetworkImage(widget.user.image),
                           fit: BoxFit.cover),
                       shape: BoxShape.circle),
                 ),
@@ -80,7 +117,7 @@ class Profil extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '${user.username}',
+                  '${widget.user.username}',
                   style: TextStyle(color: Colors.black, fontSize: 30),
                 ),
               ],
@@ -88,9 +125,12 @@ class Profil extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(Icons.place,color: primaryColor,),
+                Icon(
+                  Icons.place,
+                  color: primaryColor,
+                ),
                 Text(
-                  '${user.address}',
+                  '${widget.user.address}',
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
@@ -98,34 +138,37 @@ class Profil extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: Container(
-                margin: EdgeInsets.only(left: deviceWidth * .05, right: deviceWidth * .05, top: deviceHeight * .02),
+                margin: EdgeInsets.only(
+                    left: deviceWidth * .05,
+                    right: deviceWidth * .05,
+                    top: deviceHeight * .02),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Icon(Icons.edit, color: primaryColor, size: 17,),
-                    Text('contactez', style: TextStyle(
-                      fontFamily: 'Barlow', color: primaryColor, fontSize: 17, fontWeight: FontWeight.w500
-                    ),),
+                    Icon(
+                      Icons.edit,
+                      color: primaryColor,
+                      size: 17,
+                    ),
+                    Text(
+                      'contactez',
+                      style: TextStyle(
+                          fontFamily: 'Barlow',
+                          color: primaryColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 20),
-            if(user.firstname != null) champ('Nom', '${user.firstname}'),
-            if(user.lastname != null) champ('Prenoms', '${user.lastname}'),
-            if(user.email != null) champ('Adresse email', '${user.email}'),
-            /*Container(
-              height: deviceHeight * .06,
-              width: deviceWidth / 2,
-              decoration: BoxDecoration(
-                  color: Color.fromRGBO(16, 24, 43, 1),
-                  borderRadius: BorderRadius.circular(5)
-              ),
-              child: Center(child: Text('Envoyer message', style: TextStyle(
-                color: Colors.white, fontFamily: 'Barlow'
-              ),)),
-            )*/
-            // champ('Specialité', 'Flutter'),
+            if (widget.user.firstname != null)
+              champ('Nom', '${widget.user.firstname}'),
+            if (widget.user.lastname != null)
+              champ('Prenoms', '${widget.user.lastname}'),
+            if (widget.user.email != null)
+              champ('Adresse email', '${widget.user.email}'),
           ],
         ),
       ),
