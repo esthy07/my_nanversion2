@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 17:02:45 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/screens/ChatPages/listMessage.dart
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:
