@@ -18,7 +18,7 @@ class HomeTest extends StatefulWidget {
 
 class _HomeTestState extends State<HomeTest> {
 
-  final assetsAudioPlayer = AssetsAudioPlayer();
+  //final assetsAudioPlayer = AssetsAudioPlayer();
 
   final _auth = FirebaseAuth.instance;
 
@@ -63,22 +63,27 @@ class _HomeTestState extends State<HomeTest> {
 
                FlatButton(
                    onPressed: () {
-                     assetsAudioPlayer.open(
+                     /*assetsAudioPlayer.set.open(
                        Audio("assets/sound/intuition-561.mp3"),
                        //autoPlay: true,
-                     );
-                     /*AssetsAudioPlayer.newPlayer().open(
-                       Audio("assets/audios/song1.mp3"),
-                       autoPlay: true,
-                       showNotification: true,
                      );*/
+                     AssetsAudioPlayer.newPlayer().open(
+                       Audio("assets/audios/song1.mp3"),
+                       showNotification: true,
+                     );
                    },
                    child: Center(
                      child: Text('jouer', style: TextStyle(
                        color: Colors.black, fontSize: 20, fontFamily: 'Barlow'
                      ),),
                    )
-               )
+               ),
+               /* StreamBuilder(
+                    stream: assetsAudioPlayer.volume,
+                    builder: (context, asyncSnapshot) {
+                      final double volume = asyncSnapshot.data;
+                      return Text("volume : $volume");
+                    }),*/
                /* Container(
                   child: Column(
                     children: <Widget>[
