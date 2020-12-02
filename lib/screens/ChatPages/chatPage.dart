@@ -16,7 +16,7 @@ class ChatPage extends StatefulWidget {
   String idSalon;
   String otherEmail;
 
-  ChatPage({this.idSalon, this.titre, this.image,this.otherEmail});
+  ChatPage({this.idSalon, this.titre, this.image, this.otherEmail});
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -26,6 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   final _firestore = FirebaseFirestore.instance;
   TextEditingController messageText = TextEditingController();
   UserModel currentUser;
+  bool isEnligne = false;
   static const menuItems = <String>[
     'Afficher contact',
     'Supprimer la discution',
@@ -101,16 +102,16 @@ class _ChatPageState extends State<ChatPage> {
                           if (snapshot.hasData) {
                             print("Is En lign ????");
                             print(snapshot.data["enLigne"]);
+                            isEnligne = snapshot.data["enLigne"];
                             return Text(
-                            snapshot.data["enLigne"]
-                                ? "en ligne"
-                                : "${snapshot.data["dateLigne"]}",
-                            style: TextStyle(fontSize: 12),
-                          );
-                          }else{
+                              snapshot.data["enLigne"]
+                                  ? "en ligne"
+                                  : "${snapshot.data["dateLigne"]}",
+                              style: TextStyle(fontSize: 12),
+                            );
+                          } else {
                             return Text("");
                           }
-                          
                         })
                   ],
                 ),
@@ -166,11 +167,11 @@ class _ChatPageState extends State<ChatPage> {
 
                         if (message.get("sender") == _auth.currentUser.email) {
                           messageList.add(RightMessage(
-                              message.data()["message"], dateLastMessage));
+                              message.data()["message"], dateLastMessage,message.data()["isRead"]));
                           //message.get("lastMessage")["dateAdd"]
                         } else {
                           messageList.add(LeftMessage(
-                              message.data()["message"], dateLastMessage));
+                              message.data()["message"], dateLastMessage,message.data()["isRead"]));
                         }
                       }
                       return ListView(reverse: true, children: messageList);
@@ -213,7 +214,7 @@ class _ChatPageState extends State<ChatPage> {
                       "message": messageText.text,
                       "sender": currentUser.email,
                       "dateAdd": timeSend,
-                      "isRead": false,
+                      "isRead": isEnligne,
                     });
                     _firestore
                         .collection("ChatRoom")

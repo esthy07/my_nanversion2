@@ -5,7 +5,8 @@ import 'package:timeago/timeago.dart' as timeago;
 class LeftMessage extends StatefulWidget {
   String message;
   DateTime time;
-  LeftMessage(this.message,this.time);
+  bool isRead;
+  LeftMessage(this.message, this.time,this.isRead);
 
   @override
   _LeftMessageState createState() => _LeftMessageState();
@@ -38,17 +39,30 @@ class _LeftMessageState extends State<LeftMessage> {
                       child: Text(
                         widget.message,
                         style: TextStyle(
-                            color: Colors.white,fontFamily: 'Barlow', fontSize: 16, fontWeight: FontWeight.w500
-                        ),
+                            color: Colors.white,
+                            fontFamily: 'Barlow',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
                       ))
                 ],
               ),
               Row(
                 children: <Widget>[
-                 Text(//timeago.format(widget.time, locale: "fr"),
-                     DateFormatter.getVerboseDateTimeRepresentation(widget.time,DateTime.now()),
+                  Text(
+                      //timeago.format(widget.time, locale: "fr"),
+                      DateFormatter.getVerboseDateTimeRepresentation(
+                          widget.time, DateTime.now()),
                       style: TextStyle(fontSize: 10, color: Colors.grey)),
-                  Icon(Icons.done_all, size: 12,color: Colors.green,),
+                 widget.isRead? Icon(
+
+                    Icons.done_all,
+                    size: 12,
+                    color: Colors.green,
+                  ):Icon(
+                    Icons.done,
+                    size: 12,
+                    color: Colors.grey,
+                  ),
                 ],
               )
             ],
