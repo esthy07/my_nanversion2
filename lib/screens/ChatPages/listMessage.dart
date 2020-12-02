@@ -93,8 +93,6 @@ class _ListMessageState extends State<ListMessage> {
               if (snapshot.hasData) {
                 final salons = snapshot.data.docs.reversed;
                 for (var salon in salons) {
-                  print("############################");
-                  print(salon.get("users")[0]);
                   var dateLastMessage = salon.get("lastMessage")["dateAdd"];
                   String image = "";
                   String titre = "";
