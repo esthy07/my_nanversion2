@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 15:02:01 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/Provider/dataBaseMethode.dart
+* lib/screens/ChatPages/chatPage.dart
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:

@@ -14,8 +14,9 @@ class ChatPage extends StatefulWidget {
   String image;
   String titre;
   String idSalon;
+  String otherEmail;
 
-  ChatPage({this.idSalon, this.titre, this.image});
+  ChatPage({this.idSalon, this.titre, this.image,this.otherEmail});
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -30,6 +31,15 @@ class _ChatPageState extends State<ChatPage> {
     'Supprimer la discution',
   ];
 
+  void setEnLigne(bool enlign) {
+    _firestore
+        .collection("ChatRoom")
+        .doc(widget.idSalon)
+        .collection("enLigne")
+        .doc(currentUser.email)
+        .update({"enLigne": enlign, "dateLigne": DateTime.now()});
+  }
+
   String _btn3SelectedVal;
   final List<PopupMenuItem<String>> _popUpMenuItems = menuItems
       .map(
@@ -43,136 +53,184 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     currentUser = Provider.of<UserProv>(context).loggedInUser;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Row(
-          children: <Widget>[
-            CircleAvatar(
-              backgroundColor: Color.fromRGBO(16, 24, 43, 1),
-              backgroundImage: NetworkImage(widget.image),
-              radius: 20,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * .02,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width / 2.5,
-              child: Text(
-                '${widget.titre}',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontFamily: 'Barlow',
-                ),
-              ),
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: (String newValue) {
-              if (newValue.trim() == "Supprimer la discution".trim()) {
-                _firestore
-                    .collection("ChatRoom")
-                    .doc(widget.idSalon).delete().then((value) => Navigator.of(context).pop());
-              }
-            },
-            itemBuilder: (BuildContext context) => _popUpMenuItems,
-          ),
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                //color: Color.fromRGBO(242, 242, 242, 1),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/BG-NaN 2.jpg'),
-                ),
-              ),
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: _firestore
-                      .collection("ChatRoom")
-                      .doc(widget.idSalon)
-                      .collection("chats")
-                      .orderBy("dateAdd", descending: false)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator(
-                        backgroundColor: primaryColor,
-                      );
-                    }
-                    final messages = snapshot.data.docs.reversed;
-
-                    List<Widget> messageList = [];
-                    for (var message in messages) {
-                      var dateLastMessage = message.get("dateAdd");
-                      dateLastMessage =
-                          DateTime.parse(dateLastMessage.toDate().toString());
-                      
-                      if (message.get("sender") == _auth.currentUser.email) {
-                        messageList.add(RightMessage(
-                            message.data()["message"], dateLastMessage));
-                        //message.get("lastMessage")["dateAdd"]
-                      } else {
-                        messageList.add(LeftMessage(
-                            message.data()["message"], dateLastMessage));
-                      }
-                    }
-                    return ListView(reverse: true, children: messageList);
-                  }),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    setEnLigne(true);
+    return WillPopScope(
+      onWillPop: () async {
+        setEnLigne(false);
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: primaryColor,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                setEnLigne(false);
+                Navigator.of(context).pop();
+              }),
+          title: Row(
             children: <Widget>[
-              ConstrainedBox(
-                constraints: BoxConstraints(minHeight: 60, maxHeight: 100),
-                child: Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  alignment: Alignment.center,
-                  child: TextField(
-                    cursorColor: Colors.grey,
-                    maxLines: null,
-                    controller: messageText,
-                    decoration: InputDecoration(
-                        hintText: 'Taper votre message',
-                        hintStyle:
-                            TextStyle(fontFamily: 'Barlow', fontSize: 16),
-                        border: InputBorder.none),
-                  ),
-                ),
+              CircleAvatar(
+                backgroundColor: Color.fromRGBO(16, 24, 43, 1),
+                backgroundImage: NetworkImage(widget.image),
+                radius: 20,
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.send,
-                  color: primaryColor,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .02,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 2.5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      '${widget.titre}',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Barlow',
+                      ),
+                    ),
+                    StreamBuilder(
+                        stream: _firestore
+                            .collection("ChatRoom")
+                            .doc(widget.idSalon)
+                            .collection("enLigne")
+                            .doc(widget.otherEmail)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            print("Is En lign ????");
+                            print(snapshot.data["enLigne"]);
+                            return Text(
+                            snapshot.data["enLigne"]
+                                ? "en ligne"
+                                : "${snapshot.data["dateLigne"]}",
+                            style: TextStyle(fontSize: 12),
+                          );
+                          }else{
+                            return Text("");
+                          }
+                          
+                        })
+                  ],
                 ),
-                onPressed: () {
-                  _firestore
-                      .collection("ChatRoom")
-                      .doc(widget.idSalon)
-                      .collection("chats")
-                      .add({
-                    "message": messageText.text,
-                    "sender": currentUser.email,
-                    "dateAdd": DateTime.now(),
-                    "isRead": false,
-                  });
-                  messageText.clear();
-                },
               ),
             ],
           ),
-        ],
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              onSelected: (String newValue) {
+                if (newValue.trim() == "Supprimer la discution".trim()) {
+                  _firestore
+                      .collection("ChatRoom")
+                      .doc(widget.idSalon)
+                      .delete()
+                      .then((value) => Navigator.of(context).pop());
+                }
+              },
+              itemBuilder: (BuildContext context) => _popUpMenuItems,
+            ),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  //color: Color.fromRGBO(242, 242, 242, 1),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/BG-NaN 2.jpg'),
+                  ),
+                ),
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection("ChatRoom")
+                        .doc(widget.idSalon)
+                        .collection("chats")
+                        .orderBy("dateAdd", descending: false)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator(
+                          backgroundColor: primaryColor,
+                        );
+                      }
+                      final messages = snapshot.data.docs.reversed;
+
+                      List<Widget> messageList = [];
+                      for (var message in messages) {
+                        var dateLastMessage = message.get("dateAdd");
+                        dateLastMessage =
+                            DateTime.parse(dateLastMessage.toDate().toString());
+
+                        if (message.get("sender") == _auth.currentUser.email) {
+                          messageList.add(RightMessage(
+                              message.data()["message"], dateLastMessage));
+                          //message.get("lastMessage")["dateAdd"]
+                        } else {
+                          messageList.add(LeftMessage(
+                              message.data()["message"], dateLastMessage));
+                        }
+                      }
+                      return ListView(reverse: true, children: messageList);
+                    }),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: 60, maxHeight: 100),
+                  child: Container(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width / 1.3,
+                    alignment: Alignment.center,
+                    child: TextField(
+                      cursorColor: Colors.grey,
+                      maxLines: null,
+                      controller: messageText,
+                      decoration: InputDecoration(
+                          hintText: 'Taper votre message',
+                          hintStyle:
+                              TextStyle(fontFamily: 'Barlow', fontSize: 16),
+                          border: InputBorder.none),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.send,
+                    color: primaryColor,
+                  ),
+                  onPressed: () {
+                    DateTime timeSend = DateTime.now();
+                    _firestore
+                        .collection("ChatRoom")
+                        .doc(widget.idSalon)
+                        .collection("chats")
+                        .add({
+                      "message": messageText.text,
+                      "sender": currentUser.email,
+                      "dateAdd": timeSend,
+                      "isRead": false,
+                    });
+                    _firestore
+                        .collection("ChatRoom")
+                        .doc(widget.idSalon)
+                        .update({
+                      "lastMessage": {
+                        "dateAdd": timeSend,
+                        "message": messageText.text
+                      }
+                    });
+                    messageText.clear();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

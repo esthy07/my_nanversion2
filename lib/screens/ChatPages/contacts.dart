@@ -44,7 +44,7 @@ class _ContactPageState extends State<ContactPage> {
       List<Map<String, dynamic>> users = [user1, user2];
       String idSalon = await dataBaseMethode.createChatRoom(users);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => ChatPage(idSalon: idSalon,image: otherUser.image,titre: otherUser.username,),
+        builder: (context) => ChatPage(idSalon: idSalon,image: otherUser.image,titre: otherUser.username,otherEmail: otherUser.email,),
       ));
     } catch (e) {
       print("ERROR TO ADD NEWS CHATROOM ${e.toString()}");

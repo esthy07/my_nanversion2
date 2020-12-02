@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Wed Dec 02 2020 13:31:55 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/widgets/rechercheRow.dart
+
+
+Created files:
+* .autogit/logs/log-2-11-2020-13-1-23.txt
+
+
+Deleted files:
+
+
+Renamed files:

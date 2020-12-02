@@ -24,6 +24,7 @@ Widget detailListMessage(
               idSalon: idSalon,
               image: image,
               titre: titre,
+              otherEmail: titre,
             ),
           )),
           child: Container(

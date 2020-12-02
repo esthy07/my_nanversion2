@@ -41,6 +41,7 @@ class _ProfilImageState extends State<ProfilImage> {
           idSalon: idSalon,
           image: otherUser.image,
           titre: otherUser.username,
+          otherEmail: otherUser.email,
         ),
       ));
     } catch (e) {
