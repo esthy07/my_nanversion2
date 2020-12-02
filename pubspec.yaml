@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.16.1
   geodesy: ^0.3.2
   timeago:
+  #firebase_messaging: ^7.0.3
+  #flutter_local_notifications: ^3.0.1+6
 
 dev_dependencies:
   flutter_test:

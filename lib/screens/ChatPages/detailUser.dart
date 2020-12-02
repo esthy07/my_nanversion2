@@ -7,6 +7,10 @@ class Profil extends StatelessWidget {
   Profil(this.user);
   @override
   Widget build(BuildContext context) {
+
+    final deviceHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
+
     Widget champ(String text, String text1) {
       return Container(
         color: Colors.white,
@@ -91,10 +95,36 @@ class Profil extends StatelessWidget {
                 ),
               ],
             ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.only(left: deviceWidth * .05, right: deviceWidth * .05, top: deviceHeight * .02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Icon(Icons.edit, color: primaryColor, size: 17,),
+                    Text('contactez', style: TextStyle(
+                      fontFamily: 'Barlow', color: primaryColor, fontSize: 17, fontWeight: FontWeight.w500
+                    ),),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(height: 20),
-            champ('Nom', '${user.firstname}'),
-            champ('Prenoms', '${user.lastname}'),
-            champ('Adresse email', '${user.email}'),
+            if(user.firstname != null) champ('Nom', '${user.firstname}'),
+            if(user.lastname != null) champ('Prenoms', '${user.lastname}'),
+            if(user.email != null) champ('Adresse email', '${user.email}'),
+            /*Container(
+              height: deviceHeight * .06,
+              width: deviceWidth / 2,
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(16, 24, 43, 1),
+                  borderRadius: BorderRadius.circular(5)
+              ),
+              child: Center(child: Text('Envoyer message', style: TextStyle(
+                color: Colors.white, fontFamily: 'Barlow'
+              ),)),
+            )*/
             // champ('Specialité', 'Flutter'),
           ],
         ),
