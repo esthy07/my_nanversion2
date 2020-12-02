@@ -67,10 +67,10 @@ class _HomeTestState extends State<HomeTest> {
                        Audio("assets/sound/intuition-561.mp3"),
                        //autoPlay: true,
                      );*/
-                     AssetsAudioPlayer.newPlayer().open(
-                       Audio("assets/audios/song1.mp3"),
-                       showNotification: true,
-                     );
+                    //  AssetsAudioPlayer.newPlayer().open(
+                    //    Audio("assets/audios/song1.mp3"),
+                    //    showNotification: true,
+                    //  );
                    },
                    child: Center(
                      child: Text('jouer', style: TextStyle(

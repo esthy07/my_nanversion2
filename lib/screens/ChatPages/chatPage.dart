@@ -153,6 +153,7 @@ class _ChatPageState extends State<ChatPage> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
+                        
                         return CircularProgressIndicator(
                           backgroundColor: primaryColor,
                         );
@@ -172,6 +173,8 @@ class _ChatPageState extends State<ChatPage> {
                               message.data()["isRead"]));
                           //message.get("lastMessage")["dateAdd"]
                         } else {
+                          //Les Message qu'il a récu 
+                          
                           _firestore
                               .collection("ChatRoom")
                               .doc(widget.idSalon)
