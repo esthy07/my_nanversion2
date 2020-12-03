@@ -193,7 +193,7 @@ class _ChatPageState extends State<ChatPage> {
                                 .doc(widget.idSalon)
                                 .collection("chats")
                                 .doc(message.id)
-                                .update({"isRead": true});
+                                .update({"isRead": true,"notifUser":false});
 
                             messageList.add(LeftMessage(
                                 message.data()["message"],
