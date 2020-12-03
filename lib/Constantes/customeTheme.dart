@@ -50,3 +50,19 @@ class DateFormatter {
 
   }
 }
+
+class FormaterdateTo{
+
+  static String getVerboseDateTime(DateTime dateTime,DateTime now) {
+
+    DateTime justNow = now.subtract(Duration(minutes: 1));
+    DateTime localDateTime = dateTime.toLocal();
+
+    String roughTimeString = DateFormat('Hm').format(dateTime);
+    if (localDateTime.day == now.day && localDateTime.month == now.month && localDateTime.year == now.year) {
+      return roughTimeString;
+    }
+
+  }
+
+}

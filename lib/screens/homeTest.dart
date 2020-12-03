@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
@@ -18,7 +19,7 @@ class HomeTest extends StatefulWidget {
 
 class _HomeTestState extends State<HomeTest> {
 
-  //final assetsAudioPlayer = AssetsAudioPlayer();
+  final assetsAudioPlayer = AssetsAudioPlayer();
 
   final _auth = FirebaseAuth.instance;
 
