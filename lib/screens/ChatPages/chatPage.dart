@@ -103,8 +103,7 @@ class _ChatPageState extends State<ChatPage> {
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            print("Is En lign ????");
-                            print(snapshot.data["enLigne"]);
+                            
                             var timeEnvoi = snapshot.data["enLigne"];
                             //timeEnvoi = FormaterdateTo.getVerboseDateTime(timeEnvoi, DateTime.now());
                             isEnligne = snapshot.data["enLigne"];
