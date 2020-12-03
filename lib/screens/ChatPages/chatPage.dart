@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mynan/Provider/UserProv.dart';
@@ -104,6 +105,8 @@ class _ChatPageState extends State<ChatPage> {
                           if (snapshot.hasData) {
                             print("Is En lign ????");
                             print(snapshot.data["enLigne"]);
+                            var timeEnvoi = snapshot.data["enLigne"];
+                            //timeEnvoi = FormaterdateTo.getVerboseDateTime(timeEnvoi, DateTime.now());
                             isEnligne = snapshot.data["enLigne"];
                             return Text(
                               snapshot.data["enLigne"]
@@ -225,7 +228,7 @@ class _ChatPageState extends State<ChatPage> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                    DateTime timeSend = DateTime.now();
+                   DateTime timeSend = DateTime.now();
                     _firestore
                         .collection("ChatRoom")
                         .doc(widget.idSalon)

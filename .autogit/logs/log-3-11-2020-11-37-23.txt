@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 11:37:23 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* pubspec.lock
+
+
+Created files:
+* pubspec.lock.old
+
+
+Deleted files:
+
+
+Renamed files:

@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 12:05:06 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-3-11-2020-11-37-23.txt
+* android/settings_aar.gradle
+
+
+Deleted files:
+
+
+Renamed files:
