@@ -183,8 +183,9 @@ class _ChatPageState extends State<ChatPage> {
                           } else {
                             // Les Message qu'il a récu
                             if (message.get("notifUser")) {
+                              // 1,4,
                               assetsAudioPlayer.open(
-                                  Audio("assets/sound/s1.mp3"),
+                                  Audio("assets/sound/s6.mp3"),
                                   volume: 40.0
                                   //autoPlay: true,
                                   );
