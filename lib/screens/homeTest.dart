@@ -64,10 +64,11 @@ class _HomeTestState extends State<HomeTest> {
 
                FlatButton(
                    onPressed: () {
-                     /*assetsAudioPlayer.set.open(
+                     assetsAudioPlayer.open(
                        Audio("assets/sound/intuition-561.mp3"),
+                       volume: 40.0
                        //autoPlay: true,
-                     );*/
+                     );
                     //  AssetsAudioPlayer.newPlayer().open(
                     //    Audio("assets/audios/song1.mp3"),
                     //    showNotification: true,
