@@ -5,7 +5,7 @@ import 'package:geodesy/geodesy.dart';
 import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/screens/ChatPages/contacts.dart';
-import 'package:mynan/screens/ChatPages/detailListMessage.dart';
+import 'package:mynan/screens/ChatPages/salonContainer.dart';
 import 'package:mynan/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 import '../../Constantes/customeTheme.dart';
@@ -94,8 +94,6 @@ class _ListMessageState extends State<ListMessage> {
                 final salons = snapshot.data.docs.reversed;
                 for (var salon in salons) {
                   var dateLastMessage = salon.get("lastMessage")["dateAdd"];
-                  print("Last date ");
-                  print(dateLastMessage);
                   String image = "";
                   String titre = "";
                   final user1 = salon.get("users")[0];
@@ -110,14 +108,13 @@ class _ListMessageState extends State<ListMessage> {
                   dateLastMessage =
                       DateTime.parse(dateLastMessage.toDate().toString());
                   // dateLastMessage = DateTime.now();
-                  listSalon.add(detailListMessage(
-                      context: context,
+                  listSalon.add(SalonContainer(
+                      
                       heure: dateLastMessage,
                       idSalon: salon.get("chatRoomId"),
                       image: image,
                       lastMessage: salon.get("lastMessage")["message"],
                       titre: titre));
-                  print(salon.get("lastMessage")["message"]);
                 }
                 return ListView(
                   // reverse: true,
