@@ -46,7 +46,8 @@ dependencies:
   intl: ^0.16.1
   geodesy: ^0.3.2
   timeago:
-  
+  assets_audio_player: ^2.0.13+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

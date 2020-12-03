@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 16:06:41 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/screens/homeTest.dart
+
+
+Created files:
+* .autogit/logs/log-3-11-2020-15-36-30.txt
+
+
+Deleted files:
+
+
+Renamed files:
