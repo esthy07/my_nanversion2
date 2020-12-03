@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -26,6 +27,7 @@ class _ChatPageState extends State<ChatPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   TextEditingController messageText = TextEditingController();
+  final assetsAudioPlayer = AssetsAudioPlayer();
   UserModel currentUser;
   bool isEnligne = false;
   static const menuItems = <String>[
@@ -156,7 +158,6 @@ class _ChatPageState extends State<ChatPage> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        
                         return CircularProgressIndicator(
                           backgroundColor: primaryColor,
                         );
@@ -165,30 +166,45 @@ class _ChatPageState extends State<ChatPage> {
 
                       List<Widget> messageList = [];
                       for (var message in messages) {
-                        var dateLastMessage = message.get("dateAdd");
-                        dateLastMessage =
-                            DateTime.parse(dateLastMessage.toDate().toString());
+                        try {
+                          var dateLastMessage = message.get("dateAdd");
+                          dateLastMessage = DateTime.parse(
+                              dateLastMessage.toDate().toString());
 
-                        if (message.get("sender") == _auth.currentUser.email) {
-                          messageList.add(RightMessage(
-                              message.data()["message"],
-                              dateLastMessage,
-                              message.data()["isRead"]));
-                          //message.get("lastMessage")["dateAdd"]
-                        } else {
-                          //Les Message qu'il a récu 
-                          
-                          _firestore
-                              .collection("ChatRoom")
-                              .doc(widget.idSalon)
-                              .collection("chats")
-                              .doc(message.id)
-                              .update({"isRead": true});
+                          if (message.get("sender") ==
+                              _auth.currentUser.email) {
+                            messageList.add(RightMessage(
+                                message.data()["message"],
+                                dateLastMessage,
+                                message.data()["isRead"]));
+                            //message.get("lastMessage")["dateAdd"]
+                          } else {
+                            // Les Message qu'il a récu
+                            if (message.get("notifUser")) {
+                              print("Notif Me =================");
+                              assetsAudioPlayer.open(
+                                  Audio("assets/sound/intuition-561.mp3"),
+                                  volume: 40.0
+                                  //autoPlay: true,
+                                  );
+                            }
+                            _firestore
+                                .collection("ChatRoom")
+                                .doc(widget.idSalon)
+                                .collection("chats")
+                                .doc(message.id)
+                                .update({"isRead": true});
 
-                          messageList.add(LeftMessage(message.data()["message"],
-                              dateLastMessage, message.data()["isRead"]));
+                            messageList.add(LeftMessage(
+                                message.data()["message"],
+                                dateLastMessage,
+                                message.data()["isRead"]));
+                          }
+                        } catch (e) {
+                          print("Error to fetch Message ${e.toString()}");
                         }
                       }
+
                       return ListView(reverse: true, children: messageList);
                     }),
               ),
@@ -220,7 +236,7 @@ class _ChatPageState extends State<ChatPage> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                   DateTime timeSend = DateTime.now();
+                    DateTime timeSend = DateTime.now();
                     _firestore
                         .collection("ChatRoom")
                         .doc(widget.idSalon)
@@ -230,6 +246,7 @@ class _ChatPageState extends State<ChatPage> {
                       "sender": currentUser.email,
                       "dateAdd": timeSend,
                       "isRead": isEnligne,
+                      "notifUser": isEnligne ? true : false
                     });
                     _firestore
                         .collection("ChatRoom")
