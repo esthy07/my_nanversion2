@@ -108,10 +108,13 @@ class _ChatPageState extends State<ChatPage> {
                             var timeEnvoi = snapshot.data["enLigne"];
                             //timeEnvoi = FormaterdateTo.getVerboseDateTime(timeEnvoi, DateTime.now());
                             isEnligne = snapshot.data["enLigne"];
+                           String dateLastConnexion = DateFormatter.getVerboseDateTimeRepresentation(
+                               DateTime.parse(
+                              snapshot.data["dateLigne"].toDate().toString()) , DateTime.now());
                             return Text(
                               snapshot.data["enLigne"]
                                   ? "en ligne"
-                                  : "${snapshot.data["dateLigne"]}",
+                                  : "$dateLastConnexion",
                               style: TextStyle(fontSize: 12),
                             );
                           } else {
@@ -182,7 +185,7 @@ class _ChatPageState extends State<ChatPage> {
                             // Les Message qu'il a récu
                             if (message.get("notifUser")) {
                               assetsAudioPlayer.open(
-                                  Audio("assets/sound/intuition-561.mp3"),
+                                  Audio("assets/sound/s1.mp3"),
                                   volume: 40.0
                                   //autoPlay: true,
                                   );
@@ -192,7 +195,7 @@ class _ChatPageState extends State<ChatPage> {
                                 .doc(widget.idSalon)
                                 .collection("chats")
                                 .doc(message.id)
-                                .update({"isRead": true,"notifUser":false});
+                                .update({"isRead": true, "notifUser": false});
 
                             messageList.add(LeftMessage(
                                 message.data()["message"],
@@ -235,31 +238,30 @@ class _ChatPageState extends State<ChatPage> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                    if(messageText.text.length > 0){
-                          DateTime timeSend = DateTime.now();
-                    _firestore
-                        .collection("ChatRoom")
-                        .doc(widget.idSalon)
-                        .collection("chats")
-                        .add({
-                      "message": messageText.text,
-                      "sender": currentUser.email,
-                      "dateAdd": timeSend,
-                      "isRead": isEnligne,
-                      "notifUser": isEnligne ? true : false
-                    });
-                    _firestore
-                        .collection("ChatRoom")
-                        .doc(widget.idSalon)
-                        .update({
-                      "lastMessage": {
+                    if (messageText.text.length > 0) {
+                      DateTime timeSend = DateTime.now();
+                      _firestore
+                          .collection("ChatRoom")
+                          .doc(widget.idSalon)
+                          .collection("chats")
+                          .add({
+                        "message": messageText.text,
+                        "sender": currentUser.email,
                         "dateAdd": timeSend,
-                        "message": messageText.text
-                      }
-                    });
-                    messageText.clear();
+                        "isRead": isEnligne,
+                        "notifUser": isEnligne ? true : false
+                      });
+                      _firestore
+                          .collection("ChatRoom")
+                          .doc(widget.idSalon)
+                          .update({
+                        "lastMessage": {
+                          "dateAdd": timeSend,
+                          "message": messageText.text
+                        }
+                      });
+                      messageText.clear();
                     }
-                
                   },
                 ),
               ],

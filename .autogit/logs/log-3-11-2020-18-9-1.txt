@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Thu Dec 03 2020 18:09:01 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/screens/ChatPages/chatPage.dart
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:
