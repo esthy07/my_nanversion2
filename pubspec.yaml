@@ -47,6 +47,7 @@ dependencies:
   geodesy: ^0.3.2
   timeago:
   assets_audio_player: ^2.0.13+1
+  audioplayer: ^0.8.1
 
 dev_dependencies:
   flutter_test:

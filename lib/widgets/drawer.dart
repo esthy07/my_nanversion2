@@ -110,7 +110,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, Revision.routeName);
+                          Navigator.pushNamed(context, HomeTest.routeName);
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: deviceWidth * .02),

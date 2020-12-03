@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
@@ -25,6 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   TextEditingController messageText = TextEditingController();
+  final assetsAudioPlayer = AssetsAudioPlayer();
   UserModel currentUser;
   bool isEnligne = false;
   static const menuItems = <String>[
@@ -153,7 +155,6 @@ class _ChatPageState extends State<ChatPage> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        
                         return CircularProgressIndicator(
                           backgroundColor: primaryColor,
                         );
@@ -173,8 +174,15 @@ class _ChatPageState extends State<ChatPage> {
                               message.data()["isRead"]));
                           //message.get("lastMessage")["dateAdd"]
                         } else {
-                          //Les Message qu'il a récu 
-                          
+                          // Les Message qu'il a récu
+                          if (message.get("notifUser")) {
+                            print("Notif Me =================");
+                            assetsAudioPlayer.open(
+                                Audio("assets/sound/intuition-561.mp3"),
+                                volume: 40.0
+                                //autoPlay: true,
+                                );
+                          }
                           _firestore
                               .collection("ChatRoom")
                               .doc(widget.idSalon)
@@ -227,6 +235,7 @@ class _ChatPageState extends State<ChatPage> {
                       "sender": currentUser.email,
                       "dateAdd": timeSend,
                       "isRead": isEnligne,
+                      "notifUser": isEnligne ? true : false
                     });
                     _firestore
                         .collection("ChatRoom")
