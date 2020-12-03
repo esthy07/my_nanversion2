@@ -236,7 +236,8 @@ class _ChatPageState extends State<ChatPage> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                    DateTime timeSend = DateTime.now();
+                    if(messageText.text.length > 0){
+                          DateTime timeSend = DateTime.now();
                     _firestore
                         .collection("ChatRoom")
                         .doc(widget.idSalon)
@@ -258,6 +259,8 @@ class _ChatPageState extends State<ChatPage> {
                       }
                     });
                     messageText.clear();
+                    }
+                
                   },
                 ),
               ],
