@@ -166,37 +166,45 @@ class _ChatPageState extends State<ChatPage> {
 
                       List<Widget> messageList = [];
                       for (var message in messages) {
-                        var dateLastMessage = message.get("dateAdd");
-                        dateLastMessage =
-                            DateTime.parse(dateLastMessage.toDate().toString());
+                        try {
+                          var dateLastMessage = message.get("dateAdd");
+                          dateLastMessage = DateTime.parse(
+                              dateLastMessage.toDate().toString());
 
-                        if (message.get("sender") == _auth.currentUser.email) {
-                          messageList.add(RightMessage(
-                              message.data()["message"],
-                              dateLastMessage,
-                              message.data()["isRead"]));
-                          //message.get("lastMessage")["dateAdd"]
-                        } else {
-                          // Les Message qu'il a récu
-                          if (message.get("notifUser")) {
-                            print("Notif Me =================");
-                            assetsAudioPlayer.open(
-                                Audio("assets/sound/intuition-561.mp3"),
-                                volume: 40.0
-                                //autoPlay: true,
-                                );
+                          if (message.get("sender") ==
+                              _auth.currentUser.email) {
+                            messageList.add(RightMessage(
+                                message.data()["message"],
+                                dateLastMessage,
+                                message.data()["isRead"]));
+                            //message.get("lastMessage")["dateAdd"]
+                          } else {
+                            // Les Message qu'il a récu
+                            if (message.get("notifUser")) {
+                              print("Notif Me =================");
+                              assetsAudioPlayer.open(
+                                  Audio("assets/sound/intuition-561.mp3"),
+                                  volume: 40.0
+                                  //autoPlay: true,
+                                  );
+                            }
+                            _firestore
+                                .collection("ChatRoom")
+                                .doc(widget.idSalon)
+                                .collection("chats")
+                                .doc(message.id)
+                                .update({"isRead": true});
+
+                            messageList.add(LeftMessage(
+                                message.data()["message"],
+                                dateLastMessage,
+                                message.data()["isRead"]));
                           }
-                          _firestore
-                              .collection("ChatRoom")
-                              .doc(widget.idSalon)
-                              .collection("chats")
-                              .doc(message.id)
-                              .update({"isRead": true});
-
-                          messageList.add(LeftMessage(message.data()["message"],
-                              dateLastMessage, message.data()["isRead"]));
+                        } catch (e) {
+                          print("Error to fetch Message ${e.toString()}");
                         }
                       }
+
                       return ListView(reverse: true, children: messageList);
                     }),
               ),
@@ -228,7 +236,7 @@ class _ChatPageState extends State<ChatPage> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                   DateTime timeSend = DateTime.now();
+                    DateTime timeSend = DateTime.now();
                     _firestore
                         .collection("ChatRoom")
                         .doc(widget.idSalon)
