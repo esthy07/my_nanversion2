@@ -104,7 +104,7 @@ class _ChatPageState extends State<ChatPage> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var timeEnvoi = snapshot.data["enLigne"];
-                            //timeEnvoi = FormaterdateTo.getVerboseDateTime(timeEnvoi, DateTime.now());
+                            //timeEnvoi = timeEnvoi.DateTime.now();
                             isEnligne = snapshot.data["enLigne"];
 
                             String dateLastConnexion = "";
