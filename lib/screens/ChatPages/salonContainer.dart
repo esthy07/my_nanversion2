@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mynan/Constantes/customeTheme.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'chatPage.dart';
@@ -102,9 +103,9 @@ class _SalonContainerState extends State<SalonContainer> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: EdgeInsets.only(top: 10, right: 15),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
@@ -117,6 +118,7 @@ class _SalonContainerState extends State<SalonContainer> {
                                 fontSize: 13),
                           ),
                           Container(
+                            margin: EdgeInsets.only(top: 4),
                             child: StreamBuilder(
                                 stream: _firestore
                                     .collection("ChatRoom")
@@ -129,14 +131,24 @@ class _SalonContainerState extends State<SalonContainer> {
                                     return Container();
                                   }
                                   print(snapshot.data.docs.length);
-                                  return Text(
-                                    //timeago.format(heure, locale: "fr"),
-                                    "${snapshot.data.docs.length}",
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontFamily: 'Barlow',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 13),
+                                  return Container(
+                                       height: 22,
+                                        width: 22,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: primaryColor
+                                        ),
+                                    child: Center(
+                                      child: Text(
+                                        //timeago.format(heure, locale: "fr"),
+                                        "${snapshot.data.docs.length}",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Barlow',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 10),
+                                      ),
+                                    ),
                                   );
                                 }),
                           ),
