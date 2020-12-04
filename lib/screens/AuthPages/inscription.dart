@@ -23,7 +23,10 @@ class InscriptionPage extends StatefulWidget {
 class _InscriptionPageState extends State<InscriptionPage> {
   final _formKey = GlobalKey<FormState>();
 
+  bool isactive = false;
+
   String email;
+  String ville;
   String passeword;
   String numerotControleur;
   final _auth = FirebaseAuth.instance;
@@ -60,7 +63,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
           setState(() {
             loader = false;
           });
-          Provider.of<UserProv>(context, listen: false).addUser(newUserProv); 
+          Provider.of<UserProv>(context, listen: false).addUser(newUserProv);
           Navigator.of(context).pushNamed(Home.routeName);
         }
       } catch (e) {
@@ -109,7 +112,7 @@ class _InscriptionPageState extends State<InscriptionPage> {
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(
-                    top: deviceHeight * .4,
+                    top: deviceHeight * .3,
                   ),
                   child: Form(
                     key: _formKey,
@@ -155,7 +158,62 @@ class _InscriptionPageState extends State<InscriptionPage> {
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              top: deviceHeight * .035,
+                            left: deviceWidth * .04,
+                            top: deviceHeight * .035,
+                          ),
+                          child: Text(
+                            "Ville",
+                            style: TextStyle(
+                                fontFamily: 'Barlow',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        Container(
+                          margin: inputMargin,
+                          height: deviceHeight * .07,
+                          width: deviceWidth,
+                          decoration: inputDecoration,
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "veillez remplire le champ ";
+                              } else {
+                                ville = value;
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            cursorColor: Colors.grey,
+                            decoration: InputDecoration(
+                                focusColor: Colors.purple,
+                                prefixIcon: Icon(
+                                  Icons.location_on,
+                                  size: 20,
+                                ),
+                                border: InputBorder.none,
+                                hintText: 'abidjan',
+                                hintStyle: TextStyle(fontFamily: 'barlow')),
+                          ),
+                        ),
+                        Container(
+                            child: CheckboxListTile(
+                                title: Text(
+                                  "choisir ma position actuelle",
+                                  style: TextStyle(
+                                      fontFamily: 'Barlow',
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                value: isactive,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    isactive = value;
+                                  });
+                                })),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: deviceHeight * .025,
                               left: deviceWidth * .04),
                           child: Text(
                             "Mot de Passe",

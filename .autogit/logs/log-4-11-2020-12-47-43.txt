@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Fri Dec 04 2020 12:47:43 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* lib/screens/ChatPages/salonContainer.dart
+* lib/screens/HomePages/recherche.dart
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:

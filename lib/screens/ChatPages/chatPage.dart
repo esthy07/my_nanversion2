@@ -103,15 +103,24 @@ class _ChatPageState extends State<ChatPage> {
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            print("Is En lign ????");
-                            print(snapshot.data["enLigne"]);
                             var timeEnvoi = snapshot.data["enLigne"];
                             //timeEnvoi = timeEnvoi.DateTime.now();
                             isEnligne = snapshot.data["enLigne"];
+                            print("En ligne ${snapshot.data["dateLigne"]}");
+                            String dateLastConnexion = "";
+                            if (snapshot.data["dateLigne"] != null) {
+                              String dateLastConnexion = DateFormatter
+                                  .getVerboseDateTimeRepresentation(
+                                      DateTime.parse(snapshot.data["dateLigne"]
+                                          .toDate()
+                                          .toString()),
+                                      DateTime.now());
+                            }
+
                             return Text(
                               snapshot.data["enLigne"]
                                   ? "en ligne"
-                                  : "${snapshot.data["dateLigne"]}",
+                                  : "$dateLastConnexion",
                               style: TextStyle(fontSize: 12),
                             );
                           } else {
@@ -166,37 +175,45 @@ class _ChatPageState extends State<ChatPage> {
 
                       List<Widget> messageList = [];
                       for (var message in messages) {
-                        var dateLastMessage = message.get("dateAdd");
-                        dateLastMessage =
-                            DateTime.parse(dateLastMessage.toDate().toString());
+                        try {
+                          var dateLastMessage = message.get("dateAdd");
+                          dateLastMessage = DateTime.parse(
+                              dateLastMessage.toDate().toString());
 
-                        if (message.get("sender") == _auth.currentUser.email) {
-                          messageList.add(RightMessage(
-                              message.data()["message"],
-                              dateLastMessage,
-                              message.data()["isRead"]));
-                          //message.get("lastMessage")["dateAdd"]
-                        } else {
-                          // Les Message qu'il a récu
-                          if (message.get("notifUser")) {
-                            print("Notif Me =================");
-                            assetsAudioPlayer.open(
-                                Audio("assets/sound/intuition-561.mp3"),
-                                volume: 40.0
-                                //autoPlay: true,
-                                );
+                          if (message.get("sender") ==
+                              _auth.currentUser.email) {
+                            messageList.add(RightMessage(
+                                message.data()["message"],
+                                dateLastMessage,
+                                message.data()["isRead"]));
+                            //message.get("lastMessage")["dateAdd"]
+                          } else {
+                            // Les Message qu'il a récu
+                            if (message.get("notifUser")) {
+                              // 1,4,
+                              assetsAudioPlayer.open(
+                                  Audio("assets/sound/s6.mp3"),
+                                  volume: 40.0
+                                  //autoPlay: true,
+                                  );
+                            }
+                            _firestore
+                                .collection("ChatRoom")
+                                .doc(widget.idSalon)
+                                .collection("chats")
+                                .doc(message.id)
+                                .update({"isRead": true, "notifUser": false});
+
+                            messageList.add(LeftMessage(
+                                message.data()["message"],
+                                dateLastMessage,
+                                message.data()["isRead"]));
                           }
-                          _firestore
-                              .collection("ChatRoom")
-                              .doc(widget.idSalon)
-                              .collection("chats")
-                              .doc(message.id)
-                              .update({"isRead": true});
-
-                          messageList.add(LeftMessage(message.data()["message"],
-                              dateLastMessage, message.data()["isRead"]));
+                        } catch (e) {
+                          print("Error to fetch Message ${e.toString()}");
                         }
                       }
+
                       return ListView(reverse: true, children: messageList);
                     }),
               ),
@@ -228,28 +245,30 @@ class _ChatPageState extends State<ChatPage> {
                     color: primaryColor,
                   ),
                   onPressed: () {
-                   DateTime timeSend = DateTime.now();
-                    _firestore
-                        .collection("ChatRoom")
-                        .doc(widget.idSalon)
-                        .collection("chats")
-                        .add({
-                      "message": messageText.text,
-                      "sender": currentUser.email,
-                      "dateAdd": timeSend,
-                      "isRead": isEnligne,
-                      "notifUser": isEnligne ? true : false
-                    });
-                    _firestore
-                        .collection("ChatRoom")
-                        .doc(widget.idSalon)
-                        .update({
-                      "lastMessage": {
+                    if (messageText.text.length > 0) {
+                      DateTime timeSend = DateTime.now();
+                      _firestore
+                          .collection("ChatRoom")
+                          .doc(widget.idSalon)
+                          .collection("chats")
+                          .add({
+                        "message": messageText.text,
+                        "sender": currentUser.email,
                         "dateAdd": timeSend,
-                        "message": messageText.text
-                      }
-                    });
-                    messageText.clear();
+                        "isRead": isEnligne,
+                        "notifUser": isEnligne ? true : false
+                      });
+                      _firestore
+                          .collection("ChatRoom")
+                          .doc(widget.idSalon)
+                          .update({
+                        "lastMessage": {
+                          "dateAdd": timeSend,
+                          "message": messageText.text
+                        }
+                      });
+                      messageText.clear();
+                    }
                   },
                 ),
               ],
