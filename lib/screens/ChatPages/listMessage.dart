@@ -48,7 +48,7 @@ class _ListMessageState extends State<ListMessage> {
         radius: 25,
         child: IconButton(
           icon: Icon(
-            Icons.chat,
+            Icons.add,
             color: Colors.white,
           ),
           onPressed: () => Navigator.of(context).push(MaterialPageRoute(
