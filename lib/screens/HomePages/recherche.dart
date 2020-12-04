@@ -38,22 +38,23 @@ class _RechercheState extends State<Recherche> {
     super.initState();
   }
 
+  List<List<Map<String, dynamic>>> userAndDistance = [];
   Future<void> changePlaceSearch() async {
     if (!rechercheEnFonctionDeMonLieux) {
+      userAndDistance = [];
       Map<String, dynamic> place = await localPlaceMethode.getCurrentLocation();
       setState(() {
         villeToSearche = place["ville"];
         l1 = LatLng(place["place"][0], place["place"][1]);
         currentAddress = place["address"];
-        print("New pLACE ");
-
-        print(l1);
       });
     } else {
       setState(() {
+        userAndDistance = [];
         villeToSearche = currentUsers.ville;
         l1 = LatLng(currentUsers.place[0], currentUsers.place[1]);
         currentAddress = null;
+        
       });
     }
   }
@@ -91,7 +92,6 @@ class _RechercheState extends State<Recherche> {
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<List<Map<String, dynamic>>> userAndDistance = [];
                           List<Map<String, dynamic>> listUser = [];
 
                           snapshot.data.docs.forEach((element) {

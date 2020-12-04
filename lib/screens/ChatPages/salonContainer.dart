@@ -130,26 +130,27 @@ class _SalonContainerState extends State<SalonContainer> {
                                   if (!snapshot.hasData) {
                                     return Container();
                                   }
-                                  print(snapshot.data.docs.length);
-                                  return Container(
-                                       height: 22,
-                                        width: 22,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: primaryColor
-                                        ),
-                                    child: Center(
-                                      child: Text(
-                                        //timeago.format(heure, locale: "fr"),
-                                        "${snapshot.data.docs.length}",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Barlow',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 10),
-                                      ),
-                                    ),
-                                  );
+
+                                  return snapshot.data.docs.length > 0
+                                      ? Container(
+                                          height: 22,
+                                          width: 22,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: primaryColor),
+                                          child: Center(
+                                            child: Text(
+                                              //timeago.format(heure, locale: "fr"),
+                                              "${snapshot.data.docs.length}",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'Barlow',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 10),
+                                            ),
+                                          ),
+                                        )
+                                      : Container();
                                 }),
                           ),
                         ],
