@@ -151,7 +151,7 @@ class _RechercheState extends State<Recherche> {
                         children: <Widget>[
                           ProfilImage(user: currentUsers),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           Container(
                             child: currentAddress == null
