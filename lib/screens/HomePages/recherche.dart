@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 
 class Recherche extends StatefulWidget {
   Recherche({Key key}) : super(key: key);
-
   @override
   _RechercheState createState() => _RechercheState();
 }
@@ -38,10 +37,10 @@ class _RechercheState extends State<Recherche> {
     super.initState();
   }
 
-  List<List<Map<String, dynamic>>> userAndDistance = [];
+ 
   Future<void> changePlaceSearch() async {
     if (!rechercheEnFonctionDeMonLieux) {
-      userAndDistance = [];
+     
       Map<String, dynamic> place = await localPlaceMethode.getCurrentLocation();
       setState(() {
         villeToSearche = place["ville"];
@@ -50,7 +49,7 @@ class _RechercheState extends State<Recherche> {
       });
     } else {
       setState(() {
-        userAndDistance = [];
+
         villeToSearche = currentUsers.ville;
         l1 = LatLng(currentUsers.place[0], currentUsers.place[1]);
         currentAddress = null;
@@ -113,7 +112,7 @@ class _RechercheState extends State<Recherche> {
                           // SUBDIVISé LES LISTE POUR L4AFFICHAGE
 
                           int multiple = (listUser.length / 3).toInt();
-
+                           List<List<Map<String, dynamic>>> userAndDistance = [];
                           if (multiple >= 1) {
                             for (int i = 0; i < multiple; i++) {
                               List<Map<String, dynamic>> sublist =
