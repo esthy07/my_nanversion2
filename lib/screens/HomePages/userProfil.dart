@@ -32,7 +32,6 @@ class _ModifierProfilState extends State<ModifierProfil> {
     try {
       Map<String, dynamic> result =
           await localPlaceMethode.handlePressButton(context);
-
       final lat = result['lat'] as double;
       final lng = result['long'] as double;
       currentUsers.place = [lat, lng];
