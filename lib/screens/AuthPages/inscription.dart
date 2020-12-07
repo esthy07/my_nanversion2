@@ -8,23 +8,18 @@ import 'package:mynan/Provider/localPlaceMethode.dart';
 import 'package:mynan/model/UseurModel.dart';
 import 'package:mynan/screens/HomePages/home.dart';
 import 'package:provider/provider.dart';
-
 import 'connexion.dart';
-
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
 class InscriptionPage extends StatefulWidget {
   static const routeName = 'inscription';
-
   @override
   _InscriptionPageState createState() => _InscriptionPageState();
 }
 
 class _InscriptionPageState extends State<InscriptionPage> {
   final _formKey = GlobalKey<FormState>();
-
   bool isactive = false;
-
   String email;
   String ville;
   String passeword;
