@@ -91,6 +91,7 @@ class _ModifierProfilState extends State<ModifierProfil> {
                       SizedBox(
                         height: 10,
                       ),
+                      if(currentUsers.firstname != null && currentUsers.lastname != null)
                       Text(
                         "${currentUsers.firstname} ${currentUsers.lastname}",
                         style: TextStyle(
@@ -101,8 +102,9 @@ class _ModifierProfilState extends State<ModifierProfil> {
                       SizedBox(
                         height: 6,
                       ),
+                      if(currentUsers.parcour != null )
                       Text(
-                        "Developpeur",
+                        "${currentUsers.parcour}",
                         style: TextStyle(fontSize: 17, fontFamily: 'Barlow'),
                       ),
                     ],
