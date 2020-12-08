@@ -24,11 +24,10 @@ class SalonContainer extends StatefulWidget {
 }
 
 class _SalonContainerState extends State<SalonContainer> {
-
   final _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
-      UserModel currentUser = Provider.of<UserProv>(context).loggedInUser;
+    UserModel currentUser = Provider.of<UserProv>(context).loggedInUser;
     return Padding(
       padding: const EdgeInsets.only(
         left: 10,
@@ -135,10 +134,16 @@ class _SalonContainerState extends State<SalonContainer> {
                                   if (!snapshot.hasData) {
                                     return Container();
                                   }
-                                  for(int i = 0; i < snapshot.data.docs.length;i++){
-                                    print(snapshot.data.docs[i]);
+                                  int unreadMessage = 0;
+                                  for (int i = 0;
+                                      i < snapshot.data.docs.length;
+                                      i++) {
+                                    if (snapshot.data.docs[i]["sender"] !=
+                                        currentUser.email) {
+                                      unreadMessage++;
+                                    }
                                   }
-                                  return snapshot.data.docs.length > 0
+                                  return unreadMessage > 0
                                       ? Container(
                                           height: 22,
                                           width: 22,
@@ -148,7 +153,7 @@ class _SalonContainerState extends State<SalonContainer> {
                                           child: Center(
                                             child: Text(
                                               //timeago.format(heure, locale: "fr"),
-                                              "${snapshot.data.docs.length}",
+                                              "${unreadMessage}",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontFamily: 'Barlow',
