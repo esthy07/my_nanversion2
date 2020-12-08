@@ -37,6 +37,7 @@ class DataBaseMethode {
       } else {
         print("Is Empty");
         Map<String, dynamic> map = {
+          "dateLastMessage":DateTime.now(),
           "users": users,
           "chatRoomId": chatId,
           "lastMessage": {"dateAdd": DateTime.now(), "message": ""}

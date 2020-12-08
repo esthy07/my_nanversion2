@@ -105,6 +105,8 @@ class _ListMessageState extends State<ListMessage> {
                 }
                 modelSalons.sort(
                     (a, b) => a.dateLastMessage.compareTo(b.dateLastMessage));
+                modelSalons.reversed;
+
                 for (Salon s in modelSalons) {
                   String image = "";
                   String titre = "";
@@ -124,6 +126,7 @@ class _ListMessageState extends State<ListMessage> {
                       lastMessage: s.lastMessage.message,
                       titre: titre));
                 }
+              listSalon = listSalon.reversed.toList();
                 // listSalon.sort((a, b) => a.heure.compareTo(b.heure));
                 return ListView(
                   // reverse: true,
