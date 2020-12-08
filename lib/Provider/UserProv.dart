@@ -26,7 +26,6 @@ class UserProv with ChangeNotifier {
     try {
       QuerySnapshot result =
           await userCollection.where("ville", isEqualTo: _user.ville).get();
-      print(result.docs[0].data());
       List<List<Map<String, dynamic>>> userAndDistance = [];
       List<Map<String, dynamic>> listUser = [];
       LatLng l1 = LatLng(_user.place[0], _user.place[1]);
@@ -57,7 +56,6 @@ class UserProv with ChangeNotifier {
       } else {
         userAndDistance.add(listUser);
       }
-      print(userAndDistance.length);
       return userAndDistance;
     } catch (e) {
       print("Error to find uses ${e.toString()}");
@@ -92,8 +90,7 @@ class UserProv with ChangeNotifier {
   Future<void> getAllUser() async {
     try {
       QuerySnapshot result = await userCollection.get();
-      print("All user ");
-      print(result.docs[0].data());
+     
       List<UserModel> allUser = [];
       result.docs.forEach((element) {
         if (element.data()["place"] != null) {}
@@ -103,7 +100,7 @@ class UserProv with ChangeNotifier {
         allUser.add(newUser);
       });
       _allUsers = allUser;
-      print(_allUsers.length);
+
       notifyListeners();
     } catch (e) {
       print("Error to get all User ${e.toString()}");
@@ -119,7 +116,6 @@ class UserProv with ChangeNotifier {
         String idDoc = userInstance.docs[0].id;
         userCollection.doc(idDoc).update(userToUpdate.toMap());
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        print(userToUpdate.toMap());
         prefs.setString(KEY_USER, json.encode(userToUpdate.toMap()));
         _user = userToUpdate;
         notifyListeners();
@@ -153,6 +149,8 @@ class UserProv with ChangeNotifier {
       var extratData = json.decode(prefs.getString(KEY_USER));
       _user = UserModel.fromMap(extratData);
       notifyListeners();
+    }else{
+
     }
   }
 }

@@ -43,9 +43,6 @@ class _MyAppState extends State<MyApp> {
 
   void getCurentUser() async {
     user = _auth.currentUser;
-    if (user != null) {
-      print("CurentUser ${user.email}");
-    }
   }
 
   @override

@@ -129,14 +129,14 @@ class _SalonContainerState extends State<SalonContainer> {
                                     .collection("ChatRoom")
                                     .doc(widget.idSalon)
                                     .collection("chats")
-                                    .where("isRead", isEqualTo: false).where("sender",isNotEqualTo: currentUser.email)
+                                    .where("isRead", isEqualTo: false)
                                     .snapshots(),
                                 builder: (context, snapshot) {
                                   if (!snapshot.hasData) {
                                     return Container();
                                   }
                                   for(int i = 0; i < snapshot.data.docs.length;i++){
-                                    print(snapshot.data.docs[i].d);
+                                    print(snapshot.data.docs[i]);
                                   }
                                   return snapshot.data.docs.length > 0
                                       ? Container(

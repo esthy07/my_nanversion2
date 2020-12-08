@@ -57,9 +57,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Future<void> getCurentUser() async {
     final user = _auth.currentUser;
     if (user != null) {
+      
       await Provider.of<UserProv>(context, listen: false).getUser();
-
-    }
+    } 
   }
 
   @override
@@ -77,7 +77,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         tabIconColor: primaryColor,
         tabSelectedColor: primaryColor,
         onTabItemSelected: (int value) {
-          print(value);
           setState(() {
             _tabController.index = value;
           });
