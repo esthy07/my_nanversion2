@@ -85,7 +85,7 @@ class _ListMessageState extends State<ListMessage> {
           height: MediaQuery.of(context).size.height - 100,
           child: StreamBuilder<QuerySnapshot>(
             stream: _firestore
-                .collection("ChatRoom")
+                .collection("ChatRoom").orderBy("lastMessage",descending: true)
                 .where("users", arrayContains: user1)
                 .snapshots(),
             builder: (context, snapshot) {
@@ -114,7 +114,9 @@ class _ListMessageState extends State<ListMessage> {
                       image: image,
                       lastMessage: salon.get("lastMessage")["message"],
                       titre: titre));
+                  
                 }
+                // listSalon.sort((a, b) => a.heure.compareTo(b.heure));
                 return ListView(
                   // reverse: true,
                   children: listSalon,

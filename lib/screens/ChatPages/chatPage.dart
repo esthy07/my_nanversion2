@@ -262,6 +262,7 @@ class _ChatPageState extends State<ChatPage> {
                           .collection("ChatRoom")
                           .doc(widget.idSalon)
                           .update({
+                        "dateLastMessage":timeSend,
                         "lastMessage": {
                           "dateAdd": timeSend,
                           "message": messageText.text
