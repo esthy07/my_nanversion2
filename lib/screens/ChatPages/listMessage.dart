@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geodesy/geodesy.dart';
 import 'package:mynan/Provider/UserProv.dart';
 import 'package:mynan/model/UseurModel.dart';
+import 'package:mynan/model/salonModel.dart';
 import 'package:mynan/screens/ChatPages/contacts.dart';
 import 'package:mynan/screens/ChatPages/salonContainer.dart';
 import 'package:mynan/widgets/drawer.dart';
@@ -39,8 +40,8 @@ class _ListMessageState extends State<ListMessage> {
     allUser = Provider.of<UserProv>(context).allUsers;
     currentUser = Provider.of<UserProv>(context).loggedInUser;
     Map<String, String> user1 = {
+      "image": currentUser.image,
       "email": currentUser.email,
-      "image": currentUser.image
     };
     return Scaffold(
       floatingActionButton: CircleAvatar(
@@ -89,32 +90,39 @@ class _ListMessageState extends State<ListMessage> {
                 .where("users", arrayContains: user1)
                 .snapshots(),
             builder: (context, snapshot) {
+              List<Salon> modelSalons = [];
               List<Widget> listSalon = [];
               if (snapshot.hasData) {
                 final salons = snapshot.data.docs.reversed;
+
                 for (var salon in salons) {
                   var dateLastMessage = salon.get("lastMessage")["dateAdd"];
-                  String image = "";
-                  String titre = "";
-                  final user1 = salon.get("users")[0];
-                  final user2 = salon.get("users")[1];
-                  if (_auth.currentUser.email == user1["email"]) {
-                    titre = user2["email"];
-                    image = user2["image"];
-                  } else {
-                    titre = user1["email"];
-                    image = user1["image"];
-                  }
+
                   dateLastMessage =
                       DateTime.parse(dateLastMessage.toDate().toString());
-                  // dateLastMessage = DateTime.now();
+                  Salon newSalonModel = Salon.fromMap(salon.data());
+                  modelSalons.add(newSalonModel);
+                }
+                modelSalons.sort(
+                    (a, b) => a.dateLastMessage.compareTo(b.dateLastMessage));
+                for (Salon s in modelSalons) {
+                  String image = "";
+                  String titre = "";
+                  final user1 = s.users[0];
+                  final user2 = s.users[1];
+                  if (_auth.currentUser.email == user1.email) {
+                    titre = user2.email;
+                    image = user2.image;
+                  } else {
+                    titre = user1.email;
+                    image = user1.image;
+                  }
                   listSalon.add(SalonContainer(
-                      heure: dateLastMessage,
-                      idSalon: salon.get("chatRoomId"),
+                      heure: s.dateLastMessage,
+                      idSalon: s.chatRoomId,
                       image: image,
-                      lastMessage: salon.get("lastMessage")["message"],
+                      lastMessage: s.lastMessage.message,
                       titre: titre));
-                  
                 }
                 // listSalon.sort((a, b) => a.heure.compareTo(b.heure));
                 return ListView(

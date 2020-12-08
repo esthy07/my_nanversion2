@@ -14,11 +14,11 @@ class DataBaseMethode {
       if (result.docs.isNotEmpty) {
         if (!result.docs[0].exists) {
           Map<String, dynamic> map = {
+            "dateLastMessage":DateTime.now(),
             "users": users,
             "chatRoomId": chatId,
             "lastMessage": {"dateAdd": DateTime.now(), "message": ""}
           };
-          print("Add chat ");
           chatRoomCollection.doc(chatId).set(map).then((value) {
             chatRoomCollection
                 .doc(chatId)

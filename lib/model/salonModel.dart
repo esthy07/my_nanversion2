@@ -1,85 +1,77 @@
 // To parse this JSON data, do
 //
-//     final salons = salonsFromMap(jsonString);
+//     final salon = salonFromMap(jsonString);
 
 import 'dart:convert';
 
-Salons salonsFromMap(String str) => Salons.fromMap(json.decode(str));
+Salon salonFromMap(String str) => Salon.fromMap(json.decode(str));
 
-String salonsToMap(Salons data) => json.encode(data.toMap());
+String salonToMap(Salon data) => json.encode(data.toMap());
 
-class Salons {
-    Salons({
-        this.id,
-        this.createAt,
-        this.sender,
+class Salon {
+    Salon({
+        this.chatRoomId,
+        this.dateLastMessage,
         this.lastMessage,
-        this.salonsFor,
+        this.users,
     });
 
-    String id;
-    String createAt;
-    For sender;
+    String chatRoomId;
+    DateTime dateLastMessage;
     LastMessage lastMessage;
-    For salonsFor;
+    List<User> users;
 
-    factory Salons.fromMap(Map<String, dynamic> json) => Salons(
-        id: json["id"] == null ? null : json["id"],
-        createAt: json["createAt"] == null ? null : json["createAt"],
-        sender: json["sender"] == null ? null : For.fromMap(json["sender"]),
+    factory Salon.fromMap(Map<String, dynamic> json) => Salon(
+        chatRoomId: json["chatRoomId"] == null ? null : json["chatRoomId"],
+        dateLastMessage: json["dateLastMessage"] == null ? null : DateTime.parse(json["dateLastMessage"].toDate().toString()),
         lastMessage: json["lastMessage"] == null ? null : LastMessage.fromMap(json["lastMessage"]),
-        salonsFor: json["for"] == null ? null : For.fromMap(json["for"]),
+        users: json["users"] == null ? null : List<User>.from(json["users"].map((x) => User.fromMap(x))),
     );
 
     Map<String, dynamic> toMap() => {
-        "id": id == null ? null : id,
-        "createAt": createAt == null ? null : createAt,
-        "sender": sender == null ? null : sender.toMap(),
+        "chatRoomId": chatRoomId == null ? null : chatRoomId,
+        "dateLastMessage": dateLastMessage == null ? null : dateLastMessage,
         "lastMessage": lastMessage == null ? null : lastMessage.toMap(),
-        "for": salonsFor == null ? null : salonsFor.toMap(),
+        "users": users == null ? null : List<dynamic>.from(users.map((x) => x.toMap())),
     };
 }
 
 class LastMessage {
     LastMessage({
-        this.dateMessages,
+        this.dateAdd,
         this.message,
     });
 
-    String dateMessages;
+    DateTime dateAdd;
     String message;
 
     factory LastMessage.fromMap(Map<String, dynamic> json) => LastMessage(
-        dateMessages: json["dateMessages"] == null ? null : json["dateMessages"],
+        dateAdd: json["dateAdd"] == null ? null : DateTime.parse(json["dateAdd"].toDate().toString()),
         message: json["message"] == null ? null : json["message"],
     );
 
     Map<String, dynamic> toMap() => {
-        "dateMessages": dateMessages == null ? null : dateMessages,
+        "dateAdd": dateAdd == null ? null : dateAdd,
         "message": message == null ? null : message,
     };
 }
 
-class For {
-    For({
+class User {
+    User({
         this.email,
         this.image,
-        this.username,
     });
 
     String email;
     String image;
-    String username;
 
-    factory For.fromMap(Map<String, dynamic> json) => For(
+    factory User.fromMap(Map<String, dynamic> json) => User(
         email: json["email"] == null ? null : json["email"],
         image: json["image"] == null ? null : json["image"],
-        username: json["username"] == null ? null : json["username"],
     );
 
     Map<String, dynamic> toMap() => {
         "email": email == null ? null : email,
         "image": image == null ? null : image,
-        "username": username == null ? null : username,
     };
 }
