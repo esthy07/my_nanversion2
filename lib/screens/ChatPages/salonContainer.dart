@@ -79,11 +79,12 @@ class _SalonContainerState extends State<SalonContainer> {
                           ),
                           Row(
                             children: [
-                              Icon(
-                                Icons.check,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
+                              // if(currentUser.email != widget.titre)
+                              // Icon(
+                              //   Icons.check,
+                              //   color: Colors.grey,
+                              //   size: 20,
+                              // ),
                               Container(
                                 width: MediaQuery.of(context).size.width / 3,
                                 child: Text(
