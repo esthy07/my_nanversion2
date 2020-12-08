@@ -48,172 +48,174 @@ class _ModifierProfilState extends State<ModifierProfil> {
   Widget build(BuildContext context) {
     currentUsers = Provider.of<UserProv>(context).loggedInUser;
     return Scaffold(
-      body: ListView(
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 180,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0x1a000000),
-                        blurRadius: 2,
-                        spreadRadius: 0,
-                        offset: Offset(0, 5))
-                  ],
-                  color: Colors.white,
-                  image: DecorationImage(
+      body: Container(
+        child: ListView(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 180,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          color: Color(0x1a000000),
+                          blurRadius: 2,
+                          spreadRadius: 0,
+                          offset: Offset(0, 5))
+                    ],
+                    color: Colors.white,
+                    image: DecorationImage(
                       //image: NetworkImage(currentUsers?.image)
-                      image: AssetImage("assets/images/apple.jpg"),
-                      fit: BoxFit.cover),
+                        image: AssetImage("assets/images/apple.jpg"),
+                        fit: BoxFit.cover),
+                  ),
                 ),
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 130,
+                Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 130,
+                        ),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100),
+                          image: DecorationImage(
+                              image: NetworkImage(currentUsers?.image),
+                              fit: BoxFit.cover),
+                          border: Border.all(width: 4, color: Colors.white),
+                        ),
                       ),
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100),
-                        image: DecorationImage(
-                            image: NetworkImage(currentUsers?.image),
-                            fit: BoxFit.cover),
-                        border: Border.all(width: 4, color: Colors.white),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "${currentUsers.firstname} ${currentUsers.lastname}",
+                        style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Barlow'),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        "Developpeur",
+                        style: TextStyle(fontSize: 17, fontFamily: 'Barlow'),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: 180,
+                    top: 200,
+                  ),
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[100],
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(
+                        "User Information",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Barlow'),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "${currentUsers.firstname} ${currentUsers.lastname}",
-                      style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Barlow'),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      "Developpeur",
-                      style: TextStyle(fontSize: 17, fontFamily: 'Barlow'),
-                    ),
+                    IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: primaryColor,
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, ModifProfil.routeName);
+                        })
                   ],
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  left: 180,
-                  top: 200,
-                ),
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.blue[100],
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Icon(
-                  Icons.camera_alt,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: Text(
-                      "User Information",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Barlow'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.edit,
-                        color: primaryColor,
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, ModifProfil.routeName);
-                      })
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  elevation: 6,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.95,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                      children: [
-                        LigneDomi(
-                            icon: Icons.location_on,
-                            titre: "Localisation",
-                            desc: currentUsers?.address != null
-                                ? "${currentUsers?.address}"
+                    elevation: 6,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 1.95,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                        children: [
+                          LigneDomi(
+                              icon: Icons.location_on,
+                              titre: "Localisation",
+                              desc: currentUsers?.address != null
+                                  ? "${currentUsers?.address}"
+                                  : "...",
+                              mod: "Saisir votre Localité",
+                              coolback: uploadLocation),
+                          // LigneDomi( Icons.location_on, "",
+                          //     "cocody", "Saisir votre Localité"),
+                          Divider(),
+                          LigneDomi(
+                            icon: Icons.email,
+                            titre: "Email",
+                            desc: "${_auth.currentUser.email}",
+                            mod: "Saisir votre Email",
+                          ),
+                          Divider(),
+                          LigneDomi(
+                            icon: Icons.email,
+                            titre: "Phone",
+                            desc: currentUsers?.number != null
+                                ? "${currentUsers?.number}"
                                 : "...",
-                            mod: "Saisir votre Localité",
-                            coolback: uploadLocation),
-                        // LigneDomi( Icons.location_on, "",
-                        //     "cocody", "Saisir votre Localité"),
-                        Divider(),
-                        LigneDomi(
-                          icon: Icons.email,
-                          titre: "Email",
-                          desc: "${_auth.currentUser.email}",
-                          mod: "Saisir votre Email",
-                        ),
-                        Divider(),
-                        LigneDomi(
-                          icon: Icons.email,
-                          titre: "Phone",
-                          desc: currentUsers?.number != null
-                              ? "${currentUsers?.number}"
-                              : "...",
-                          mod: "Saisir votre Numero",
-                        ),
+                            mod: "Saisir votre Numero",
+                          ),
 
-                        Divider(),
-                        LigneDomi(
-                          icon: Icons.email,
-                          titre: "Parcour",
-                          desc: currentUsers?.parcour != null
-                              ? "${currentUsers?.parcour}"
-                              : "...",
-                          mod: "Saisir votre Parcour",
-                        ),
-                      ],
+                          Divider(),
+                          LigneDomi(
+                            icon: Icons.email,
+                            titre: "Parcour",
+                            desc: currentUsers?.parcour != null
+                                ? "${currentUsers?.parcour}"
+                                : "...",
+                            mod: "Saisir votre Parcour",
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
