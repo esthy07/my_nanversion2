@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mynan/Constantes/customeTheme.dart';
+import 'package:mynan/Provider/UserProv.dart';
+import 'package:mynan/model/UseurModel.dart';
+import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'chatPage.dart';
@@ -21,9 +24,11 @@ class SalonContainer extends StatefulWidget {
 }
 
 class _SalonContainerState extends State<SalonContainer> {
+
   final _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
+      UserModel currentUser = Provider.of<UserProv>(context).loggedInUser;
     return Padding(
       padding: const EdgeInsets.only(
         left: 10,
@@ -124,14 +129,14 @@ class _SalonContainerState extends State<SalonContainer> {
                                     .collection("ChatRoom")
                                     .doc(widget.idSalon)
                                     .collection("chats")
-                                    .where("isRead", isEqualTo: false)
+                                    .where("isRead", isEqualTo: false).where("sender",isNotEqualTo: currentUser.email)
                                     .snapshots(),
                                 builder: (context, snapshot) {
                                   if (!snapshot.hasData) {
                                     return Container();
                                   }
                                   for(int i = 0; i < snapshot.data.docs.length;i++){
-                                    print(snapshot.data.docs[i]);
+                                    print(snapshot.data.docs[i].d);
                                   }
                                   return snapshot.data.docs.length > 0
                                       ? Container(

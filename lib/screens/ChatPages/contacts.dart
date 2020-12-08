@@ -34,17 +34,17 @@ class _ContactPageState extends State<ContactPage> {
     try {
       print("Add new chatRoom");
       Map<String, String> user1 = {
-        "email": curentUser.email,
+        "email": curentUser?.email,
         "image": curentUser.image
       };
       Map<String, String> user2 = {
-        "email": otherUser.email,
+        "email": otherUser?.email,
         "image": otherUser.image
       };
       List<Map<String, dynamic>> users = [user1, user2];
       String idSalon = await dataBaseMethode.createChatRoom(users);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => ChatPage(idSalon: idSalon,image: otherUser.image,titre: otherUser.username,otherEmail: otherUser.email,),
+        builder: (context) => ChatPage(idSalon: idSalon,image: otherUser.image,titre: otherUser.username,otherEmail: otherUser?.email,),
       ));
     } catch (e) {
       print("ERROR TO ADD NEWS CHATROOM ${e.toString()}");
@@ -88,7 +88,7 @@ class _ContactPageState extends State<ContactPage> {
             ? ListView.builder(
                 itemCount: allUser?.length,
                 itemBuilder: (context, index) {
-                  if (allUser[index].email != _auth.currentUser.email) {
+                  if (allUser[index]?.email != _auth.currentUser.email) {
                     return ContactContainer(allUser[index],
                         () => creatNewChatRoom(currentUser, allUser[index]));
                   }

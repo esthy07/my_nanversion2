@@ -31,7 +31,7 @@ class ContactContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${user.username}",
+                        "${user.email}",
                         style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
