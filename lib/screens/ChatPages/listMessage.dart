@@ -109,7 +109,6 @@ class _ListMessageState extends State<ListMessage> {
                       DateTime.parse(dateLastMessage.toDate().toString());
                   // dateLastMessage = DateTime.now();
                   listSalon.add(SalonContainer(
-                      
                       heure: dateLastMessage,
                       idSalon: salon.get("chatRoomId"),
                       image: image,

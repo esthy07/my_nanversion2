@@ -130,7 +130,9 @@ class _SalonContainerState extends State<SalonContainer> {
                                   if (!snapshot.hasData) {
                                     return Container();
                                   }
-
+                                  for(int i = 0; i < snapshot.data.docs.length;i++){
+                                    print(snapshot.data.docs[i]);
+                                  }
                                   return snapshot.data.docs.length > 0
                                       ? Container(
                                           height: 22,
