@@ -85,7 +85,7 @@ class _ListMessageState extends State<ListMessage> {
           height: MediaQuery.of(context).size.height - 100,
           child: StreamBuilder<QuerySnapshot>(
             stream: _firestore
-                .collection("ChatRoom").orderBy("lastMessage",descending: true)
+                .collection("ChatRoom")
                 .where("users", arrayContains: user1)
                 .snapshots(),
             builder: (context, snapshot) {
