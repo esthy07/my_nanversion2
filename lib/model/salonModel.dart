@@ -52,7 +52,7 @@ class LastMessage {
 
     Map<String, dynamic> toMap() => {
         "dateAdd": dateAdd == null ? null : dateAdd,
-        "message": message == null ? null : message,
+        "message": message == null ? null : message, 
     };
 }
 

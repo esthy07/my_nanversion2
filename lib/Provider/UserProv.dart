@@ -68,6 +68,8 @@ class UserProv with ChangeNotifier {
       await userCollection.add(newUser.toMap());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString(KEY_USER, json.encode(newUser.toMap()));
+      _user = newUser;
+      notifyListeners();
     } catch (e) {
       print("Error to add User ${e.toString()}");
     }
@@ -90,7 +92,7 @@ class UserProv with ChangeNotifier {
   Future<void> getAllUser() async {
     try {
       QuerySnapshot result = await userCollection.get();
-     
+
       List<UserModel> allUser = [];
       result.docs.forEach((element) {
         if (element.data()["place"] != null) {}
@@ -149,8 +151,6 @@ class UserProv with ChangeNotifier {
       var extratData = json.decode(prefs.getString(KEY_USER));
       _user = UserModel.fromMap(extratData);
       notifyListeners();
-    }else{
-
-    }
+    } else {}
   }
 }

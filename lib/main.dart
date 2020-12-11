@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getCurentUser() async {
+    print("Get User Methode coll in the main ");
     user = _auth.currentUser;
   }
 
@@ -64,7 +65,7 @@ class _MyAppState extends State<MyApp> {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //home: MyHomePage(title: 'Flutter Demo Home Page'),
-        initialRoute: user != null? Home.routeName: ConexionPage.routeName,
+        initialRoute: user != null ? Home.routeName : ConexionPage.routeName,
         routes: {
           HomePage.routeName: (BuildContext context) => HomePage(),
           Home.routeName: (BuildContext context) => Home(),
@@ -73,7 +74,8 @@ class _MyAppState extends State<MyApp> {
           ConexionPage.routeName: (BuildContext context) => ConexionPage(),
           ProfilAdresse.routeName: (BuildContext context) => ProfilAdresse(),
           HomeTest.routeName: (BuildContext context) => HomeTest(),
-          ModifUtilisateur.routeName: (BuildContext context) => ModifUtilisateur(),
+          ModifUtilisateur.routeName: (BuildContext context) =>
+              ModifUtilisateur(),
           ModifProfil.routeName: (BuildContext context) => ModifProfil(),
           InscriptionPage.routeName: (BuildContext context) => InscriptionPage()
         },
