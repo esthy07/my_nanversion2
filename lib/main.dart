@@ -42,7 +42,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getCurentUser() async {
-    print("Get User Methode coll in the main ");
     user = _auth.currentUser;
   }
 

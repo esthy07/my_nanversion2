@@ -57,6 +57,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     currentUser = Provider.of<UserProv>(context).loggedInUser;
+    print('Chat Page Current User  ${currentUser.toMap()}');
     setEnLigne(true);
     return WillPopScope(
       onWillPop: () async {
@@ -262,7 +263,7 @@ class _ChatPageState extends State<ChatPage> {
                           .collection("ChatRoom")
                           .doc(widget.idSalon)
                           .update({
-                        "dateLastMessage":timeSend,
+                        "dateLastMessage": timeSend,
                         "lastMessage": {
                           "dateAdd": timeSend,
                           "message": messageText.text
